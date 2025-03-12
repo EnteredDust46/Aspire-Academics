@@ -310,8 +310,16 @@ const Contact = () => {
     e.preventDefault();
     const formData = new FormData();
     
+    const accessKey = process.env.REACT_APP_WEB3FORMS_KEY;
+    console.log('Access Key:', accessKey); // Debug log
+    
+    if (!accessKey) {
+      alert('Error: Web3Forms access key not found');
+      return;
+    }
+    
     // Add required fields
-    formData.append('access_key', process.env.REACT_APP_WEB3FORMS_KEY);
+    formData.append('access_key', accessKey);
     formData.append('name', e.target.name.value);
     formData.append('email', e.target.email.value);
     formData.append('message', e.target.message.value);
@@ -319,13 +327,15 @@ const Contact = () => {
     formData.append('subject', 'New Contact Form Submission');
     
     try {
+      console.log('Submitting form with data:', Object.fromEntries(formData)); // Debug log
+      
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: formData
       });
 
       const data = await response.json();
-      console.log('Response:', data);
+      console.log('Response:', data); // Debug log
 
       if (data.success) {
         alert('Message sent successfully! We will get back to you soon.');
