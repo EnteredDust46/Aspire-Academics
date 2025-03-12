@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import './App.css';
+import logo from './assets/aspire-academics.png';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -15,7 +16,9 @@ const Navbar = () => (
     animate={{ y: 0, opacity: 1 }}
     transition={{ duration: 0.8 }}
   >
-    <h1 className="logo">Aspire Academics</h1>
+    <Link to="/" className="logo-container">
+      <img src={logo} alt="Aspire Academics" className="logo-image" />
+    </Link>
     <div className="nav-links">
       <Link to="/">Home</Link>
       <Link to="/about">About</Link>
@@ -141,6 +144,7 @@ const ApplyTutor = () => {
     const formData = new FormData(e.target);
     
     try {
+      // First, submit to Web3Forms
       await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: JSON.stringify({
@@ -148,12 +152,36 @@ const ApplyTutor = () => {
           name: formData.get('name'),
           email: formData.get('email'),
           message: formData.get('experience'),
-          subject: 'New Tutor Application'
+          subject: 'New Tutor Application',
+          from_name: "Aspire Academics Website",
+          to_email: "admin@aspireacademicstutoring.com",
+          reply_to: formData.get('email'),
         }),
         headers: {
           'Content-Type': 'application/json'
         }
       });
+
+      // Also send a notification email through Email.js or similar service
+      await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        body: JSON.stringify({
+          service_id: process.env.REACT_APP_EMAILJS_SERVICE_ID,
+          template_id: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+          user_id: process.env.REACT_APP_EMAILJS_USER_ID,
+          template_params: {
+            to_email: 'admin@aspireacademicstutoring.com',
+            from_name: formData.get('name'),
+            from_email: formData.get('email'),
+            message: formData.get('experience'),
+            type: 'Tutor Application',
+          }
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
       navigate('/thank-you');
     } catch (error) {
       alert('There was an error submitting your application. Please try again.');
@@ -194,21 +222,44 @@ const ApplyStudent = () => {
     const formData = new FormData(e.target);
     
     try {
+      // First, submit to Web3Forms
       await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: JSON.stringify({
           access_key: process.env.REACT_APP_WEB3FORMS_KEY,
           name: formData.get('name'),
           email: formData.get('email'),
-          subjects: formData.get('subjects'),
-          grade: formData.get('grade'),
           message: formData.get('requirements'),
-          subject: 'New Student Application'
+          subject: 'New Student Application',
+          from_name: "Aspire Academics Website",
+          to_email: "admin@aspireacademicstutoring.com",
+          reply_to: formData.get('email'),
         }),
         headers: {
           'Content-Type': 'application/json'
         }
       });
+
+      // Also send a notification email through Email.js or similar service
+      await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        body: JSON.stringify({
+          service_id: process.env.REACT_APP_EMAILJS_SERVICE_ID,
+          template_id: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+          user_id: process.env.REACT_APP_EMAILJS_USER_ID,
+          template_params: {
+            to_email: 'admin@aspireacademicstutoring.com',
+            from_name: formData.get('name'),
+            from_email: formData.get('email'),
+            message: formData.get('requirements'),
+            type: 'Student Application',
+          }
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
       navigate('/thank-you');
     } catch (error) {
       alert('There was an error submitting your application. Please try again.');
@@ -287,6 +338,7 @@ const Contact = () => {
     const formData = new FormData(e.target);
     
     try {
+      // First, submit to Web3Forms
       await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: JSON.stringify({
@@ -294,12 +346,36 @@ const Contact = () => {
           name: formData.get('name'),
           email: formData.get('email'),
           message: formData.get('message'),
-          subject: 'New Contact Form Submission'
+          subject: 'New Contact Form Submission',
+          from_name: "Aspire Academics Website",
+          to_email: "admin@aspireacademicstutoring.com",
+          reply_to: formData.get('email'),
         }),
         headers: {
           'Content-Type': 'application/json'
         }
       });
+
+      // Also send a notification email through Email.js or similar service
+      await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        body: JSON.stringify({
+          service_id: process.env.REACT_APP_EMAILJS_SERVICE_ID,
+          template_id: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+          user_id: process.env.REACT_APP_EMAILJS_USER_ID,
+          template_params: {
+            to_email: 'admin@aspireacademicstutoring.com',
+            from_name: formData.get('name'),
+            from_email: formData.get('email'),
+            message: formData.get('message'),
+            type: 'Contact Form Submission',
+          }
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
       alert('Message sent successfully! We will get back to you soon.');
       e.target.reset();
     } catch (error) {

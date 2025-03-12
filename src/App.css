@@ -32,7 +32,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(128, 0, 0, 0.7); /* Darker maroon overlay */
+  background: rgba(128, 0, 32, 0.85); /* Updated maroon overlay */
   z-index: 1;
 }
 
@@ -79,8 +79,8 @@ p {
 
 .apply-button {
   padding: 15px 30px;
-  background-color: #800000;
-  color: #fff;
+  background-color: var(--primary);
+  color: var(--neutral-100);
   text-decoration: none;
   font-weight: 600;
   border-radius: 8px;
@@ -90,7 +90,7 @@ p {
 }
 
 .apply-button:hover {
-  background-color: #a3161e;
+  background-color: var(--primary-light);
   transform: scale(1.05);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
@@ -137,8 +137,8 @@ textarea {
 /* Submit Button */
 button {
   padding: 15px 30px;
-  background-color: #800000;
-  color: #fff;
+  background-color: var(--primary);
+  color: var(--neutral-100);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -149,7 +149,7 @@ button {
 }
 
 button:hover {
-  background-color: #a3161e;
+  background-color: var(--primary-light);
   transform: scale(1.05);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
@@ -160,8 +160,9 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
-  background-color: #800000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  background-color: var(--neutral-100);
+  border-bottom: 1px solid var(--neutral-300);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -175,7 +176,7 @@ button:hover {
 
 .nav-links a {
   text-decoration: none;
-  color: #fff;
+  color: var(--neutral-700);
   font-weight: 600;
   transition: all 0.3s ease;
   padding: 8px 12px;
@@ -183,7 +184,8 @@ button:hover {
 }
 
 .nav-links a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--primary);
+  background-color: var(--neutral-200);
   transform: translateY(-2px);
 }
 
@@ -393,4 +395,16 @@ button:hover {
   .apply-button {
     display: none;
   }
+}
+
+/* Update logo styles */
+.logo-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-image {
+  height: 50px;
+  width: auto;
 }
