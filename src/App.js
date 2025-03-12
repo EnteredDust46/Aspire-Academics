@@ -141,29 +141,35 @@ const ApplyTutor = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData();
+    
+    // Add required fields
+    formData.append('access_key', process.env.REACT_APP_WEB3FORMS_KEY);
+    formData.append('name', e.target.name.value);
+    formData.append('email', e.target.email.value);
+    formData.append('phone', e.target.phone.value);
+    formData.append('subjects', Array.from(e.target.subjects.selectedOptions).map(opt => opt.value).join(', '));
+    formData.append('message', e.target.experience.value);
+    formData.append('from_name', "Aspire Academics Website");
+    formData.append('subject', 'New Tutor Application');
     
     try {
-      await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: JSON.stringify({
-          access_key: process.env.REACT_APP_WEB3FORMS_KEY,
-          name: formData.get('name'),
-          email: formData.get('email'),
-          message: formData.get('experience'),
-          subject: 'New Tutor Application',
-          from_name: "Aspire Academics Website",
-          to_email: "admin@aspireacademicstutoring.com",
-          reply_to: formData.get('email'),
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: formData
       });
 
-      navigate('/thank-you');
+      const data = await response.json();
+      console.log('Response:', data);
+
+      if (data.success) {
+        navigate('/thank-you');
+      } else {
+        throw new Error(data.message || 'Form submission failed');
+      }
     } catch (error) {
-      alert('There was an error submitting your form. Please try again.');
+      console.error('Form submission error:', error);
+      alert('There was an error submitting your form. Please try again. Error: ' + error.message);
     }
   };
 
@@ -198,29 +204,36 @@ const ApplyStudent = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData();
+    
+    // Add required fields
+    formData.append('access_key', process.env.REACT_APP_WEB3FORMS_KEY);
+    formData.append('name', e.target.name.value);
+    formData.append('email', e.target.email.value);
+    formData.append('phone', e.target.phone.value);
+    formData.append('grade', e.target.grade.value);
+    formData.append('subjects', Array.from(e.target.subjects.selectedOptions).map(opt => opt.value).join(', '));
+    formData.append('message', e.target.requirements.value);
+    formData.append('from_name', "Aspire Academics Website");
+    formData.append('subject', 'New Student Application');
     
     try {
-      await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: JSON.stringify({
-          access_key: process.env.REACT_APP_WEB3FORMS_KEY,
-          name: formData.get('name'),
-          email: formData.get('email'),
-          message: formData.get('requirements'),
-          subject: 'New Student Application',
-          from_name: "Aspire Academics Website",
-          to_email: "admin@aspireacademicstutoring.com",
-          reply_to: formData.get('email'),
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: formData
       });
 
-      navigate('/thank-you');
+      const data = await response.json();
+      console.log('Response:', data);
+
+      if (data.success) {
+        navigate('/thank-you');
+      } else {
+        throw new Error(data.message || 'Form submission failed');
+      }
     } catch (error) {
-      alert('There was an error submitting your form. Please try again.');
+      console.error('Form submission error:', error);
+      alert('There was an error submitting your form. Please try again. Error: ' + error.message);
     }
   };
 
@@ -291,46 +304,32 @@ const Testimonials = () => (
 );
 
 const Contact = () => {
-  console.log('Web3Forms Key:', process.env.REACT_APP_WEB3FORMS_KEY);
   const navigate = useNavigate();
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData();
     
-    // Create the request body
-    const requestBody = {
-      access_key: process.env.REACT_APP_WEB3FORMS_KEY,
-      name: formData.get('name'),
-      email: formData.get('email'),
-      message: formData.get('message'),
-      subject: 'New Form Submission',
-      from_name: "Aspire Academics Website",
-      to_email: "admin@aspireacademicstutoring.com",
-      reply_to: formData.get('email'),
-    };
-
-    console.log('Sending form data:', requestBody);
+    // Add required fields
+    formData.append('access_key', process.env.REACT_APP_WEB3FORMS_KEY);
+    formData.append('name', e.target.name.value);
+    formData.append('email', e.target.email.value);
+    formData.append('message', e.target.message.value);
+    formData.append('from_name', "Aspire Academics Website");
+    formData.append('subject', 'New Contact Form Submission');
     
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: JSON.stringify(requestBody),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: formData
       });
 
       const data = await response.json();
       console.log('Response:', data);
 
       if (data.success) {
-        if (formData.get('message')) {
-          alert('Message sent successfully! We will get back to you soon.');
-          e.target.reset();
-        } else {
-          navigate('/thank-you');
-        }
+        alert('Message sent successfully! We will get back to you soon.');
+        e.target.reset();
       } else {
         throw new Error(data.message || 'Form submission failed');
       }
@@ -362,7 +361,7 @@ const Contact = () => {
           </div>
           <div className="contact-item">
             <i className="fas fa-envelope"></i>
-            <p>info@aspireacademics.com</p>
+            <p>admin@aspireacademicstutoring.com</p>
           </div>
         </div>
         <form className="form contact-form" onSubmit={handleSubmit}>
