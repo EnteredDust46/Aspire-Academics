@@ -76,7 +76,7 @@ const MeetTutors = () => (
 const Testimonials = () => (
   <Section
     title="What Our Students Say"
-    content="\"Aspire Academics transformed my learning experience. The personalized attention helped me excel in SAT and improve my overall academic performance.\" - Jane Doe [Placeholder for additional testimonials and student success stories with picture slots.]"
+    content={'"Aspire Academics transformed my learning experience. The personalized attention helped me excel in SAT and improve my overall academic performance." - Jane Doe [Placeholder for additional testimonials and student success stories with picture slots.]'}
     imageUrl="/images/testimonials.jpg"
   />
 );
