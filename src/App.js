@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import './App.css';
 
@@ -42,55 +42,52 @@ const Section = ({ title, content, imageUrl, children }) => (
   </motion.section>
 );
 
-const Apply = () => {
-  const [isTutorOpen, setIsTutorOpen] = useState(false);
-  const [isStudentOpen, setIsStudentOpen] = useState(false);
-  const [message, setMessage] = useState('');
+const Apply = () => (
+  <Section
+    title="Apply to Aspire Academics"
+    content="Join our team as a tutor or apply for personalized tutoring services."
+    imageUrl="/images/apply-tutoring.jpg"
+  >
+    <div className="apply-buttons">
+      <Link to="/apply-tutor" className="apply-button">Apply to be a Tutor</Link>
+      <Link to="/apply-student" className="apply-button">Apply for Tutoring</Link>
+    </div>
+  </Section>
+);
 
-  const handleSubmit = (type) => {
-    setMessage(`Your ${type} application has been recorded!`);
-  };
-
+const ApplyTutor = () => {
+  const navigate = useNavigate();
   return (
-    <Section
-      title="Apply to Aspire Academics"
-      content="Join our team as a tutor or apply for personalized tutoring services."
-      imageUrl="/images/apply-tutoring.jpg"
-    >
-      <div className="apply-buttons">
-        <button className="apply-button" onClick={() => setIsTutorOpen(!isTutorOpen)}>
-          Apply to be a Tutor
-        </button>
-        <button className="apply-button" onClick={() => setIsStudentOpen(!isStudentOpen)}>
-          Apply for Tutoring
-        </button>
-      </div>
-
-      {isTutorOpen && (
-        <motion.div className="form-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-          <form className="form" onSubmit={(e) => { e.preventDefault(); handleSubmit('tutor'); }}>
-            <input name="name" placeholder="Full Name" required />
-            <input name="email" placeholder="Email" required />
-            <textarea name="experience" placeholder="Describe your teaching experience" required></textarea>
-            <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
-          </form>
-        </motion.div>
-      )}
-
-      {isStudentOpen && (
-        <motion.div className="form-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-          <form className="form" onSubmit={(e) => { e.preventDefault(); handleSubmit('student'); }}>
-            <input name="name" placeholder="Full Name" required />
-            <input name="email" placeholder="Email" required />
-            <textarea name="requirements" placeholder="What subjects do you need help with?" required></textarea>
-            <motion.button type="submit" whileHover={{ scale: 1.05 }}>Request Tutoring</motion.button>
-          </form>
-        </motion.div>
-      )}
-      {message && <motion.p className="confirmation-message">{message}</motion.p>}
+    <Section title="Tutor Application" content="Fill out the form to apply as a tutor." imageUrl="/images/apply-tutor.jpg">
+      <form className="form" onSubmit={(e) => { e.preventDefault(); navigate('/thank-you'); }}>
+        <input name="name" placeholder="Full Name" required />
+        <input name="email" placeholder="Email" required />
+        <textarea name="experience" placeholder="Describe your teaching experience" required></textarea>
+        <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
+      </form>
     </Section>
   );
 };
+
+const ApplyStudent = () => {
+  const navigate = useNavigate();
+  return (
+    <Section title="Student Application" content="Fill out the form to request tutoring services." imageUrl="/images/apply-student.jpg">
+      <form className="form" onSubmit={(e) => { e.preventDefault(); navigate('/thank-you'); }}>
+        <input name="name" placeholder="Full Name" required />
+        <input name="email" placeholder="Email" required />
+        <textarea name="requirements" placeholder="Subjects you need help with" required></textarea>
+        <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
+      </form>
+    </Section>
+  );
+};
+
+const ThankYou = () => (
+  <Section title="Thank You!" content="Your application has been received. We will get back to you soon." imageUrl="/images/thank-you.jpg">
+    <Link to="/" className="apply-button">Return Home</Link>
+  </Section>
+);
 
 const Contact = () => (
   <Section
@@ -117,6 +114,9 @@ export default function App() {
         <Route path="/services" element={<Section title="Our Services" content="SAT prep, high school tutoring, and more." imageUrl="/images/services.jpg" />} />
         <Route path="/tutors" element={<Section title="Meet Our Tutors" content="Experienced educators dedicated to your success." imageUrl="/images/tutors.jpg" />} />
         <Route path="/apply" element={<Apply />} />
+        <Route path="/apply-tutor" element={<ApplyTutor />} />
+        <Route path="/apply-student" element={<ApplyStudent />} />
+        <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/testimonials" element={<Section title="Testimonials" content="Hear from our successful students." imageUrl="/images/testimonials.jpg" />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
