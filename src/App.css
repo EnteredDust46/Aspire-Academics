@@ -1,102 +1,146 @@
-/* Global Styles */
 body {
-    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f4ed; /* Off-White Background */
-    color: #1b1b1f; /* Charcoal Black Text */
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    scroll-behavior: smooth;
   }
   
-  /* Navbar Styles */
   .navbar {
-    background-color: #8b0b0b; /* Deep Maroon */
-    padding: 1.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 2rem 4rem;
+    background-color: #1f1f1f;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   .logo {
-    font-size: 2rem;
+    font-size: 3rem;
     color: #fff;
+    letter-spacing: 2px;
+    font-weight: bold;
   }
   
   .nav-links a {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     color: #fff;
-    margin-left: 1.5rem;
+    margin-left: 2rem;
     text-decoration: none;
+    position: relative;
   }
   
-  .nav-links a:hover {
-    text-decoration: underline;
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background: #ff5722;
+    left: 0;
+    bottom: -4px;
+    transition: width 0.3s ease-in-out;
   }
   
-  /* Section Styles */
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+  
   .section {
-    padding: 3rem;
-    background-color: #d8dbd2; /* Light Gray */
-    margin: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.5s ease;
+    min-height: 100vh;
+    padding: 6rem 4rem;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
-  .section:hover {
-    transform: scale(1.02);
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
   }
   
-  /* Heading Styles */
-  h2 {
-    color: #c1121f; /* Bright Red for Headers */
-    font-size: 2.5rem;
+  .section h2 {
+    font-size: 5rem;
+    color: #fff;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 3px;
   }
   
-  /* Paragraph Styles */
-  p {
-    font-size: 1.2rem;
-    line-height: 1.8;
+  .section p {
+    font-size: 2rem;
+    color: #e0e0e0;
+    max-width: 800px;
+    text-align: center;
+    margin-top: 2rem;
+    z-index: 1;
   }
   
-  /* Form Styles */
   .form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
+    z-index: 1;
   }
   
-  input,
-  textarea {
-    padding: 0.8rem;
-    font-size: 1.1rem;
-    border: 1px solid #3b3b3b; /* Dark Gray Borders */
-    border-radius: 4px;
-    background-color: #e8e8e8; /* Light Input Background */
-    color: #1b1b1f;
-    transition: border-color 0.3s ease;
-  }
-  
-  input:focus,
-  textarea:focus {
-    border-color: #c1121f; /* Bright Red on Focus */
-  }
-  
-  /* Button Styles */
-  button {
-    padding: 0.8rem 1.5rem;
-    background-color: #c1121f; /* Bright Red Buttons */
+  input, textarea {
+    padding: 1.5rem;
+    font-size: 1.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background: transparent;
     color: #fff;
+  }
+  
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #ff5722;
+  }
+  
+  button {
+    padding: 1.5rem 3rem;
+    background-color: #ff5722;
+    color: #fff;
+    font-size: 1.8rem;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 1.1rem;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   button:hover {
-    background-color: #9a0e17; /* Darker Red on Hover */
-    transform: scale(1.05);
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
   }
   
-  /* Font Import */
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+  
+  /* Geometry Shapes */
+  .section::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: #ff5722;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    bottom: -50px;
+    right: -50px;
+    opacity: 0.6;
+    z-index: 0;
+    animation: rotate 15s infinite linear;
+  }
+  
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
