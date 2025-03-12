@@ -291,38 +291,52 @@ const Testimonials = () => (
 );
 
 const Contact = () => {
+  console.log('Web3Forms Key:', process.env.REACT_APP_WEB3FORMS_KEY);
   const navigate = useNavigate();
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     
+    // Create the request body
+    const requestBody = {
+      access_key: process.env.REACT_APP_WEB3FORMS_KEY,
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message'),
+      subject: 'New Form Submission',
+      from_name: "Aspire Academics Website",
+      to_email: "admin@aspireacademicstutoring.com",
+      reply_to: formData.get('email'),
+    };
+
+    console.log('Sending form data:', requestBody);
+    
     try {
-      await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: JSON.stringify({
-          access_key: process.env.REACT_APP_WEB3FORMS_KEY,
-          name: formData.get('name'),
-          email: formData.get('email'),
-          message: formData.get('message'),
-          subject: 'New Form Submission',
-          from_name: "Aspire Academics Website",
-          to_email: "admin@aspireacademicstutoring.com",
-          reply_to: formData.get('email'),
-        }),
+        body: JSON.stringify(requestBody),
         headers: {
           'Content-Type': 'application/json'
         }
       });
 
-      if (formData.get('message')) {
-        alert('Message sent successfully! We will get back to you soon.');
-        e.target.reset();
+      const data = await response.json();
+      console.log('Response:', data);
+
+      if (data.success) {
+        if (formData.get('message')) {
+          alert('Message sent successfully! We will get back to you soon.');
+          e.target.reset();
+        } else {
+          navigate('/thank-you');
+        }
       } else {
-        navigate('/thank-you');
+        throw new Error(data.message || 'Form submission failed');
       }
     } catch (error) {
-      alert('There was an error submitting your form. Please try again.');
+      console.error('Form submission error:', error);
+      alert('There was an error submitting your form. Please try again. Error: ' + error.message);
     }
   };
 
