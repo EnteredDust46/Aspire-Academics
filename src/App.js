@@ -28,7 +28,7 @@ const Navbar = () => (
   </motion.nav>
 );
 
-const Section = ({ title, content, imageUrl }) => (
+const Section = ({ title, content, imageUrl, children }) => (
   <motion.section
     className="section"
     style={{ backgroundImage: `url(${imageUrl})` }}
@@ -38,97 +38,86 @@ const Section = ({ title, content, imageUrl }) => (
   >
     <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
     <motion.p>{content}</motion.p>
+    {children}
   </motion.section>
-);
-
-const Home = () => (
-  <Section
-    title="Welcome to Aspire Academics"
-    content="At Aspire Academics, we empower students to achieve academic excellence through personalized tutoring, fostering independent learning and confidence."
-    imageUrl="/images/home.jpg"
-  />
 );
 
 const About = () => (
   <Section
     title="Our Mission"
-    content="Our mission is to provide high-quality tutoring services that not only focus on academic growth but also instill confidence and independent learning habits. We are dedicated to helping students excel in SAT preparation and high school subjects by offering customized learning plans and flexible scheduling."
+    content="At Aspire Academics, our mission is to empower learners through high-quality tutoring services, fostering academic success and independent growth."
     imageUrl="/images/about.jpg"
-  />
+  >
+    <motion.div className="details">
+      <h3>Why Choose Us?</h3>
+      <p>We focus on creating a nurturing environment, customizing learning strategies to fit individual needs, and empowering students to achieve their academic goals.</p>
+      <h3>Our Values</h3>
+      <ul>
+        <li>Personalized Learning Plans</li>
+        <li>Expert Tutors with Diverse Backgrounds</li>
+        <li>Commitment to Academic Excellence</li>
+      </ul>
+    </motion.div>
+  </Section>
 );
 
 const Services = () => (
   <Section
     title="Our Services"
-    content="We specialize in SAT preparation and offer comprehensive tutoring in high school subjects, including Mathematics, Science, and English. Our personalized methodologies cater to the unique learning styles of each student."
+    content="We offer tutoring for SAT preparation and high school subjects, including Math, Science, and English."
     imageUrl="/images/services.jpg"
-  />
+  >
+    <motion.div className="details">
+      <h3>Customized Approach</h3>
+      <p>Each student receives personalized attention tailored to their unique learning style.</p>
+      <h3>Flexibility</h3>
+      <p>We offer both online and in-person sessions, flexible scheduling, and progress tracking.</p>
+    </motion.div>
+  </Section>
 );
 
 const MeetTutors = () => (
   <Section
     title="Meet Our Tutors"
-    content="Our experienced tutors are passionate about education and skilled in guiding students to achieve their academic goals. Each tutor brings a unique teaching philosophy and is dedicated to providing individualized support. [Placeholder for Tutor Bios, Relevant Experience, and Profile Pictures.]"
+    content="Our experienced tutors are dedicated to helping students achieve success."
     imageUrl="/images/tutors.jpg"
-  />
+  >
+    <motion.div className="details">
+      <h3>Expertise and Passion</h3>
+      <p>All tutors are experts in their fields, with a passion for teaching and helping students grow.</p>
+      <h3>Personal Profiles</h3>
+      <p>Learn about our tutors' backgrounds, experiences, and teaching philosophies.</p>
+    </motion.div>
+  </Section>
 );
 
 const Testimonials = () => (
   <Section
-    title="What Our Students Say"
-    content={'"Aspire Academics transformed my learning experience. The personalized attention helped me excel in SAT and improve my overall academic performance." - Jane Doe [Placeholder for additional testimonials and student success stories with picture slots.]'}
+    title="Student Success Stories"
+    content='"Aspire Academics provided me with the confidence to excel in my SAT exams." - Student A'
     imageUrl="/images/testimonials.jpg"
-  />
+  >
+    <motion.div className="details">
+      <h3>More Stories</h3>
+      <p>Read inspiring stories from our students who have overcome challenges and achieved their academic dreams.</p>
+    </motion.div>
+  </Section>
 );
 
-const Apply = () => {
-  const [isTutorOpen, setIsTutorOpen] = useState(false);
-  const [isStudentOpen, setIsStudentOpen] = useState(false);
-
-  return (
-    <motion.section className="section" variants={fadeIn} initial="hidden" animate="show">
-      <h2>Join Our Community</h2>
-      <div>
-        <button onClick={() => setIsTutorOpen(!isTutorOpen)}>
-          Apply to be a Tutor
-        </button>
-        {isTutorOpen && (
-          <form className="form">
-            <input name="name" placeholder="Full Name" required />
-            <input name="email" placeholder="Email" required />
-            <textarea name="message" placeholder="Why do you want to be a tutor? Please include your relevant experience." required></textarea>
-            <motion.button whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
-          </form>
-        )}
-      </div>
-      <div>
-        <button onClick={() => setIsStudentOpen(!isStudentOpen)}>
-          Apply for Tutoring
-        </button>
-        {isStudentOpen && (
-          <form className="form">
-            <input name="name" placeholder="Full Name" required />
-            <input name="email" placeholder="Email" required />
-            <textarea name="message" placeholder="Which subjects do you need help with?" required></textarea>
-            <motion.button whileHover={{ scale: 1.05 }}>Request Tutoring</motion.button>
-          </form>
-        )}
-      </div>
-    </motion.section>
-  );
-};
-
 const Contact = () => (
-  <motion.section className="section" variants={fadeIn} initial="hidden" animate="show">
-    <h2>Contact Us</h2>
-    <p>Have any questions? Reach out to us and we’ll be happy to help!</p>
-    <form className="form">
-      <input name="name" placeholder="Full Name" required />
-      <input name="email" placeholder="Email" required />
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <motion.button whileHover={{ scale: 1.05 }}>Send Message</motion.button>
-    </form>
-  </motion.section>
+  <Section
+    title="Get In Touch"
+    content="Have questions or need more information? Contact us today."
+    imageUrl="/images/contact.jpg"
+  >
+    <motion.div className="details">
+      <h3>Contact Information</h3>
+      <p>Email: info@aspireacademics.com</p>
+      <p>Phone: (123) 456-7890</p>
+      <h3>Office Hours</h3>
+      <p>Monday to Friday, 9 AM to 5 PM</p>
+    </motion.div>
+  </Section>
 );
 
 export default function App() {
@@ -136,13 +125,12 @@ export default function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/tutors" element={<MeetTutors />} />
         <Route path="/apply" element={<Apply />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/testimonials" element={<Testimonials />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
   );
