@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import './App.css';
 
 const Navbar = () => (
@@ -16,34 +17,46 @@ const Navbar = () => (
   </nav>
 );
 
+const Section = ({ title, content }) => (
+  <motion.section className="section" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+    <h2>{title}</h2>
+    <p>{content}</p>
+  </motion.section>
+);
+
 const Home = () => (
-  <section className="section">
-    <h2>Welcome to Aspire Academics</h2>
-    <p>Empowering learners to achieve their best through personalized tutoring.</p>
-  </section>
+  <Section title="Welcome to Aspire Academics" content="Empowering learners to achieve their best through personalized tutoring." />
 );
 
 const About = () => (
-  <section className="section">
-    <h2>About Us</h2>
-    <p>Aspire Academics is dedicated to providing high-quality tutoring to help students excel.</p>
-  </section>
+  <Section title="About Us" content="Aspire Academics is dedicated to providing high-quality tutoring to help students excel. We focus on personalized learning strategies that adapt to each student's unique needs." />
 );
 
 const Services = () => (
-  <section className="section">
-    <h2>Our Services</h2>
-    <p>We offer personalized tutoring sessions for various subjects and grade levels.</p>
-  </section>
+  <Section title="Our Services" content="We offer personalized tutoring sessions for various subjects and grade levels, including math, science, and language arts." />
 );
+
+const handleSubmit = async (e, formType) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData);
+  
+  await fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...data, formType }),
+  });
+
+  alert('Form submitted! A confirmation email has been sent.');
+};
 
 const ApplyTutor = () => (
   <section className="section">
     <h2>Apply as a Tutor</h2>
-    <form className="form">
-      <input placeholder="Full Name" required />
-      <input placeholder="Email" required />
-      <textarea placeholder="Why do you want to tutor?" required></textarea>
+    <form className="form" onSubmit={(e) => handleSubmit(e, 'tutor')}>
+      <input name="name" placeholder="Full Name" required />
+      <input name="email" placeholder="Email" required />
+      <textarea name="message" placeholder="Why do you want to tutor?" required></textarea>
       <button type="submit">Submit</button>
     </form>
   </section>
@@ -52,10 +65,10 @@ const ApplyTutor = () => (
 const ApplyTutoring = () => (
   <section className="section">
     <h2>Apply for Tutoring</h2>
-    <form className="form">
-      <input placeholder="Full Name" required />
-      <input placeholder="Email" required />
-      <textarea placeholder="What subjects do you need help with?" required></textarea>
+    <form className="form" onSubmit={(e) => handleSubmit(e, 'tutoring')}>
+      <input name="name" placeholder="Full Name" required />
+      <input name="email" placeholder="Email" required />
+      <textarea name="message" placeholder="What subjects do you need help with?" required></textarea>
       <button type="submit">Submit</button>
     </form>
   </section>
@@ -64,7 +77,12 @@ const ApplyTutoring = () => (
 const Contact = () => (
   <section className="section">
     <h2>Contact Us</h2>
-    <p>Email us at <a href="mailto:contact@aspireacademics.com">contact@aspireacademics.com</a></p>
+    <form className="form" onSubmit={(e) => handleSubmit(e, 'contact')}>
+      <input name="name" placeholder="Full Name" required />
+      <input name="email" placeholder="Email" required />
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
   </section>
 );
 
