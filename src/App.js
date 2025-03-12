@@ -31,7 +31,7 @@ const Navbar = () => (
 const Section = ({ title, content, imageUrl, children }) => (
   <motion.section
     className="section"
-    style={{ backgroundImage: `url(${imageUrl})` }}
+    style={{ backgroundImage: `url(${process.env.PUBLIC_URL + imageUrl})` }}
     variants={fadeIn}
     initial="hidden"
     animate="show"
@@ -89,6 +89,16 @@ const ThankYou = () => (
   </Section>
 );
 
+const Testimonials = () => (
+  <Section
+    title="Testimonials"
+    content="Hear from our successful students."
+    imageUrl="/images/testimonials.jpg"
+  >
+    <p>"Aspire Academics has been life-changing!" - Happy Student</p>
+  </Section>
+);
+
 const Contact = () => (
   <Section
     title="Contact Us"
@@ -117,7 +127,7 @@ export default function App() {
         <Route path="/apply-tutor" element={<ApplyTutor />} />
         <Route path="/apply-student" element={<ApplyStudent />} />
         <Route path="/thank-you" element={<ThankYou />} />
-        <Route path="/testimonials" element={<Section title="Testimonials" content="Hear from our successful students." imageUrl="/images/testimonials.jpg" />} />
+        <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
