@@ -143,8 +143,16 @@ const ApplyTutor = () => {
     e.preventDefault();
     const formData = new FormData();
     
+    const accessKey = process.env.REACT_APP_WEB3FORMS_KEY;
+    console.log('Access Key:', accessKey); // Debug log
+    
+    if (!accessKey) {
+      alert('Error: Web3Forms access key not found');
+      return;
+    }
+    
     // Add required fields
-    formData.append('access_key', process.env.REACT_APP_WEB3FORMS_KEY);
+    formData.append('access_key', accessKey);
     formData.append('name', e.target.name.value);
     formData.append('email', e.target.email.value);
     formData.append('phone', e.target.phone.value);
@@ -154,6 +162,8 @@ const ApplyTutor = () => {
     formData.append('subject', 'New Tutor Application');
     
     try {
+      console.log('Submitting form with data:', Object.fromEntries(formData));
+      
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: formData
@@ -206,8 +216,16 @@ const ApplyStudent = () => {
     e.preventDefault();
     const formData = new FormData();
     
+    const accessKey = process.env.REACT_APP_WEB3FORMS_KEY;
+    console.log('Access Key:', accessKey); // Debug log
+    
+    if (!accessKey) {
+      alert('Error: Web3Forms access key not found');
+      return;
+    }
+    
     // Add required fields
-    formData.append('access_key', process.env.REACT_APP_WEB3FORMS_KEY);
+    formData.append('access_key', accessKey);
     formData.append('name', e.target.name.value);
     formData.append('email', e.target.email.value);
     formData.append('phone', e.target.phone.value);
@@ -218,6 +236,8 @@ const ApplyStudent = () => {
     formData.append('subject', 'New Student Application');
     
     try {
+      console.log('Submitting form with data:', Object.fromEntries(formData));
+      
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: formData
