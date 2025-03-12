@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import './App.css';
 
-// Animation variants
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.8 } },
@@ -28,23 +27,49 @@ const Navbar = () => (
   </motion.nav>
 );
 
-const Section = ({ title, content }) => (
-  <motion.section className="section" variants={fadeIn} initial="hidden" animate="show">
+const Section = ({ title, content, imageUrl }) => (
+  <motion.section
+    className="section"
+    style={{ backgroundImage: `url(${imageUrl})` }}
+    variants={fadeIn}
+    initial="hidden"
+    animate="show"
+  >
     <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
     <motion.p>{content}</motion.p>
   </motion.section>
 );
 
 const Home = () => (
-  <Section title="Welcome to Aspire Academics" content="Empowering learners to achieve their best through personalized tutoring." />
+  <Section
+    title="Empowering Academic Excellence"
+    content="Welcome to Aspire Academics. We provide personalized tutoring to help students excel."
+    imageUrl="/images/home.jpg"
+  />
 );
 
 const About = () => (
-  <Section title="About Us" content="Aspire Academics is dedicated to providing high-quality tutoring to help students excel. We focus on personalized learning strategies that adapt to each student's unique needs." />
+  <Section
+    title="Our Mission"
+    content="At Aspire Academics, we believe in personalized learning. Our dedicated tutors craft strategies tailored to each student's needs."
+    imageUrl="/images/about.jpg"
+  />
 );
 
 const Services = () => (
-  <Section title="Our Services" content="We offer personalized tutoring sessions for various subjects and grade levels, including math, science, and language arts." />
+  <Section
+    title="Our Services"
+    content="We offer personalized one-on-one tutoring in Math, Science, English, and Test Preparation."
+    imageUrl="/images/services.jpg"
+  />
+);
+
+const StressFree = () => (
+  <Section
+    title="Studying Doesn't Have to Be Stressful"
+    content="At Aspire Academics, we create a calm, supportive environment for learning. Our expert tutors guide you every step of the way."
+    imageUrl="/images/stressfree.jpg"
+  />
 );
 
 const handleSubmit = async (e, formType) => {
@@ -63,7 +88,7 @@ const handleSubmit = async (e, formType) => {
 
 const ApplyTutor = () => (
   <motion.section className="section" variants={fadeIn} initial="hidden" animate="show">
-    <h2>Apply as a Tutor</h2>
+    <h2>Join Our Team of Tutors</h2>
     <form className="form" onSubmit={(e) => handleSubmit(e, 'tutor')}>
       <input name="name" placeholder="Full Name" required />
       <input name="email" placeholder="Email" required />
@@ -75,7 +100,7 @@ const ApplyTutor = () => (
 
 const ApplyTutoring = () => (
   <motion.section className="section" variants={fadeIn} initial="hidden" animate="show">
-    <h2>Apply for Tutoring</h2>
+    <h2>Start Your Learning Journey</h2>
     <form className="form" onSubmit={(e) => handleSubmit(e, 'tutoring')}>
       <input name="name" placeholder="Full Name" required />
       <input name="email" placeholder="Email" required />
@@ -108,6 +133,7 @@ export default function App() {
         <Route path="/apply-tutor" element={<ApplyTutor />} />
         <Route path="/apply-tutoring" element={<ApplyTutoring />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/stress-free" element={<StressFree />} />
       </Routes>
     </Router>
   );
