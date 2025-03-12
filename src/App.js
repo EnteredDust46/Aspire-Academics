@@ -3,8 +3,19 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import './App.css';
 
+// Animation variants
+const fadeIn = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+};
+
 const Navbar = () => (
-  <nav className="navbar">
+  <motion.nav
+    className="navbar"
+    initial={{ y: -50, opacity: 0 }}
+    animate={{ y: 0, opacity: 1 }}
+    transition={{ duration: 0.8 }}
+  >
     <h1 className="logo">Aspire Academics</h1>
     <div className="nav-links">
       <Link to="/">Home</Link>
@@ -14,13 +25,13 @@ const Navbar = () => (
       <Link to="/apply-tutoring">Apply for Tutoring</Link>
       <Link to="/contact">Contact</Link>
     </div>
-  </nav>
+  </motion.nav>
 );
 
 const Section = ({ title, content }) => (
-  <motion.section className="section" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
-    <h2>{title}</h2>
-    <p>{content}</p>
+  <motion.section className="section" variants={fadeIn} initial="hidden" animate="show">
+    <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
+    <motion.p>{content}</motion.p>
   </motion.section>
 );
 
@@ -40,7 +51,7 @@ const handleSubmit = async (e, formType) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   const data = Object.fromEntries(formData);
-  
+
   await fetch('/api/contact', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -51,39 +62,39 @@ const handleSubmit = async (e, formType) => {
 };
 
 const ApplyTutor = () => (
-  <section className="section">
+  <motion.section className="section" variants={fadeIn} initial="hidden" animate="show">
     <h2>Apply as a Tutor</h2>
     <form className="form" onSubmit={(e) => handleSubmit(e, 'tutor')}>
       <input name="name" placeholder="Full Name" required />
       <input name="email" placeholder="Email" required />
       <textarea name="message" placeholder="Why do you want to tutor?" required></textarea>
-      <button type="submit">Submit</button>
+      <motion.button whileHover={{ scale: 1.05 }}>Submit</motion.button>
     </form>
-  </section>
+  </motion.section>
 );
 
 const ApplyTutoring = () => (
-  <section className="section">
+  <motion.section className="section" variants={fadeIn} initial="hidden" animate="show">
     <h2>Apply for Tutoring</h2>
     <form className="form" onSubmit={(e) => handleSubmit(e, 'tutoring')}>
       <input name="name" placeholder="Full Name" required />
       <input name="email" placeholder="Email" required />
       <textarea name="message" placeholder="What subjects do you need help with?" required></textarea>
-      <button type="submit">Submit</button>
+      <motion.button whileHover={{ scale: 1.05 }}>Submit</motion.button>
     </form>
-  </section>
+  </motion.section>
 );
 
 const Contact = () => (
-  <section className="section">
+  <motion.section className="section" variants={fadeIn} initial="hidden" animate="show">
     <h2>Contact Us</h2>
     <form className="form" onSubmit={(e) => handleSubmit(e, 'contact')}>
       <input name="name" placeholder="Full Name" required />
       <input name="email" placeholder="Email" required />
       <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Submit</button>
+      <motion.button whileHover={{ scale: 1.05 }}>Submit</motion.button>
     </form>
-  </section>
+  </motion.section>
 );
 
 export default function App() {
