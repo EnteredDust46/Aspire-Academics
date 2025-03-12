@@ -45,6 +45,11 @@ const Section = ({ title, content, imageUrl, children }) => (
 const Apply = () => {
   const [isTutorOpen, setIsTutorOpen] = useState(false);
   const [isStudentOpen, setIsStudentOpen] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = (type) => {
+    setMessage(`Your ${type} application has been recorded!`);
+  };
 
   return (
     <Section
@@ -62,22 +67,27 @@ const Apply = () => {
       </div>
 
       {isTutorOpen && (
-        <form className="form">
-          <input name="name" placeholder="Full Name" required />
-          <input name="email" placeholder="Email" required />
-          <textarea name="experience" placeholder="Describe your teaching experience" required></textarea>
-          <motion.button whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
-        </form>
+        <motion.div className="form-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+          <form className="form" onSubmit={(e) => { e.preventDefault(); handleSubmit('tutor'); }}>
+            <input name="name" placeholder="Full Name" required />
+            <input name="email" placeholder="Email" required />
+            <textarea name="experience" placeholder="Describe your teaching experience" required></textarea>
+            <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
+          </form>
+        </motion.div>
       )}
 
       {isStudentOpen && (
-        <form className="form">
-          <input name="name" placeholder="Full Name" required />
-          <input name="email" placeholder="Email" required />
-          <textarea name="requirements" placeholder="What subjects do you need help with?" required></textarea>
-          <motion.button whileHover={{ scale: 1.05 }}>Request Tutoring</motion.button>
-        </form>
+        <motion.div className="form-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+          <form className="form" onSubmit={(e) => { e.preventDefault(); handleSubmit('student'); }}>
+            <input name="name" placeholder="Full Name" required />
+            <input name="email" placeholder="Email" required />
+            <textarea name="requirements" placeholder="What subjects do you need help with?" required></textarea>
+            <motion.button type="submit" whileHover={{ scale: 1.05 }}>Request Tutoring</motion.button>
+          </form>
+        </motion.div>
       )}
+      {message && <motion.p className="confirmation-message">{message}</motion.p>}
     </Section>
   );
 };
@@ -102,7 +112,12 @@ export default function App() {
     <Router>
       <Navbar />
       <Routes>
+        <Route path="/" element={<Section title="Welcome to Aspire Academics" content="Achieve academic excellence with personalized tutoring." imageUrl="/images/home.jpg" />} />
+        <Route path="/about" element={<Section title="About Us" content="Empowering learners with personalized tutoring solutions." imageUrl="/images/about.jpg" />} />
+        <Route path="/services" element={<Section title="Our Services" content="SAT prep, high school tutoring, and more." imageUrl="/images/services.jpg" />} />
+        <Route path="/tutors" element={<Section title="Meet Our Tutors" content="Experienced educators dedicated to your success." imageUrl="/images/tutors.jpg" />} />
         <Route path="/apply" element={<Apply />} />
+        <Route path="/testimonials" element={<Section title="Testimonials" content="Hear from our successful students." imageUrl="/images/testimonials.jpg" />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
