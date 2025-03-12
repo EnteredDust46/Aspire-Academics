@@ -42,104 +42,59 @@ const Section = ({ title, content, imageUrl, children }) => (
   </motion.section>
 );
 
-const ApplySection = ({ title, isOpen, toggleOpen, children }) => (
-  <div className="apply-section">
-    <button className="apply-button" onClick={toggleOpen}>{title}</button>
-    {isOpen && (
-      <motion.div className="form-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-        {children}
-      </motion.div>
-    )}
-  </div>
-);
-
 const Apply = () => {
   const [isTutorOpen, setIsTutorOpen] = useState(false);
   const [isStudentOpen, setIsStudentOpen] = useState(false);
 
   return (
-    <motion.section className="section" variants={fadeIn} initial="hidden" animate="show">
-      <h2 className="section-heading">Join Our Community</h2>
-      <ApplySection
-        title="Apply to be a Tutor"
-        isOpen={isTutorOpen}
-        toggleOpen={() => setIsTutorOpen(!isTutorOpen)}
-      >
+    <Section
+      title="Apply to Aspire Academics"
+      content="Join our team as a tutor or apply for personalized tutoring services."
+      imageUrl="/images/apply-tutoring.jpg"
+    >
+      <div className="apply-buttons">
+        <button className="apply-button" onClick={() => setIsTutorOpen(!isTutorOpen)}>
+          Apply to be a Tutor
+        </button>
+        <button className="apply-button" onClick={() => setIsStudentOpen(!isStudentOpen)}>
+          Apply for Tutoring
+        </button>
+      </div>
+
+      {isTutorOpen && (
         <form className="form">
           <input name="name" placeholder="Full Name" required />
           <input name="email" placeholder="Email" required />
-          <input name="education" placeholder="Educational Background" required />
-          <textarea name="experience" placeholder="Teaching Experience" required></textarea>
-          <input name="subjects" placeholder="Subjects of Expertise" required />
-          <input name="availability" placeholder="Availability (Days/Times)" required />
-          <motion.button className="submit-button" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
+          <textarea name="experience" placeholder="Describe your teaching experience" required></textarea>
+          <motion.button whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
         </form>
-      </ApplySection>
-      <ApplySection
-        title="Apply for Tutoring"
-        isOpen={isStudentOpen}
-        toggleOpen={() => setIsStudentOpen(!isStudentOpen)}
-      >
+      )}
+
+      {isStudentOpen && (
         <form className="form">
           <input name="name" placeholder="Full Name" required />
           <input name="email" placeholder="Email" required />
-          <input name="grade" placeholder="Current Grade Level" required />
-          <input name="subjects" placeholder="Subjects Needing Assistance" required />
-          <input name="schedule" placeholder="Preferred Tutoring Schedule" required />
-          <textarea name="goals" placeholder="Specific Goals or Challenges" required></textarea>
-          <motion.button className="submit-button" whileHover={{ scale: 1.05 }}>Request Tutoring</motion.button>
+          <textarea name="requirements" placeholder="What subjects do you need help with?" required></textarea>
+          <motion.button whileHover={{ scale: 1.05 }}>Request Tutoring</motion.button>
         </form>
-      </ApplySection>
-    </motion.section>
+      )}
+    </Section>
   );
 };
-
-const Home = () => (
-  <Section
-    title="Welcome to Aspire Academics"
-    content="At Aspire Academics, we empower students to achieve academic excellence through personalized tutoring, fostering independent learning and confidence."
-    imageUrl="/images/home.jpg"
-  />
-);
-
-const About = () => (
-  <Section
-    title="Our Mission"
-    content="Our mission is to provide high-quality tutoring services that not only focus on academic growth but also instill confidence and independent learning habits. We are dedicated to helping students excel in SAT preparation and high school subjects by offering customized learning plans and flexible scheduling."
-    imageUrl="/images/about.jpg"
-  />
-);
-
-const Services = () => (
-  <Section
-    title="Our Services"
-    content="We specialize in SAT preparation and offer comprehensive tutoring in high school subjects, including Mathematics, Science, and English. Our personalized methodologies cater to the unique learning styles of each student."
-    imageUrl="/images/services.jpg"
-  />
-);
-
-const MeetTutors = () => (
-  <Section
-    title="Meet Our Tutors"
-    content="Our experienced tutors are passionate about education and skilled in guiding students to achieve their academic goals. Each tutor brings a unique teaching philosophy and is dedicated to providing individualized support."
-    imageUrl="/images/tutors.jpg"
-  />
-);
-
-const Testimonials = () => (
-  <Section
-    title="What Our Students Say"
-    content='"Aspire Academics transformed my learning experience. The personalized attention helped me excel in SAT and improve my overall academic performance." - Jane Doe'
-    imageUrl="/images/testimonials.jpg"
-  />
-);
 
 const Contact = () => (
   <Section
     title="Contact Us"
-    content="Reach out to us with any questions or to learn more about our tutoring services."
+    content="We're here to help. Reach out with any questions or inquiries."
     imageUrl="/images/contact.jpg"
-  />
+  >
+    <form className="form">
+      <input name="name" placeholder="Full Name" required />
+      <input name="email" placeholder="Email" required />
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <motion.button whileHover={{ scale: 1.05 }}>Send Message</motion.button>
+    </form>
+  </Section>
 );
 
 export default function App() {
@@ -147,12 +102,7 @@ export default function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/tutors" element={<MeetTutors />} />
         <Route path="/apply" element={<Apply />} />
-        <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
