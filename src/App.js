@@ -144,7 +144,6 @@ const ApplyTutor = () => {
     const formData = new FormData(e.target);
     
     try {
-      // First, submit to Web3Forms
       await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: JSON.stringify({
@@ -162,29 +161,9 @@ const ApplyTutor = () => {
         }
       });
 
-      // Also send a notification email through Email.js or similar service
-      await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        body: JSON.stringify({
-          service_id: process.env.REACT_APP_EMAILJS_SERVICE_ID,
-          template_id: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-          user_id: process.env.REACT_APP_EMAILJS_USER_ID,
-          template_params: {
-            to_email: 'admin@aspireacademicstutoring.com',
-            from_name: formData.get('name'),
-            from_email: formData.get('email'),
-            message: formData.get('experience'),
-            type: 'Tutor Application',
-          }
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
       navigate('/thank-you');
     } catch (error) {
-      alert('There was an error submitting your application. Please try again.');
+      alert('There was an error submitting your form. Please try again.');
     }
   };
 
@@ -222,7 +201,6 @@ const ApplyStudent = () => {
     const formData = new FormData(e.target);
     
     try {
-      // First, submit to Web3Forms
       await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: JSON.stringify({
@@ -240,29 +218,9 @@ const ApplyStudent = () => {
         }
       });
 
-      // Also send a notification email through Email.js or similar service
-      await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        body: JSON.stringify({
-          service_id: process.env.REACT_APP_EMAILJS_SERVICE_ID,
-          template_id: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-          user_id: process.env.REACT_APP_EMAILJS_USER_ID,
-          template_params: {
-            to_email: 'admin@aspireacademicstutoring.com',
-            from_name: formData.get('name'),
-            from_email: formData.get('email'),
-            message: formData.get('requirements'),
-            type: 'Student Application',
-          }
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
       navigate('/thank-you');
     } catch (error) {
-      alert('There was an error submitting your application. Please try again.');
+      alert('There was an error submitting your form. Please try again.');
     }
   };
 
@@ -333,12 +291,13 @@ const Testimonials = () => (
 );
 
 const Contact = () => {
+  const navigate = useNavigate();
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     
     try {
-      // First, submit to Web3Forms
       await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: JSON.stringify({
@@ -346,7 +305,7 @@ const Contact = () => {
           name: formData.get('name'),
           email: formData.get('email'),
           message: formData.get('message'),
-          subject: 'New Contact Form Submission',
+          subject: 'New Form Submission',
           from_name: "Aspire Academics Website",
           to_email: "admin@aspireacademicstutoring.com",
           reply_to: formData.get('email'),
@@ -356,30 +315,14 @@ const Contact = () => {
         }
       });
 
-      // Also send a notification email through Email.js or similar service
-      await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        body: JSON.stringify({
-          service_id: process.env.REACT_APP_EMAILJS_SERVICE_ID,
-          template_id: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-          user_id: process.env.REACT_APP_EMAILJS_USER_ID,
-          template_params: {
-            to_email: 'admin@aspireacademicstutoring.com',
-            from_name: formData.get('name'),
-            from_email: formData.get('email'),
-            message: formData.get('message'),
-            type: 'Contact Form Submission',
-          }
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
-      alert('Message sent successfully! We will get back to you soon.');
-      e.target.reset();
+      if (formData.get('message')) {
+        alert('Message sent successfully! We will get back to you soon.');
+        e.target.reset();
+      } else {
+        navigate('/thank-you');
+      }
     } catch (error) {
-      alert('There was an error sending your message. Please try again.');
+      alert('There was an error submitting your form. Please try again.');
     }
   };
 
