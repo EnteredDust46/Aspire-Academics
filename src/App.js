@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import './App.css';
 import logo from './assets/aspire-academics.png';
+import WeeklySchedule from './components/WeeklySchedule';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -138,6 +139,7 @@ const Apply = () => (
 
 const ApplyTutor = () => {
   const navigate = useNavigate();
+  const [availability, setAvailability] = useState([]);
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -157,7 +159,19 @@ const ApplyTutor = () => {
     formData.append('email', e.target.email.value);
     formData.append('phone', e.target.phone.value);
     formData.append('subjects', Array.from(e.target.subjects.selectedOptions).map(opt => opt.value).join(', '));
-    formData.append('message', e.target.experience.value);
+    
+    // Add availability to the message
+    const availabilityText = availability
+      .map(slot => {
+        const [day, hour] = slot.split('-');
+        return `${day} at ${hour}:00`;
+      })
+      .join('\n');
+    
+    formData.append('message', 
+      `Experience:\n${e.target.experience.value}\n\nAvailability:\n${availabilityText}`
+    );
+    
     formData.append('from_name', "Aspire Academics Website");
     formData.append('subject', 'New Tutor Application');
     
@@ -203,6 +217,11 @@ const ApplyTutor = () => {
           <option value="test-prep">Test Prep</option>
         </select>
         <textarea name="experience" placeholder="Describe your teaching experience and qualifications" required></textarea>
+        <div className="form-section">
+          <h4>Select Your Available Time Slots</h4>
+          <p>Click on the time slots when you're available to tutor</p>
+          <WeeklySchedule onScheduleChange={setAvailability} />
+        </div>
         <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
       </form>
     </Section>
@@ -211,6 +230,7 @@ const ApplyTutor = () => {
 
 const ApplyStudent = () => {
   const navigate = useNavigate();
+  const [preferredTimes, setPreferredTimes] = useState([]);
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -232,6 +252,19 @@ const ApplyStudent = () => {
     formData.append('grade', e.target.grade.value);
     formData.append('subjects', Array.from(e.target.subjects.selectedOptions).map(opt => opt.value).join(', '));
     formData.append('message', e.target.requirements.value);
+    
+    // Add preferred times to the message
+    const preferredTimesText = preferredTimes
+      .map(slot => {
+        const [day, hour] = slot.split('-');
+        return `${day} at ${hour}:00`;
+      })
+      .join('\n');
+    
+    formData.append('message', 
+      `Preferred Times:\n${preferredTimesText}\n\nRequirements:\n${e.target.requirements.value}`
+    );
+    
     formData.append('from_name', "Aspire Academics Website");
     formData.append('subject', 'New Student Application');
     
@@ -287,6 +320,11 @@ const ApplyStudent = () => {
           <option value="sat">SAT Prep</option>
           <option value="act">ACT Prep</option>
         </select>
+        <div className="form-section">
+          <h4>Select Your Preferred Times</h4>
+          <p>Click on the time slots when you're available to be tutored</p>
+          <WeeklySchedule onScheduleChange={setPreferredTimes} />
+        </div>
         <textarea name="requirements" placeholder="Tell us about your academic goals and any specific areas where you need help" required></textarea>
         <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
       </form>

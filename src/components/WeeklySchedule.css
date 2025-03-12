@@ -1,0 +1,84 @@
+.schedule-container {
+  width: 100%;
+  overflow-x: auto;
+  margin: 20px 0;
+  background: var(--neutral-white);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.schedule-grid {
+  display: flex;
+  flex-direction: column;
+  min-width: 800px;
+}
+
+.time-labels {
+  display: flex;
+  border-bottom: 1px solid var(--primary-light);
+}
+
+.corner-cell {
+  width: 100px;
+  min-width: 100px;
+}
+
+.time-label {
+  width: 80px;
+  min-width: 80px;
+  padding: 8px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-dark);
+}
+
+.day-row {
+  display: flex;
+  border-bottom: 1px solid var(--primary-light);
+}
+
+.day-label {
+  width: 100px;
+  min-width: 100px;
+  padding: 8px;
+  font-weight: 600;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+}
+
+.time-slot {
+  width: 80px;
+  min-width: 80px;
+  height: 40px;
+  border: 1px solid var(--primary-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-slot:hover {
+  background-color: var(--primary-light);
+  opacity: 0.7;
+}
+
+.time-slot.selected {
+  background-color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .schedule-container {
+    padding: 10px;
+  }
+  
+  .time-label {
+    width: 60px;
+    min-width: 60px;
+    font-size: 0.7rem;
+  }
+  
+  .time-slot {
+    width: 60px;
+    min-width: 60px;
+    height: 30px;
+  }
+} 
