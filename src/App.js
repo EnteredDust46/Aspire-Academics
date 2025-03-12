@@ -28,7 +28,7 @@ const Navbar = () => (
   </motion.nav>
 );
 
-const Section = ({ title, content, imageUrl, children }) => (
+const Section = ({ title, content, imageUrl, children, subtitle }) => (
   <motion.section
     className="section"
     style={{ backgroundImage: `url(${process.env.PUBLIC_URL + imageUrl})` }}
@@ -37,16 +37,94 @@ const Section = ({ title, content, imageUrl, children }) => (
     animate="show"
   >
     <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
-    <motion.p>{content}</motion.p>
+    {subtitle && <motion.h3>{subtitle}</motion.h3>}
+    {Array.isArray(content) ? (
+      content.map((paragraph, index) => (
+        <motion.p key={index}>{paragraph}</motion.p>
+      ))
+    ) : (
+      <motion.p>{content}</motion.p>
+    )}
     {children}
   </motion.section>
+);
+
+const Home = () => (
+  <Section
+    title="Welcome to Aspire Academics"
+    subtitle="Empowering Students Through Personalized Learning"
+    content={[
+      "At Aspire Academics, we believe every student has the potential to excel. Our personalized tutoring approach focuses on building confidence, developing strong study habits, and achieving academic success.",
+      "Our experienced tutors work one-on-one with students to identify their unique learning styles and create customized study plans that deliver results.",
+      "Whether you're preparing for standardized tests, need help with specific subjects, or want to advance your academic career, we're here to support your educational journey."
+    ]}
+    imageUrl="/images/home.jpg"
+  />
+);
+
+const About = () => (
+  <Section
+    title="About Us"
+    subtitle="Our Mission and Values"
+    content={[
+      "Founded by experienced educators, Aspire Academics is committed to delivering excellence in education through personalized tutoring services.",
+      "We carefully select our tutors based on their academic achievements, teaching experience, and passion for education. All our tutors undergo rigorous training and background checks.",
+      "Our approach combines traditional teaching methods with modern learning technologies to create an engaging and effective learning experience.",
+      "We measure our success through our students' achievements and their growing confidence in tackling academic challenges."
+    ]}
+    imageUrl="/images/about.jpg"
+  />
+);
+
+const Services = () => (
+  <Section
+    title="Our Services"
+    subtitle="Comprehensive Academic Support"
+    content={[
+      "SAT/ACT Test Preparation: Structured programs with practice tests, strategies, and personalized feedback to maximize your scores.",
+      "Mathematics: From algebra to calculus, our tutors break down complex concepts into manageable steps.",
+      "Sciences: Expert guidance in biology, chemistry, physics, and other scientific disciplines.",
+      "English & Writing: Develop strong writing skills, literary analysis, and reading comprehension.",
+      "Foreign Languages: Spanish, French, and other language tutoring with native speakers.",
+      "Study Skills: Learn effective time management, organization, and test-taking strategies."
+    ]}
+    imageUrl="/images/services.jpg"
+  />
+);
+
+const Tutors = () => (
+  <Section
+    title="Meet Our Tutors"
+    subtitle="Expert Educators Dedicated to Your Success"
+    content={[
+      "Our tutors are more than just teachers - they're mentors who are passionate about helping students achieve their full potential.",
+      "Each tutor brings unique expertise and teaching methods, allowing us to match students with the perfect instructor for their learning style."
+    ]}
+    imageUrl="/images/tutors.jpg"
+  >
+    <div className="tutors-grid">
+      {[1, 2, 3, 4].map((num) => (
+        <motion.div key={num} className="tutor-card" whileHover={{ scale: 1.05 }}>
+          <img src={`/images/tutor${num}.jpg`} alt={`Tutor ${num}`} className="tutor-image" />
+          <h4>Dr. Sarah Johnson</h4>
+          <p>Ph.D. in Mathematics</p>
+          <p>10+ years teaching experience</p>
+        </motion.div>
+      ))}
+    </div>
+  </Section>
 );
 
 const Apply = () => (
   <Section
     title="Apply to Aspire Academics"
-    content="Join our team as a tutor or apply for personalized tutoring services."
-    imageUrl="/images/apply-tutoring.jpg"
+    subtitle="Join Our Community of Learners and Educators"
+    content={[
+      "Whether you're seeking academic support or want to join our team of dedicated tutors, we're excited to hear from you.",
+      "Our tutoring services are available both online and in-person, with flexible scheduling to accommodate your needs.",
+      "For tutors, we offer competitive compensation, professional development opportunities, and a supportive teaching environment."
+    ]}
+    imageUrl="/images/apply-bg.jpg"
   >
     <div className="apply-buttons">
       <Link to="/apply-tutor" className="apply-button">Apply to be a Tutor</Link>
@@ -57,12 +135,51 @@ const Apply = () => (
 
 const ApplyTutor = () => {
   const navigate = useNavigate();
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: JSON.stringify({
+          access_key: process.env.REACT_APP_WEB3FORMS_KEY,
+          name: formData.get('name'),
+          email: formData.get('email'),
+          message: formData.get('experience'),
+          subject: 'New Tutor Application'
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      navigate('/thank-you');
+    } catch (error) {
+      alert('There was an error submitting your application. Please try again.');
+    }
+  };
+
   return (
-    <Section title="Tutor Application" content="Fill out the form to apply as a tutor." imageUrl="/images/apply-tutor.jpg">
-      <form className="form" onSubmit={(e) => { e.preventDefault(); navigate('/thank-you'); }}>
+    <Section 
+      title="Tutor Application" 
+      content={[
+        "Join our team of passionate educators and make a difference in students' lives.",
+        "We're looking for experienced tutors in all academic subjects, particularly in STEM fields, standardized test prep, and writing."
+      ]}
+      imageUrl="/images/tutor-apply.jpg"
+    >
+      <form className="form" onSubmit={handleSubmit}>
         <input name="name" placeholder="Full Name" required />
-        <input name="email" placeholder="Email" required />
-        <textarea name="experience" placeholder="Describe your teaching experience" required></textarea>
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone Number" required />
+        <select name="subjects" multiple required>
+          <option value="math">Mathematics</option>
+          <option value="science">Science</option>
+          <option value="english">English</option>
+          <option value="test-prep">Test Prep</option>
+        </select>
+        <textarea name="experience" placeholder="Describe your teaching experience and qualifications" required></textarea>
         <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
       </form>
     </Section>
@@ -71,46 +188,180 @@ const ApplyTutor = () => {
 
 const ApplyStudent = () => {
   const navigate = useNavigate();
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: JSON.stringify({
+          access_key: process.env.REACT_APP_WEB3FORMS_KEY,
+          name: formData.get('name'),
+          email: formData.get('email'),
+          subjects: formData.get('subjects'),
+          grade: formData.get('grade'),
+          message: formData.get('requirements'),
+          subject: 'New Student Application'
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      navigate('/thank-you');
+    } catch (error) {
+      alert('There was an error submitting your application. Please try again.');
+    }
+  };
+
   return (
-    <Section title="Student Application" content="Fill out the form to request tutoring services." imageUrl="/images/apply-student.jpg">
-      <form className="form" onSubmit={(e) => { e.preventDefault(); navigate('/thank-you'); }}>
+    <Section 
+      title="Student Application" 
+      subtitle="Start Your Journey to Academic Success"
+      content={[
+        "We're excited to help you achieve your academic goals! Please fill out the form below to get started with our tutoring services.",
+        "One of our academic advisors will contact you within 24 hours to discuss your needs and create a personalized learning plan."
+      ]}
+      imageUrl="/images/student-apply.jpg"
+    >
+      <form className="form" onSubmit={handleSubmit}>
         <input name="name" placeholder="Full Name" required />
-        <input name="email" placeholder="Email" required />
-        <textarea name="requirements" placeholder="Subjects you need help with" required></textarea>
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone Number" required />
+        <select name="grade" required>
+          <option value="">Select Grade Level</option>
+          <option value="elementary">Elementary School</option>
+          <option value="middle">Middle School</option>
+          <option value="high">High School</option>
+          <option value="college">College</option>
+          <option value="adult">Adult Learner</option>
+        </select>
+        <select name="subjects" multiple required>
+          <option value="math">Mathematics</option>
+          <option value="science">Science</option>
+          <option value="english">English</option>
+          <option value="history">History</option>
+          <option value="sat">SAT Prep</option>
+          <option value="act">ACT Prep</option>
+        </select>
+        <textarea name="requirements" placeholder="Tell us about your academic goals and any specific areas where you need help" required></textarea>
         <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
       </form>
     </Section>
   );
 };
 
-const ThankYou = () => (
-  <Section title="Thank You!" content="Your application has been received. We will get back to you soon." imageUrl="/images/thank-you.jpg">
-    <Link to="/" className="apply-button">Return Home</Link>
-  </Section>
-);
-
 const Testimonials = () => (
   <Section
-    title="Testimonials"
-    content="Hear from our successful students."
+    title="Student Success Stories"
+    subtitle="Real Results from Real Students"
+    content={[
+      "Our tutoring services have helped hundreds of students achieve their academic goals. Here are some of their stories:",
+    ]}
     imageUrl="/images/testimonials.jpg"
   >
-    <p>"Aspire Academics has been life-changing!" - Happy Student</p>
+    <div className="testimonials-grid">
+      <motion.div className="testimonial-card" whileHover={{ scale: 1.02 }}>
+        <img src="/images/student1.jpg" alt="Sarah M." className="testimonial-image" />
+        <h4>Sarah M. - Harvard University</h4>
+        <p>"Thanks to Aspire Academics' SAT prep, I improved my score by 300 points and got into my dream school!"</p>
+      </motion.div>
+      <motion.div className="testimonial-card" whileHover={{ scale: 1.02 }}>
+        <img src="/images/student2.jpg" alt="James K." className="testimonial-image" />
+        <h4>James K. - High School Senior</h4>
+        <p>"My math grades went from C's to A's after just one semester of tutoring. The personalized attention made all the difference."</p>
+      </motion.div>
+      <motion.div className="testimonial-card" whileHover={{ scale: 1.02 }}>
+        <img src="/images/student3.jpg" alt="Emily R." className="testimonial-image" />
+        <h4>Emily R. - Medical Student</h4>
+        <p>"The study skills I learned at Aspire Academics helped me excel in pre-med and get into medical school."</p>
+      </motion.div>
+    </div>
   </Section>
 );
 
-const Contact = () => (
-  <Section
-    title="Contact Us"
-    content="We're here to help. Reach out with any questions or inquiries."
-    imageUrl="/images/contact.jpg"
+const Contact = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: JSON.stringify({
+          access_key: process.env.REACT_APP_WEB3FORMS_KEY,
+          name: formData.get('name'),
+          email: formData.get('email'),
+          message: formData.get('message'),
+          subject: 'New Contact Form Submission'
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      alert('Message sent successfully! We will get back to you soon.');
+      e.target.reset();
+    } catch (error) {
+      alert('There was an error sending your message. Please try again.');
+    }
+  };
+
+  return (
+    <Section
+      title="Contact Us"
+      subtitle="We're Here to Help"
+      content={[
+        "Have questions about our tutoring services? Want to learn more about our programs? Reach out to us!",
+        "Our team typically responds within 24 hours."
+      ]}
+      imageUrl="/images/contact.jpg"
+    >
+      <div className="contact-container">
+        <div className="contact-info">
+          <div className="contact-item">
+            <i className="fas fa-map-marker-alt"></i>
+            <p>123 Education Lane<br />Academic City, ST 12345</p>
+          </div>
+          <div className="contact-item">
+            <i className="fas fa-phone"></i>
+            <p>(555) 123-4567</p>
+          </div>
+          <div className="contact-item">
+            <i className="fas fa-envelope"></i>
+            <p>info@aspireacademics.com</p>
+          </div>
+        </div>
+        <form className="form contact-form" onSubmit={handleSubmit}>
+          <input name="name" placeholder="Full Name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="tel" name="phone" placeholder="Phone (optional)" />
+          <select name="inquiry-type" required>
+            <option value="">Select Inquiry Type</option>
+            <option value="tutoring">Tutoring Services</option>
+            <option value="test-prep">Test Preparation</option>
+            <option value="pricing">Pricing Information</option>
+            <option value="other">Other</option>
+          </select>
+          <textarea name="message" placeholder="Your Message" required rows="5"></textarea>
+          <motion.button type="submit" whileHover={{ scale: 1.05 }}>Send Message</motion.button>
+        </form>
+      </div>
+    </Section>
+  );
+};
+
+const ThankYou = () => (
+  <Section 
+    title="Thank You!" 
+    subtitle="We've Received Your Submission"
+    content={[
+      "Thank you for reaching out to Aspire Academics. We will review your submission and get back to you within 24 hours.",
+      "In the meantime, feel free to explore our services and resources."
+    ]}
+    imageUrl="/images/thank-you.jpg"
   >
-    <form className="form">
-      <input name="name" placeholder="Full Name" required />
-      <input name="email" placeholder="Email" required />
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <motion.button whileHover={{ scale: 1.05 }}>Send Message</motion.button>
-    </form>
+    <Link to="/" className="apply-button">Return Home</Link>
   </Section>
 );
 
@@ -119,10 +370,10 @@ export default function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Section title="Welcome to Aspire Academics" content="Achieve academic excellence with personalized tutoring." imageUrl="/images/home.jpg" />} />
-        <Route path="/about" element={<Section title="About Us" content="Empowering learners with personalized tutoring solutions." imageUrl="/images/about.jpg" />} />
-        <Route path="/services" element={<Section title="Our Services" content="SAT prep, high school tutoring, and more." imageUrl="/images/services.jpg" />} />
-        <Route path="/tutors" element={<Section title="Meet Our Tutors" content="Experienced educators dedicated to your success." imageUrl="/images/tutors.jpg" />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/tutors" element={<Tutors />} />
         <Route path="/apply" element={<Apply />} />
         <Route path="/apply-tutor" element={<ApplyTutor />} />
         <Route path="/apply-student" element={<ApplyStudent />} />
