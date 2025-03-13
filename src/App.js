@@ -139,7 +139,7 @@ const Home = () => (
         >
           <i className="fas fa-graduation-cap"></i>
           <h3>Expert Tutors</h3>
-          <p>Learn from experienced educators passionate about student success</p>
+          <p>Learn from experienced educators passionate about student success!</p>
         </motion.div>
         <motion.div 
           className="feature-card"
