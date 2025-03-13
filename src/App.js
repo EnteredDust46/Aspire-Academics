@@ -60,30 +60,22 @@ const Navbar = () => (
 const Section = ({ title, content, imageUrl, children, subtitle, className }) => (
   <motion.section
     className={`section ${className || ''}`}
+    style={{ backgroundImage: imageUrl ? `url(${process.env.PUBLIC_URL}/images/${imageUrl})` : 'linear-gradient(135deg, var(--primary-dark), var(--primary-light))' }}
     variants={fadeIn}
     initial="hidden"
     animate="show"
   >
-    <div className="section-container">
-      <div className="section-image-container">
-        <img 
-          src={`${process.env.PUBLIC_URL}/images/${imageUrl}`} 
-          alt={title} 
-          className="section-image" 
-        />
-      </div>
-      <div className="section-content">
-        <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
-        {subtitle && <motion.h3>{subtitle}</motion.h3>}
-        {Array.isArray(content) ? (
-          content.map((paragraph, index) => (
-            <motion.p key={index}>{paragraph}</motion.p>
-          ))
-        ) : (
-          <motion.p>{content}</motion.p>
-        )}
-        {children}
-      </div>
+    <div className="section-content-wrapper">
+      <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
+      {subtitle && <motion.h3>{subtitle}</motion.h3>}
+      {Array.isArray(content) ? (
+        content.map((paragraph, index) => (
+          <motion.p key={index}>{paragraph}</motion.p>
+        ))
+      ) : (
+        <motion.p>{content}</motion.p>
+      )}
+      {children}
     </div>
   </motion.section>
 );
@@ -373,77 +365,16 @@ const Apply = () => (
 
 const ApplyTutor = () => {
   const navigate = useNavigate();
-  const [availability, setAvailability] = useState([]);
   
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    
-    const accessKey = process.env.REACT_APP_WEB3FORMS_KEY;
-    console.log('Access Key:', accessKey); // Debug log
-    
-    if (!accessKey) {
-      alert('Error: Web3Forms access key not found');
-      return;
-    }
-    
-    // Add required fields
-    formData.append('access_key', accessKey);
-    formData.append('name', e.target.name.value);
-    formData.append('email', e.target.email.value);
-    formData.append('phone', e.target.phone.value);
-    formData.append('subjects', Array.from(e.target.subjects.selectedOptions).map(opt => opt.value).join(', '));
-    
-    // Add resume file
-    const resumeFile = e.target.resume.files[0];
-    if (resumeFile) {
-      formData.append('resume', resumeFile);
-    }
-    
-    // Format availability times nicely
-    const availabilityText = availability
-      .map(slot => {
-        const [day, hour] = slot.split('-');
-        const period = hour >= 12 ? 'PM' : 'AM';
-        const displayHour = hour > 12 ? hour - 12 : hour;
-        return `${day} at ${displayHour}:00 ${period}`;
-      })
-      .join('\n');
-    
-    formData.append('message', 
-      `Experience:\n${e.target.experience.value}\n\n` +
-      `Availability:\n${availabilityText}\n\n` +
-      `Resume: ${resumeFile ? resumeFile.name : 'Not provided'}`
-    );
-    
-    formData.append('from_name', "Aspire Academics Website");
-    formData.append('subject', 'New Tutor Application');
-    
-    try {
-      console.log('Submitting form with data:', Object.fromEntries(formData));
-      
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      });
-
-      const data = await response.json();
-      console.log('Response:', data);
-
-      if (data.success) {
-        navigate('/thank-you');
-      } else {
-        throw new Error(data.message || 'Form submission failed');
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      alert('There was an error submitting your form. Please try again. Error: ' + error.message);
-    }
+    // Form submission logic
+    navigate('/thank-you');
   };
 
   return (
-    <Section 
-      title="Tutor Application" 
+    <Section
+      title="Tutor Application"
       subtitle="Join Our Team of Educators"
       content={[
         "We're looking for experienced tutors in all academic subjects, particularly in STEM fields, standardized test prep, and writing."
@@ -475,65 +406,13 @@ const ApplyTutor = () => {
 };
 
 const ApplyStudent = () => {
-  const navigate = useNavigate();
   const [preferredTimes, setPreferredTimes] = useState([]);
-  
-  const handleSubmit = async (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    
-    const accessKey = process.env.REACT_APP_WEB3FORMS_KEY;
-    console.log('Access Key:', accessKey); // Debug log
-    
-    if (!accessKey) {
-      alert('Error: Web3Forms access key not found');
-      return;
-    }
-    
-    // Add required fields
-    formData.append('access_key', accessKey);
-    formData.append('name', e.target.name.value);
-    formData.append('email', e.target.email.value);
-    formData.append('phone', e.target.phone.value);
-    formData.append('grade', e.target.grade.value);
-    formData.append('subjects', Array.from(e.target.subjects.selectedOptions).map(opt => opt.value).join(', '));
-    formData.append('message', e.target.goals.value);
-    
-    // Add preferred times to the message
-    const preferredTimesText = preferredTimes
-      .map(slot => {
-        const [day, hour] = slot.split('-');
-        return `${day} at ${hour}:00`;
-      })
-      .join('\n');
-    
-    formData.append('message', 
-      `Preferred Times:\n${preferredTimesText}\n\nGoals:\n${e.target.goals.value}`
-    );
-    
-    formData.append('from_name', "Aspire Academics Website");
-    formData.append('subject', 'New Student Application');
-    
-    try {
-      console.log('Submitting form with data:', Object.fromEntries(formData));
-      
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      });
-
-      const data = await response.json();
-      console.log('Response:', data);
-
-      if (data.success) {
-        navigate('/thank-you');
-      } else {
-        throw new Error(data.message || 'Form submission failed');
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      alert('There was an error submitting your form. Please try again. Error: ' + error.message);
-    }
+    // Form submission logic
+    navigate('/thank-you');
   };
 
   return (

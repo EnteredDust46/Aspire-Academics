@@ -29,6 +29,9 @@ body {
 .section {
   position: relative;
   padding: 80px 20px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   text-align: center;
   color: #fff;
   overflow: hidden;
@@ -37,20 +40,30 @@ body {
   flex-direction: column;
   justify-content: center;
   margin-top: 80px;
-  background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
 }
 
-.section-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(103, 188, 196, 0.85); /* Primary color overlay */
+  z-index: 1;
+}
+
+.section-content-wrapper {
+  position: relative;
+  z-index: 2;
   max-width: 1200px;
-  margin: 0 auto;
-  background: white;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
   border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
 .section-image-container {
@@ -84,7 +97,7 @@ body {
 
 /* Typography */
 h2 {
-  font-size: 2.8rem;
+  font-size: 3.2rem;
   margin-bottom: 20px;
   font-weight: 700;
   text-transform: uppercase;
@@ -93,14 +106,14 @@ h2 {
 }
 
 h3 {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   margin-bottom: 30px;
   font-weight: 600;
   color: var(--text-light);
 }
 
 p {
-  font-size: 1.125rem;
+  font-size: 1.3rem;
   line-height: 1.8;
   margin-bottom: 20px;
   max-width: 800px;
@@ -118,11 +131,12 @@ p {
 }
 
 .apply-button {
-  padding: 15px 30px;
+  padding: 18px 36px;
   background-color: var(--accent);
   color: var(--text-dark);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 1.2rem;
   border-radius: 8px;
   transition: transform 0.3s ease, background-color 0.3s ease,
               box-shadow 0.3s ease;
@@ -167,7 +181,7 @@ input, textarea, select {
   padding: 15px;
   border: 2px solid #ddd;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 18px;
   transition: all 0.3s ease;
   font-family: 'Montserrat', sans-serif;
 }
@@ -195,7 +209,7 @@ button {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   transition: all 0.3s ease;
   font-family: 'Montserrat', sans-serif;
@@ -380,15 +394,15 @@ button:hover {
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   h3 {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
   }
 
   p {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .contact-container {
