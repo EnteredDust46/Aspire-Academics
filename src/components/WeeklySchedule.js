@@ -44,6 +44,9 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
     if (typeof onScheduleChange === 'function') {
       onScheduleChange(newSelectedSlots);
     }
+    if (typeof setPreferredTimes === 'function') {
+      setPreferredTimes(newSelectedSlots);
+    }
   };
 
   return (
@@ -57,7 +60,7 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
         {hours.map(hour => (
           <React.Fragment key={hour}>
             <div className="time-slot">
-              {hour > 12 ? `${hour - 12} PM` : hour === 12 ? '12 PM' : `${hour} AM`}
+              {hour > 12 ? `${hour - 12}PM` : hour === 12 ? '12PM' : `${hour}AM`}
             </div>
             {days.map(day => (
               <div 
