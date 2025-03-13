@@ -147,7 +147,7 @@
 
 .schedule-grid {
   display: grid;
-  grid-template-columns: 60px repeat(7, 1fr);
+  grid-template-columns: 50px repeat(7, 1fr);
   gap: 2px;
 }
 
@@ -155,18 +155,20 @@
   padding: 10px;
   text-align: center;
   font-weight: bold;
-  background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+  background: linear-gradient(to bottom, var(--primary-dark), var(--primary));
   color: white;
 }
 
 .time-slot {
-  padding: 10px 5px;
+  padding: 8px 2px;
   text-align: left;
-  background-color: var(--primary-light);
+  background: linear-gradient(to bottom, var(--primary), var(--primary-light));
   color: white;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   white-space: nowrap;
-  padding-left: 10px;
+  padding-left: 5px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .schedule-slot {
@@ -174,7 +176,7 @@
   border: 1px solid #ddd;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-height: 30px;
+  height: 30px;
 }
 
 .schedule-slot:hover {
@@ -182,29 +184,29 @@
 }
 
 .schedule-slot.selected {
-  background: linear-gradient(to bottom, var(--accent), var(--accent-dark));
+  background: linear-gradient(to bottom, var(--accent-light), var(--accent), var(--accent-dark));
   border-color: var(--accent-dark);
 }
 
 @media (max-width: 768px) {
   .schedule-grid {
-    grid-template-columns: 50px repeat(7, 1fr);
+    grid-template-columns: 40px repeat(7, 1fr);
   }
   
   .time-header, .day-header, .time-slot {
-    padding: 5px;
+    padding: 4px 2px;
     font-size: 0.65rem;
   }
   
   .schedule-slot {
-    min-height: 25px;
+    height: 25px;
   }
 }
 
 .selected-times {
   margin-top: 15px;
   padding: 10px;
-  background: linear-gradient(to bottom, #f8f8f8, #f0f0f0);
+  background: linear-gradient(to bottom, #ffffff, #f8f8f8, #f0f0f0);
   border-radius: 8px;
   border: 1px solid var(--primary-light);
 }
@@ -223,7 +225,7 @@
 }
 
 .selected-times li {
-  background: linear-gradient(to right, var(--primary), var(--primary-light));
+  background: linear-gradient(to right, var(--primary-dark), var(--primary), var(--primary-light));
   color: white;
   padding: 5px 10px;
   border-radius: 15px;

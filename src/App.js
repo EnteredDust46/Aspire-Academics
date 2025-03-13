@@ -377,6 +377,7 @@ const ApplyTutor = () => {
     formData.append('access_key', accessKey);
     formData.append('name', e.target.name.value);
     formData.append('email', e.target.email.value);
+    formData.append('student_email', e.target.student_email.value);
     formData.append('phone', e.target.phone.value);
     formData.append('education', e.target.education.value);
     formData.append('subjects', Array.from(e.target.subjects.selectedOptions).map(opt => opt.value).join(', '));
@@ -396,6 +397,7 @@ const ApplyTutor = () => {
     formData.append('message', 
       `Experience:\n${e.target.experience.value}\n\n` +
       `Availability:\n${availabilityText}\n\n` +
+      `Student Email: ${e.target.student_email.value}\n\n` +
       `Available Start Date: ${e.target.availability.value}`
     );
     
@@ -436,11 +438,14 @@ const ApplyTutor = () => {
           <input type="email" name="email" placeholder="Email" required />
         </div>
         <div className="form-row">
+          <input type="email" name="student_email" placeholder="Student Email (if applicable)" />
           <input type="tel" name="phone" placeholder="Phone Number" required />
-          <input type="text" name="education" placeholder="Highest Education" required />
         </div>
         <div className="form-row">
+          <input type="text" name="education" placeholder="Highest Education" required />
           <input type="date" name="availability" placeholder="Available Start Date" required />
+        </div>
+        <div className="form-row">
           <select name="subjects" multiple required>
             <option value="">Select Subjects You Can Teach</option>
             <option value="math">Mathematics</option>
