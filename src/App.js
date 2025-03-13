@@ -60,21 +60,31 @@ const Navbar = () => (
 const Section = ({ title, content, imageUrl, children, subtitle, className }) => (
   <motion.section
     className={`section ${className || ''}`}
-    style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/${imageUrl})` }}
     variants={fadeIn}
     initial="hidden"
     animate="show"
   >
-    <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
-    {subtitle && <motion.h3>{subtitle}</motion.h3>}
-    {Array.isArray(content) ? (
-      content.map((paragraph, index) => (
-        <motion.p key={index}>{paragraph}</motion.p>
-      ))
-    ) : (
-      <motion.p>{content}</motion.p>
-    )}
-    {children}
+    <div className="section-container">
+      <div className="section-image-container">
+        <img 
+          src={`${process.env.PUBLIC_URL}/images/${imageUrl}`} 
+          alt={title} 
+          className="section-image" 
+        />
+      </div>
+      <div className="section-content">
+        <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
+        {subtitle && <motion.h3>{subtitle}</motion.h3>}
+        {Array.isArray(content) ? (
+          content.map((paragraph, index) => (
+            <motion.p key={index}>{paragraph}</motion.p>
+          ))
+        ) : (
+          <motion.p>{content}</motion.p>
+        )}
+        {children}
+      </div>
+    </div>
   </motion.section>
 );
 
@@ -444,28 +454,20 @@ const ApplyTutor = () => {
         <input name="name" placeholder="Full Name" required />
         <input type="email" name="email" placeholder="Email" required />
         <input type="tel" name="phone" placeholder="Phone Number" required />
+        <div className="form-row">
+          <input type="text" name="education" placeholder="Highest Education" required />
+          <input type="date" name="availability" placeholder="Available Start Date" required />
+        </div>
         <select name="subjects" multiple required>
+          <option value="">Select Subjects You Can Teach</option>
           <option value="math">Mathematics</option>
           <option value="science">Science</option>
           <option value="english">English</option>
-          <option value="test-prep">Test Prep</option>
+          <option value="history">History</option>
+          <option value="sat">SAT Prep</option>
+          <option value="act">ACT Prep</option>
         </select>
-        <textarea name="experience" placeholder="Describe your teaching experience and qualifications" required></textarea>
-        <div className="form-group">
-          <label htmlFor="resume">Upload Resume (PDF, DOC, or DOCX)</label>
-          <input
-            type="file"
-            id="resume"
-            name="resume"
-            accept=".pdf,.doc,.docx"
-            required
-          />
-        </div>
-        <div className="form-section">
-          <h4>Select Your Available Time Slots</h4>
-          <p>Click on the time slots when you're available to tutor</p>
-          <WeeklySchedule onScheduleChange={setAvailability} />
-        </div>
+        <textarea name="experience" placeholder="Describe your teaching experience" required rows="5"></textarea>
         <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
       </form>
     </Section>
@@ -495,7 +497,7 @@ const ApplyStudent = () => {
     formData.append('phone', e.target.phone.value);
     formData.append('grade', e.target.grade.value);
     formData.append('subjects', Array.from(e.target.subjects.selectedOptions).map(opt => opt.value).join(', '));
-    formData.append('message', e.target.requirements.value);
+    formData.append('message', e.target.goals.value);
     
     // Add preferred times to the message
     const preferredTimesText = preferredTimes
@@ -506,7 +508,7 @@ const ApplyStudent = () => {
       .join('\n');
     
     formData.append('message', 
-      `Preferred Times:\n${preferredTimesText}\n\nRequirements:\n${e.target.requirements.value}`
+      `Preferred Times:\n${preferredTimesText}\n\nGoals:\n${e.target.goals.value}`
     );
     
     formData.append('from_name', "Aspire Academics Website");
@@ -545,31 +547,29 @@ const ApplyStudent = () => {
       imageUrl="about.jpg"
     >
       <form className="form" onSubmit={handleSubmit}>
-        <input name="name" placeholder="Full Name" required />
-        <input type="email" name="email" placeholder="Email" required />
+        <input name="name" placeholder="Student Name" required />
+        <input type="email" name="email" placeholder="Parent/Guardian Email" required />
         <input type="tel" name="phone" placeholder="Phone Number" required />
-        <select name="grade" required>
-          <option value="">Select Grade Level</option>
-          <option value="elementary">Elementary School</option>
-          <option value="middle">Middle School</option>
-          <option value="high">High School</option>
-          <option value="college">College</option>
-          <option value="adult">Adult Learner</option>
-        </select>
-        <select name="subjects" multiple required>
-          <option value="math">Mathematics</option>
-          <option value="science">Science</option>
-          <option value="english">English</option>
-          <option value="history">History</option>
-          <option value="sat">SAT Prep</option>
-          <option value="act">ACT Prep</option>
-        </select>
-        <div className="form-section">
-          <h4>Select Your Preferred Times</h4>
-          <p>Click on the time slots when you're available to be tutored</p>
-          <WeeklySchedule onScheduleChange={setPreferredTimes} />
+        <div className="form-row">
+          <select name="grade" required>
+            <option value="">Select Grade Level</option>
+            <option value="elementary">Elementary School</option>
+            <option value="middle">Middle School</option>
+            <option value="high">High School</option>
+            <option value="college">College</option>
+          </select>
+          <select name="subject" required>
+            <option value="">Select Subject</option>
+            <option value="math">Mathematics</option>
+            <option value="science">Science</option>
+            <option value="english">English</option>
+            <option value="history">History</option>
+            <option value="sat">SAT Prep</option>
+            <option value="act">ACT Prep</option>
+          </select>
         </div>
-        <textarea name="requirements" placeholder="Tell us about your academic goals and any specific areas where you need help" required></textarea>
+        <WeeklySchedule setPreferredTimes={setPreferredTimes} />
+        <textarea name="goals" placeholder="What are your academic goals?" required rows="5"></textarea>
         <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
       </form>
     </Section>
