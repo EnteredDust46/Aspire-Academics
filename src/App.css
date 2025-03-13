@@ -74,7 +74,7 @@ body {
 .section-content-wrapper {
   position: relative;
   z-index: 2;
-  max-width: 1200px;
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
   padding: 30px;
@@ -175,7 +175,7 @@ p {
   flex-direction: column;
   gap: 15px;
   margin-top: 30px;
-  max-width: 600px;
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
   background: linear-gradient(to bottom, #ffffff, #f8f8f8);
@@ -976,6 +976,9 @@ input[type="file"]:hover {
     rgba(127, 204, 211, 0.15));
   border-radius: 10px;
   border: 1px solid var(--primary-light);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .form-section h4 {
