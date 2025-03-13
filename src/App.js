@@ -1,12 +1,35 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { 
+  faGraduationCap, 
+  faChalkboardTeacher, 
+  faChartLine, 
+  faClock, 
+  faVideo, 
+  faMapMarkerAlt, 
+  faPhone, 
+  faEnvelope 
+} from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import logo from './assets/aspire-academics.png';
 import WeeklySchedule from './components/WeeklySchedule';
 import howItWorks1 from './assets/how-it-works-1.jpg';
 import howItWorks2 from './assets/how-it-works-2.jpg';
 import howItWorks3 from './assets/how-it-works-3.jpg';
+
+// Initialize FontAwesome
+library.add(
+  faGraduationCap, 
+  faChalkboardTeacher, 
+  faChartLine, 
+  faClock, 
+  faVideo, 
+  faMapMarkerAlt, 
+  faPhone, 
+  faEnvelope
+);
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
