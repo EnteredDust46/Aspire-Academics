@@ -345,18 +345,17 @@ const Tutors = () => (
 
 const Apply = () => (
   <Section
-    title="Apply to Aspire Academics"
-    subtitle="Join Our Community of Learners and Educators"
+    title="Apply Now"
+    subtitle="Start Your Journey to Academic Success"
     content={[
-      "Whether you're seeking academic support or want to join our team of dedicated tutors, we're excited to hear from you.",
-      "Our tutoring services are available both online and in-person, with flexible scheduling to accommodate your needs."
+      "We're excited to help you achieve your academic goals! Please select whether you're applying as a student or tutor."
     ]}
     imageUrl="apply-bg.jpg"
     className="apply-section"
   >
     <div className="apply-buttons">
-      <Link to="/apply-tutor" className="cta-button primary">Apply to be a Tutor</Link>
-      <Link to="/apply-student" className="cta-button primary">Apply for Tutoring</Link>
+      <Link to="/apply-student" className="apply-button">Apply as Student</Link>
+      <Link to="/apply-tutor" className="apply-button">Apply as Tutor</Link>
     </div>
   </Section>
 );
@@ -438,7 +437,7 @@ const ApplyTutor = () => {
         "Join our team of passionate educators and make a difference in students' lives.",
         "We're looking for experienced tutors in all academic subjects, particularly in STEM fields, standardized test prep, and writing."
       ]}
-      imageUrl="/images/tutor-apply.jpg"
+      imageUrl="tutor-apply.jpg"
     >
       <form className="form" onSubmit={handleSubmit}>
         <input name="name" placeholder="Full Name" required />
@@ -537,12 +536,12 @@ const ApplyStudent = () => {
   return (
     <Section 
       title="Student Application" 
-      subtitle="Start Your Journey to Academic Success"
+      subtitle="Begin Your Academic Journey"
       content={[
         "We're excited to help you achieve your academic goals! Please fill out the form below to get started with our tutoring services.",
         "One of our academic advisors will contact you within 24 hours to discuss your needs and create a personalized learning plan."
       ]}
-      imageUrl="/images/student-apply.jpg"
+      imageUrl="student-apply.jpg"
     >
       <form className="form" onSubmit={handleSubmit}>
         <input name="name" placeholder="Full Name" required />
