@@ -15,6 +15,7 @@ import {
 import './App.css';
 import logo from './assets/aspire-academics.png';
 import WeeklySchedule from './components/WeeklySchedule';
+import { getImagePath } from './imageConfig';
 
 // Initialize FontAwesome
 library.add(
@@ -350,7 +351,7 @@ const Apply = () => (
     content={[
       "We're excited to help you achieve your academic goals! Please select whether you're applying as a student or tutor."
     ]}
-    imageUrl="apply-bg.jpg"
+    imageUrl="about.jpg"
     className="apply-section"
   >
     <div className="apply-buttons">
