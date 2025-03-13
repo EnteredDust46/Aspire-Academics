@@ -133,4 +133,68 @@
     min-width: 60px;
     height: 30px;
   }
+}
+
+.weekly-schedule {
+  width: 100%;
+  overflow-x: auto;
+  margin: 20px 0;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 80px repeat(7, 1fr);
+  gap: 2px;
+}
+
+.time-header, .day-header {
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  background-color: var(--primary-light);
+  color: white;
+}
+
+.time-slot {
+  padding: 10px;
+  text-align: right;
+  background-color: var(--primary-light);
+  color: white;
+  font-size: 0.8rem;
+}
+
+.schedule-slot {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 30px;
+}
+
+.schedule-slot:hover {
+  background-color: #e0e0e0;
+}
+
+.schedule-slot.selected {
+  background-color: var(--accent);
+  border-color: var(--accent-dark);
+}
+
+@media (max-width: 768px) {
+  .schedule-grid {
+    grid-template-columns: 60px repeat(7, 1fr);
+  }
+  
+  .time-header, .day-header, .time-slot {
+    padding: 5px;
+    font-size: 0.7rem;
+  }
+  
+  .schedule-slot {
+    min-height: 25px;
+  }
 } 

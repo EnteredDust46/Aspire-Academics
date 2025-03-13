@@ -1,24 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './WeeklySchedule.css';
 
-const WeeklySchedule = ({ onScheduleChange }) => {
+const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const hours = Array.from({ length: 16 }, (_, i) => i + 8); // 8 AM to 11 PM
+  const hours = Array.from({ length: 12 }, (_, i) => i + 8); // 8 AM to 7 PM
   
-  const [selectedSlots, setSelectedSlots] = useState(new Set());
+  const [selectedSlots, setSelectedSlots] = useState([]);
   
-  const toggleTimeSlot = (day, hour) => {
-    const slot = `${day}-${hour}`;
-    const newSelectedSlots = new Set(selectedSlots);
+  const toggleSlot = (day, hour) => {
+    const slotId = `${day}-${hour}`;
+    const isSelected = selectedSlots.includes(slotId);
     
-    if (selectedSlots.has(slot)) {
-      newSelectedSlots.delete(slot);
+    let newSelectedSlots;
+    if (isSelected) {
+      newSelectedSlots = selectedSlots.filter(slot => slot !== slotId);
     } else {
-      newSelectedSlots.add(slot);
+      newSelectedSlots = [...selectedSlots, slotId];
     }
     
     setSelectedSlots(newSelectedSlots);
-    onScheduleChange(Array.from(newSelectedSlots));
+    if (typeof setPreferredTimes === 'function') {
+      setPreferredTimes(newSelectedSlots);
+    }
+    if (typeof onScheduleChange === 'function') {
+      onScheduleChange(newSelectedSlots);
+    }
   };
   
   const formatHour = (hour) => {
@@ -33,45 +39,42 @@ const WeeklySchedule = ({ onScheduleChange }) => {
   };
 
   const removeSlot = (slot) => {
-    const newSelectedSlots = new Set(selectedSlots);
-    newSelectedSlots.delete(slot);
+    const newSelectedSlots = selectedSlots.filter(s => s !== slot);
     setSelectedSlots(newSelectedSlots);
-    onScheduleChange(Array.from(newSelectedSlots));
+    if (typeof onScheduleChange === 'function') {
+      onScheduleChange(newSelectedSlots);
+    }
   };
 
   return (
-    <>
-      <div className="schedule-container">
-        <div className="schedule-grid">
-          <div className="time-labels">
-            <div className="corner-cell">Time</div>
-            {hours.map(hour => (
-              <div key={hour} className="time-label">
-                {formatHour(hour)}
-              </div>
-            ))}
-          </div>
-          
-          {days.map(day => (
-            <div key={day} className="day-row">
-              <div className="day-label">{day}</div>
-              {hours.map(hour => (
-                <div
-                  key={`${day}-${hour}`}
-                  className={`time-slot ${selectedSlots.has(`${day}-${hour}`) ? 'selected' : ''}`}
-                  onClick={() => toggleTimeSlot(day, hour)}
-                />
-              ))}
+    <div className="weekly-schedule">
+      <div className="schedule-grid">
+        <div className="time-header"></div>
+        {days.map(day => (
+          <div key={day} className="day-header">{day.substring(0, 3)}</div>
+        ))}
+        
+        {hours.map(hour => (
+          <React.Fragment key={hour}>
+            <div className="time-slot">
+              {hour > 12 ? `${hour - 12} PM` : hour === 12 ? '12 PM' : `${hour} AM`}
             </div>
-          ))}
-        </div>
+            {days.map(day => (
+              <div 
+                key={`${day}-${hour}`}
+                className={`schedule-slot ${selectedSlots.includes(`${day}-${hour}`) ? 'selected' : ''}`}
+                onClick={() => toggleSlot(day, hour)}
+              ></div>
+            ))}
+          </React.Fragment>
+        ))}
       </div>
       
-      {selectedSlots.size > 0 && (
+      {selectedSlots.length > 0 && (
         <div className="selected-times">
           <h5>Selected Time Slots:</h5>
           <ul>
-            {Array.from(selectedSlots).map(slot => (
+            {selectedSlots.map(slot => (
               <li key={slot}>
                 {formatSlot(slot)}
                 <button onClick={() => removeSlot(slot)}>&times;</button>
@@ -80,7 +83,7 @@ const WeeklySchedule = ({ onScheduleChange }) => {
           </ul>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

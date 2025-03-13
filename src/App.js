@@ -382,14 +382,16 @@ const ApplyTutor = () => {
     formData.append('subjects', Array.from(e.target.subjects.selectedOptions).map(opt => opt.value).join(', '));
     
     // Format availability times nicely
-    const availabilityText = preferredTimes
-      .map(slot => {
-        const [day, hour] = slot.split('-');
-        const period = hour >= 12 ? 'PM' : 'AM';
-        const displayHour = hour > 12 ? hour - 12 : hour;
-        return `${day} at ${displayHour}:00 ${period}`;
-      })
-      .join('\n');
+    const availabilityText = preferredTimes && preferredTimes.length > 0 
+      ? preferredTimes
+        .map(slot => {
+          const [day, hour] = slot.split('-');
+          const period = hour >= 12 ? 'PM' : 'AM';
+          const displayHour = hour > 12 ? hour - 12 : hour;
+          return `${day} at ${displayHour}:00 ${period}`;
+        })
+        .join('\n')
+      : 'No specific time slots selected';
     
     formData.append('message', 
       `Experience:\n${e.target.experience.value}\n\n` +
@@ -452,7 +454,10 @@ const ApplyTutor = () => {
         <div className="form-section">
           <h4>Select Your Available Time Slots</h4>
           <p>Click on the time slots when you're available to tutor</p>
-          <WeeklySchedule setPreferredTimes={setPreferredTimes} />
+          <WeeklySchedule 
+            setPreferredTimes={setPreferredTimes} 
+            onScheduleChange={(times) => setPreferredTimes(times)} 
+          />
         </div>
         <textarea name="experience" placeholder="Describe your teaching experience" required rows="5"></textarea>
         <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
@@ -480,14 +485,16 @@ const ApplyStudent = () => {
     formData.append('subject', e.target.subject.value);
     
     // Format preferred times nicely
-    const preferredTimesText = preferredTimes
-      .map(slot => {
-        const [day, hour] = slot.split('-');
-        const period = hour >= 12 ? 'PM' : 'AM';
-        const displayHour = hour > 12 ? hour - 12 : hour;
-        return `${day} at ${displayHour}:00 ${period}`;
-      })
-      .join('\n');
+    const preferredTimesText = preferredTimes && preferredTimes.length > 0
+      ? preferredTimes
+        .map(slot => {
+          const [day, hour] = slot.split('-');
+          const period = hour >= 12 ? 'PM' : 'AM';
+          const displayHour = hour > 12 ? hour - 12 : hour;
+          return `${day} at ${displayHour}:00 ${period}`;
+        })
+        .join('\n')
+      : 'No specific time slots selected';
     
     formData.append('message', 
       `Preferred Times:\n${preferredTimesText}\n\nGoals:\n${e.target.goals.value}`
@@ -554,7 +561,10 @@ const ApplyStudent = () => {
         <div className="form-section">
           <h4>Select Your Preferred Time Slots</h4>
           <p>Click on the time slots when you're available for tutoring</p>
-          <WeeklySchedule setPreferredTimes={setPreferredTimes} />
+          <WeeklySchedule 
+            setPreferredTimes={setPreferredTimes} 
+            onScheduleChange={(times) => setPreferredTimes(times)} 
+          />
         </div>
         <textarea name="goals" placeholder="What are your academic goals?" required rows="5"></textarea>
         <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
