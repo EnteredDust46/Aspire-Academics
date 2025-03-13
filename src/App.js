@@ -434,11 +434,11 @@ const ApplyTutor = () => {
   return (
     <Section 
       title="Tutor Application" 
+      subtitle="Join Our Team of Educators"
       content={[
-        "Join our team of passionate educators and make a difference in students' lives.",
         "We're looking for experienced tutors in all academic subjects, particularly in STEM fields, standardized test prep, and writing."
       ]}
-      imageUrl="tutor-apply.jpg"
+      imageUrl="about.jpg"
     >
       <form className="form" onSubmit={handleSubmit}>
         <input name="name" placeholder="Full Name" required />
@@ -542,7 +542,7 @@ const ApplyStudent = () => {
         "We're excited to help you achieve your academic goals! Please fill out the form below to get started with our tutoring services.",
         "One of our academic advisors will contact you within 24 hours to discuss your needs and create a personalized learning plan."
       ]}
-      imageUrl="student-apply.jpg"
+      imageUrl="about.jpg"
     >
       <form className="form" onSubmit={handleSubmit}>
         <input name="name" placeholder="Full Name" required />

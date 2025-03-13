@@ -584,7 +584,7 @@ button:hover {
 
 /* Update Apply section background */
 .apply-section {
-  background-image: url('/images/apply-bg.jpg');
+  background-image: url('/images/about.jpg');
   background-size: cover;
   background-position: center;
   position: relative;
