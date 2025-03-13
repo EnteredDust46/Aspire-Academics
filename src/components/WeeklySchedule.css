@@ -148,23 +148,28 @@
 .schedule-grid {
   display: grid;
   grid-template-columns: 60px repeat(7, minmax(60px, 1fr));
-  gap: 2px;
+  gap: 0;
   max-width: 100%;
   margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .time-header, .day-header {
   padding: 10px;
   text-align: center;
   font-weight: bold;
-  background: linear-gradient(to bottom, var(--primary-dark), var(--primary));
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
   color: white;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .time-slot {
   padding: 8px 2px;
   text-align: left;
-  background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--primary-light));
   color: white;
   font-size: 0.7rem;
   white-space: nowrap;
@@ -172,23 +177,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .schedule-slot {
-  background: linear-gradient(to bottom, #f5f5f5, #e8e8e8);
-  border: 1px solid #ddd;
+  background: linear-gradient(to bottom, #f8f8f8, #f0f0f0);
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   cursor: pointer;
   transition: all 0.2s ease;
   height: 35px;
 }
 
 .schedule-slot:hover {
-  background: linear-gradient(to bottom, #e8e8e8, #d8d8d8);
+  background: linear-gradient(to bottom, #e8e8e8, #d0d0d0);
 }
 
 .schedule-slot.selected {
-  background: linear-gradient(to bottom, var(--accent-light), var(--accent), var(--accent-dark));
+  background: linear-gradient(135deg, var(--accent-light), var(--accent), var(--accent-dark));
   border-color: var(--accent-dark);
+}
+
+.schedule-grid > *:nth-child(8n) {
+  border-right: none;
+}
+
+.schedule-grid > *:nth-last-child(-n+8) {
+  border-bottom: none;
 }
 
 @media (max-width: 768px) {
@@ -209,7 +225,7 @@
 .selected-times {
   margin-top: 15px;
   padding: 10px;
-  background: linear-gradient(to bottom, #ffffff, #f8f8f8, #f0f0f0);
+  background: linear-gradient(135deg, #ffffff, #f8f8f8, #f0f0f0);
   border-radius: 8px;
   border: 1px solid var(--primary-light);
 }
@@ -228,13 +244,14 @@
 }
 
 .selected-times li {
-  background: linear-gradient(to right, var(--primary-dark), var(--primary), var(--primary-light));
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--primary-light));
   color: white;
   padding: 5px 10px;
   border-radius: 15px;
   font-size: 0.85rem;
   display: flex;
   align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .selected-times li button {
@@ -247,4 +264,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.selected-times li button:hover {
+  transform: scale(1.2);
 } 

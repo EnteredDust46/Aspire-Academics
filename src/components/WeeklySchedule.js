@@ -60,7 +60,7 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
         {hours.map(hour => (
           <React.Fragment key={hour}>
             <div className="time-slot">
-              {hour > 12 ? `${hour - 12}` : hour === 12 ? '12' : hour}{hour >= 12 ? 'PM' : 'AM'}
+              {hour > 12 ? `${hour-12}` : hour}{hour >= 12 ? 'PM' : 'AM'}
             </div>
             {days.map(day => (
               <div 
