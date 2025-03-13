@@ -365,11 +365,58 @@ const Apply = () => (
 
 const ApplyTutor = () => {
   const navigate = useNavigate();
+  const [preferredTimes, setPreferredTimes] = useState([]);
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Form submission logic
-    navigate('/thank-you');
+    const formData = new FormData();
+    
+    const accessKey = '0e051380-5394-4e26-8ffd-af5cc378e7b6';
+    
+    // Add required fields
+    formData.append('access_key', accessKey);
+    formData.append('name', e.target.name.value);
+    formData.append('email', e.target.email.value);
+    formData.append('phone', e.target.phone.value);
+    formData.append('education', e.target.education.value);
+    formData.append('subjects', Array.from(e.target.subjects.selectedOptions).map(opt => opt.value).join(', '));
+    
+    // Format availability times nicely
+    const availabilityText = preferredTimes
+      .map(slot => {
+        const [day, hour] = slot.split('-');
+        const period = hour >= 12 ? 'PM' : 'AM';
+        const displayHour = hour > 12 ? hour - 12 : hour;
+        return `${day} at ${displayHour}:00 ${period}`;
+      })
+      .join('\n');
+    
+    formData.append('message', 
+      `Experience:\n${e.target.experience.value}\n\n` +
+      `Availability:\n${availabilityText}\n\n` +
+      `Available Start Date: ${e.target.availability.value}`
+    );
+    
+    formData.append('from_name', "Aspire Academics Website");
+    formData.append('subject', 'New Tutor Application');
+    
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        navigate('/thank-you');
+      } else {
+        throw new Error(data.message || 'Form submission failed');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('There was an error submitting your form. Please try again.');
+    }
   };
 
   return (
@@ -382,22 +429,31 @@ const ApplyTutor = () => {
       imageUrl="about.jpg"
     >
       <form className="form" onSubmit={handleSubmit}>
-        <input name="name" placeholder="Full Name" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <input type="tel" name="phone" placeholder="Phone Number" required />
         <div className="form-row">
-          <input type="text" name="education" placeholder="Highest Education" required />
-          <input type="date" name="availability" placeholder="Available Start Date" required />
+          <input name="name" placeholder="Full Name" required />
+          <input type="email" name="email" placeholder="Email" required />
         </div>
-        <select name="subjects" multiple required>
-          <option value="">Select Subjects You Can Teach</option>
-          <option value="math">Mathematics</option>
-          <option value="science">Science</option>
-          <option value="english">English</option>
-          <option value="history">History</option>
-          <option value="sat">SAT Prep</option>
-          <option value="act">ACT Prep</option>
-        </select>
+        <div className="form-row">
+          <input type="tel" name="phone" placeholder="Phone Number" required />
+          <input type="text" name="education" placeholder="Highest Education" required />
+        </div>
+        <div className="form-row">
+          <input type="date" name="availability" placeholder="Available Start Date" required />
+          <select name="subjects" multiple required>
+            <option value="">Select Subjects You Can Teach</option>
+            <option value="math">Mathematics</option>
+            <option value="science">Science</option>
+            <option value="english">English</option>
+            <option value="history">History</option>
+            <option value="sat">SAT Prep</option>
+            <option value="act">ACT Prep</option>
+          </select>
+        </div>
+        <div className="form-section">
+          <h4>Select Your Available Time Slots</h4>
+          <p>Click on the time slots when you're available to tutor</p>
+          <WeeklySchedule setPreferredTimes={setPreferredTimes} />
+        </div>
         <textarea name="experience" placeholder="Describe your teaching experience" required rows="5"></textarea>
         <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
       </form>
@@ -409,10 +465,54 @@ const ApplyStudent = () => {
   const [preferredTimes, setPreferredTimes] = useState([]);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Form submission logic
-    navigate('/thank-you');
+    const formData = new FormData();
+    
+    const accessKey = '0e051380-5394-4e26-8ffd-af5cc378e7b6';
+    
+    // Add required fields
+    formData.append('access_key', accessKey);
+    formData.append('name', e.target.name.value);
+    formData.append('email', e.target.email.value);
+    formData.append('phone', e.target.phone.value);
+    formData.append('grade', e.target.grade.value);
+    formData.append('subject', e.target.subject.value);
+    
+    // Format preferred times nicely
+    const preferredTimesText = preferredTimes
+      .map(slot => {
+        const [day, hour] = slot.split('-');
+        const period = hour >= 12 ? 'PM' : 'AM';
+        const displayHour = hour > 12 ? hour - 12 : hour;
+        return `${day} at ${displayHour}:00 ${period}`;
+      })
+      .join('\n');
+    
+    formData.append('message', 
+      `Preferred Times:\n${preferredTimesText}\n\nGoals:\n${e.target.goals.value}`
+    );
+    
+    formData.append('from_name', "Aspire Academics Website");
+    formData.append('subject', 'New Student Application');
+    
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        navigate('/thank-you');
+      } else {
+        throw new Error(data.message || 'Form submission failed');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('There was an error submitting your form. Please try again.');
+    }
   };
 
   return (
@@ -426,10 +526,12 @@ const ApplyStudent = () => {
       imageUrl="about.jpg"
     >
       <form className="form" onSubmit={handleSubmit}>
-        <input name="name" placeholder="Student Name" required />
-        <input type="email" name="email" placeholder="Parent/Guardian Email" required />
-        <input type="tel" name="phone" placeholder="Phone Number" required />
         <div className="form-row">
+          <input name="name" placeholder="Student Name" required />
+          <input type="email" name="email" placeholder="Parent/Guardian Email" required />
+        </div>
+        <div className="form-row">
+          <input type="tel" name="phone" placeholder="Phone Number" required />
           <select name="grade" required>
             <option value="">Select Grade Level</option>
             <option value="elementary">Elementary School</option>
@@ -437,6 +539,8 @@ const ApplyStudent = () => {
             <option value="high">High School</option>
             <option value="college">College</option>
           </select>
+        </div>
+        <div className="form-row">
           <select name="subject" required>
             <option value="">Select Subject</option>
             <option value="math">Mathematics</option>
@@ -447,7 +551,11 @@ const ApplyStudent = () => {
             <option value="act">ACT Prep</option>
           </select>
         </div>
-        <WeeklySchedule setPreferredTimes={setPreferredTimes} />
+        <div className="form-section">
+          <h4>Select Your Preferred Time Slots</h4>
+          <p>Click on the time slots when you're available for tutoring</p>
+          <WeeklySchedule setPreferredTimes={setPreferredTimes} />
+        </div>
         <textarea name="goals" placeholder="What are your academic goals?" required rows="5"></textarea>
         <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
       </form>
@@ -491,13 +599,7 @@ const Contact = () => {
     e.preventDefault();
     const formData = new FormData();
     
-    const accessKey = process.env.REACT_APP_WEB3FORMS_KEY;
-    console.log('Access Key:', accessKey); // Debug log
-    
-    if (!accessKey) {
-      alert('Error: Web3Forms access key not found');
-      return;
-    }
+    const accessKey = '0e051380-5394-4e26-8ffd-af5cc378e7b6';
     
     // Add required fields
     formData.append('access_key', accessKey);
@@ -508,15 +610,12 @@ const Contact = () => {
     formData.append('subject', 'New Contact Form Submission');
     
     try {
-      console.log('Submitting form with data:', Object.fromEntries(formData)); // Debug log
-      
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: formData
       });
 
       const data = await response.json();
-      console.log('Response:', data); // Debug log
 
       if (data.success) {
         alert('Message sent successfully! We will get back to you soon.');
@@ -556,16 +655,20 @@ const Contact = () => {
           </div>
         </div>
         <form className="form contact-form" onSubmit={handleSubmit}>
-          <input name="name" placeholder="Full Name" required />
-          <input type="email" name="email" placeholder="Email" required />
-          <input type="tel" name="phone" placeholder="Phone (optional)" />
-          <select name="inquiry-type" required>
-            <option value="">Select Inquiry Type</option>
-            <option value="tutoring">Tutoring Services</option>
-            <option value="test-prep">Test Preparation</option>
-            <option value="pricing">Pricing Information</option>
-            <option value="other">Other</option>
-          </select>
+          <div className="form-row">
+            <input name="name" placeholder="Full Name" required />
+            <input type="email" name="email" placeholder="Email" required />
+          </div>
+          <div className="form-row">
+            <input type="tel" name="phone" placeholder="Phone (optional)" />
+            <select name="inquiry-type" required>
+              <option value="">Select Inquiry Type</option>
+              <option value="tutoring">Tutoring Services</option>
+              <option value="test-prep">Test Preparation</option>
+              <option value="pricing">Pricing Information</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
           <textarea name="message" placeholder="Your Message" required rows="5"></textarea>
           <motion.button type="submit" whileHover={{ scale: 1.05 }}>Send Message</motion.button>
         </form>
