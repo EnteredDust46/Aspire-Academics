@@ -15,9 +15,6 @@ import {
 import './App.css';
 import logo from './assets/aspire-academics.png';
 import WeeklySchedule from './components/WeeklySchedule';
-import howItWorks1 from './assets/how-it-works-1.jpg';
-import howItWorks2 from './assets/how-it-works-2.jpg';
-import howItWorks3 from './assets/how-it-works-3.jpg';
 
 // Initialize FontAwesome
 library.add(
@@ -638,7 +635,7 @@ const HowItWorks = () => (
       content={[
         "Our streamlined process makes it easy to get started with personalized tutoring that fits your schedule and learning style.",
       ]}
-      imageUrl="/images/how-it-works-hero.jpg"
+      imageUrl="/images/learning.jpg"
     />
     
     <motion.section 
@@ -655,7 +652,7 @@ const HowItWorks = () => (
           transition={{ type: "spring", stiffness: 300 }}
         >
           <div className="step-number">1</div>
-          <img src={howItWorks1} alt="Initial Consultation" className="step-image" />
+          <img src="/images/how-it-works-1.jpg" alt="Initial Consultation" className="step-image" />
           <h3>Initial Consultation</h3>
           <p>Schedule a free consultation to discuss your academic goals and challenges. We'll learn about your learning style and match you with the perfect tutor.</p>
         </motion.div>
@@ -666,7 +663,7 @@ const HowItWorks = () => (
           transition={{ type: "spring", stiffness: 300 }}
         >
           <div className="step-number">2</div>
-          <img src={howItWorks2} alt="Personalized Plan" className="step-image" />
+          <img src="/images/how-it-works-2.jpg" alt="Personalized Plan" className="step-image" />
           <h3>Personalized Learning Plan</h3>
           <p>Your tutor creates a customized study plan targeting your specific needs and goals, incorporating proven teaching methods and materials.</p>
         </motion.div>
@@ -677,7 +674,7 @@ const HowItWorks = () => (
           transition={{ type: "spring", stiffness: 300 }}
         >
           <div className="step-number">3</div>
-          <img src={howItWorks3} alt="Regular Sessions" className="step-image" />
+          <img src="/images/how-it-works-3.jpg" alt="Regular Sessions" className="step-image" />
           <h3>Regular Sessions</h3>
           <p>Attend regular one-on-one tutoring sessions, either online or in-person. Track your progress and adjust the plan as needed to ensure optimal results.</p>
         </motion.div>
