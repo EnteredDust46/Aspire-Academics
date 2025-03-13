@@ -59,7 +59,7 @@ const Navbar = () => (
 const Section = ({ title, content, imageUrl, children, subtitle, className }) => (
   <motion.section
     className={`section ${className || ''}`}
-    style={{ backgroundImage: `url(${process.env.PUBLIC_URL + imageUrl})` }}
+    style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/${imageUrl})` }}
     variants={fadeIn}
     initial="hidden"
     animate="show"
@@ -117,7 +117,7 @@ const Home = () => (
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
       >
-        <img src="/images/hero-student.jpg" alt="Student learning" className="hero-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/hero-student.jpg`} alt="Student learning" className="hero-image" />
       </motion.div>
     </motion.section>
 
@@ -218,7 +218,7 @@ const About = () => (
       "Our approach combines traditional teaching methods with modern learning technologies to create an engaging and effective learning experience.",
       "We measure our success through our students' achievements and their growing confidence in tackling academic challenges."
     ]}
-    imageUrl="/images/about.jpg"
+    imageUrl="about.jpg"
   />
 );
 
@@ -230,7 +230,7 @@ const Services = () => (
       "We offer a wide range of tutoring services to help students achieve their academic goals.",
       "All our programs are customized to meet individual student needs and learning styles."
     ]}
-    imageUrl="/images/services.jpg"
+    imageUrl="services.jpg"
   >
     <div className="services-grid">
       <motion.div 
@@ -303,7 +303,7 @@ const Tutors = () => (
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <img src="/images/student1.jpg" alt="Math & Science Tutor" className="tutor-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/student1.jpg`} alt="Math & Science Tutor" className="tutor-image" />
         <div className="tutor-info">
           <h3>Dr. Sarah Johnson</h3>
           <h4>Math & Science Specialist</h4>
@@ -317,7 +317,7 @@ const Tutors = () => (
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <img src="/images/student2.jpg" alt="English & Literature Tutor" className="tutor-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/student2.jpg`} alt="English & Literature Tutor" className="tutor-image" />
         <div className="tutor-info">
           <h3>Prof. Michael Chen</h3>
           <h4>English & Literature Expert</h4>
@@ -331,7 +331,7 @@ const Tutors = () => (
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <img src="/images/student3.jpg" alt="Test Prep Specialist" className="tutor-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/student3.jpg`} alt="Test Prep Specialist" className="tutor-image" />
         <div className="tutor-info">
           <h3>Ms. Amanda Torres</h3>
           <h4>Test Prep Specialist</h4>
@@ -351,7 +351,7 @@ const Apply = () => (
       "Whether you're seeking academic support or want to join our team of dedicated tutors, we're excited to hear from you.",
       "Our tutoring services are available both online and in-person, with flexible scheduling to accommodate your needs."
     ]}
-    imageUrl="/images/apply-bg.jpg"
+    imageUrl="apply-bg.jpg"
     className="apply-section"
   >
     <div className="apply-buttons">
@@ -583,21 +583,21 @@ const Testimonials = () => (
     content={[
       "Our tutoring services have helped hundreds of students achieve their academic goals. Here are some of their stories:",
     ]}
-    imageUrl="/images/testimonials.jpg"
+    imageUrl="testimonials.jpg"
   >
     <div className="testimonials-grid">
       <motion.div className="testimonial-card" whileHover={{ scale: 1.02 }}>
-        <img src="/images/student1.jpg" alt="Sarah M." className="testimonial-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/student1.jpg`} alt="Sarah M." className="testimonial-image" />
         <h4>Sarah M. - Harvard University</h4>
         <p>"Thanks to Aspire Academics' SAT prep, I improved my score by 300 points and got into my dream school!"</p>
       </motion.div>
       <motion.div className="testimonial-card" whileHover={{ scale: 1.02 }}>
-        <img src="/images/student2.jpg" alt="James K." className="testimonial-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/student2.jpg`} alt="James K." className="testimonial-image" />
         <h4>James K. - High School Senior</h4>
         <p>"My math grades went from C's to A's after just one semester of tutoring. The personalized attention made all the difference."</p>
       </motion.div>
       <motion.div className="testimonial-card" whileHover={{ scale: 1.02 }}>
-        <img src="/images/student3.jpg" alt="Emily R." className="testimonial-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/student3.jpg`} alt="Emily R." className="testimonial-image" />
         <h4>Emily R. - Medical Student</h4>
         <p>"The study skills I learned at Aspire Academics helped me excel in pre-med and get into medical school."</p>
       </motion.div>
@@ -659,7 +659,7 @@ const Contact = () => {
         "Have questions about our tutoring services? Want to learn more about our programs? Reach out to us!",
         "Our team typically responds within 24 hours."
       ]}
-      imageUrl="/images/contact.jpg"
+      imageUrl="contact.jpg"
     >
       <div className="contact-container">
         <div className="contact-info">
@@ -703,7 +703,7 @@ const ThankYou = () => (
       "Thank you for reaching out to Aspire Academics. We will review your submission and get back to you within 24 hours.",
       "In the meantime, feel free to explore our services and resources."
     ]}
-    imageUrl="/images/thank-you.jpg"
+    imageUrl="thank-you.jpg"
   >
     <Link to="/" className="apply-button">Return Home</Link>
   </Section>
@@ -717,7 +717,7 @@ const HowItWorks = () => (
       content={[
         "Our streamlined process makes it easy to get started with personalized tutoring that fits your schedule and learning style.",
       ]}
-      imageUrl="/images/learning.jpg"
+      imageUrl="learning.jpg"
     />
     
     <motion.section 
@@ -734,7 +734,7 @@ const HowItWorks = () => (
           transition={{ type: "spring", stiffness: 300 }}
         >
           <div className="step-number">1</div>
-          <img src="/images/student1.jpg" alt="Initial Consultation" className="step-image" />
+          <img src={`${process.env.PUBLIC_URL}/images/student1.jpg`} alt="Initial Consultation" className="step-image" />
           <h3>Initial Consultation</h3>
           <p>Schedule a free consultation to discuss your academic goals and challenges. We'll learn about your learning style and match you with the perfect tutor.</p>
         </motion.div>
@@ -745,7 +745,7 @@ const HowItWorks = () => (
           transition={{ type: "spring", stiffness: 300 }}
         >
           <div className="step-number">2</div>
-          <img src="/images/student2.jpg" alt="Personalized Plan" className="step-image" />
+          <img src={`${process.env.PUBLIC_URL}/images/student2.jpg`} alt="Personalized Plan" className="step-image" />
           <h3>Personalized Learning Plan</h3>
           <p>Your tutor creates a customized study plan targeting your specific needs and goals, incorporating proven teaching methods and materials.</p>
         </motion.div>
@@ -756,7 +756,7 @@ const HowItWorks = () => (
           transition={{ type: "spring", stiffness: 300 }}
         >
           <div className="step-number">3</div>
-          <img src="/images/student3.jpg" alt="Regular Sessions" className="step-image" />
+          <img src={`${process.env.PUBLIC_URL}/images/student3.jpg`} alt="Regular Sessions" className="step-image" />
           <h3>Regular Sessions</h3>
           <p>Attend regular one-on-one tutoring sessions, either online or in-person. Track your progress and adjust the plan as needed to ensure optimal results.</p>
         </motion.div>
