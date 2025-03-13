@@ -138,18 +138,23 @@
 .weekly-schedule {
   width: 100%;
   overflow-x: auto;
-  margin: 20px 0;
+  margin: 20px auto;
   background: linear-gradient(145deg, #ffffff, #f0f0f0);
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 850px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .schedule-grid {
   display: grid;
-  grid-template-columns: 50px repeat(7, 1fr);
+  grid-template-columns: 60px repeat(7, 1fr);
   gap: 0;
-  max-width: 100%;
+  width: 100%;
+  min-width: 800px;
   margin: 0 auto;
   border: 1px solid #ddd;
   border-collapse: collapse;
@@ -189,6 +194,9 @@
   margin: 0;
   height: 40px;
   box-sizing: border-box;
+  width: 60px;
+  min-width: 60px;
+  overflow: hidden;
 }
 
 .schedule-slot {
@@ -201,6 +209,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  min-width: 80px;
 }
 
 .schedule-slot:hover {
@@ -220,9 +229,14 @@
   border-bottom: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .weekly-schedule {
+    padding: 10px;
+  }
+  
   .schedule-grid {
-    grid-template-columns: 40px repeat(7, 1fr);
+    grid-template-columns: 50px repeat(7, 1fr);
+    min-width: 700px;
   }
   
   .time-header, .day-header, .time-slot {
@@ -231,8 +245,29 @@
     height: 35px;
   }
   
+  .time-slot {
+    width: 50px;
+    min-width: 50px;
+  }
+  
   .schedule-slot {
     height: 35px;
+    min-width: 70px;
+  }
+  
+  .selected-times {
+    min-width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-section {
+    padding: 15px 10px;
+  }
+  
+  .weekly-schedule {
+    padding: 5px;
+    margin: 10px 0;
   }
 }
 
@@ -242,6 +277,10 @@
   background: linear-gradient(145deg, #ffffff 0%, #f0f0f0 100%);
   border-radius: 8px;
   border: 1px solid var(--primary-light);
+  width: 100%;
+  min-width: 800px;
+  max-width: 850px;
+  box-sizing: border-box;
 }
 
 .selected-times h5 {
@@ -283,4 +322,18 @@
 
 .selected-times li button:hover {
   transform: scale(1.2);
+}
+
+.form-section {
+  margin: 20px 0;
+  padding: 20px;
+  background: linear-gradient(165deg, #ffffff 0%, #f0f0f0 100%);
+  border-radius: 10px;
+  border: 1px solid var(--primary-light);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 } 
