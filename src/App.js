@@ -227,15 +227,64 @@ const Services = () => (
     title="Our Services"
     subtitle="Comprehensive Academic Support"
     content={[
-      "SAT/ACT Test Preparation: Structured programs with practice tests, strategies, and personalized feedback to maximize your scores.",
-      "Mathematics: From algebra to calculus, our tutors break down complex concepts into manageable steps.",
-      "Sciences: Expert guidance in biology, chemistry, physics, and other scientific disciplines.",
-      "English & Writing: Develop strong writing skills, literary analysis, and reading comprehension.",
-      "Foreign Languages: Spanish, French, and other language tutoring with native speakers.",
-      "Study Skills: Learn effective time management, organization, and test-taking strategies."
+      "We offer a wide range of tutoring services to help students achieve their academic goals.",
+      "All our programs are customized to meet individual student needs and learning styles."
     ]}
     imageUrl="/images/services.jpg"
-  />
+  >
+    <div className="services-grid">
+      <motion.div 
+        className="service-card"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        <i className="fas fa-graduation-cap"></i>
+        <h3>Academic Tutoring</h3>
+        <p>One-on-one tutoring in all major subjects for K-12 and college students</p>
+        <ul>
+          <li>Mathematics</li>
+          <li>Sciences</li>
+          <li>English & Literature</li>
+          <li>History & Social Studies</li>
+          <li>Foreign Languages</li>
+        </ul>
+      </motion.div>
+
+      <motion.div 
+        className="service-card"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        <i className="fas fa-book"></i>
+        <h3>Test Preparation</h3>
+        <p>Comprehensive prep for standardized tests</p>
+        <ul>
+          <li>SAT & ACT</li>
+          <li>AP Exams</li>
+          <li>GRE & GMAT</li>
+          <li>Subject Tests</li>
+          <li>State Assessments</li>
+        </ul>
+      </motion.div>
+
+      <motion.div 
+        className="service-card"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        <i className="fas fa-tasks"></i>
+        <h3>Study Skills</h3>
+        <p>Building fundamental academic skills</p>
+        <ul>
+          <li>Time Management</li>
+          <li>Note-Taking</li>
+          <li>Organization</li>
+          <li>Test-Taking Strategies</li>
+          <li>Research Methods</li>
+        </ul>
+      </motion.div>
+    </div>
+  </Section>
 );
 
 const Tutors = () => (
@@ -243,20 +292,53 @@ const Tutors = () => (
     title="Meet Our Tutors"
     subtitle="Expert Educators Dedicated to Your Success"
     content={[
-      "Our tutors are more than just teachers - they're mentors who are passionate about helping students achieve their full potential.",
-      "Each tutor brings unique expertise and teaching methods, allowing us to match students with the perfect instructor for their learning style."
+      "Our tutors are carefully selected based on their academic excellence, teaching experience, and passion for education.",
+      "Each tutor undergoes thorough background checks and regular training to ensure the highest quality of instruction."
     ]}
     imageUrl="/images/tutors.jpg"
   >
     <div className="tutors-grid">
-      {[1, 2, 3, 4].map((num) => (
-        <motion.div key={num} className="tutor-card" whileHover={{ scale: 1.05 }}>
-          <img src={`/images/tutor${num}.jpg`} alt={`Tutor ${num}`} className="tutor-image" />
-          <h4>Dr. Sarah Johnson</h4>
-          <p>Ph.D. in Mathematics</p>
-          <p>10+ years teaching experience</p>
-        </motion.div>
-      ))}
+      <motion.div 
+        className="tutor-card"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        <img src="/images/student1.jpg" alt="Math & Science Tutor" className="tutor-image" />
+        <div className="tutor-info">
+          <h3>Dr. Sarah Johnson</h3>
+          <h4>Math & Science Specialist</h4>
+          <p>Ph.D. in Physics | 10+ Years Teaching Experience</p>
+          <p>Specializes in AP Physics, Calculus, and SAT Math</p>
+        </div>
+      </motion.div>
+
+      <motion.div 
+        className="tutor-card"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        <img src="/images/student2.jpg" alt="English & Literature Tutor" className="tutor-image" />
+        <div className="tutor-info">
+          <h3>Prof. Michael Chen</h3>
+          <h4>English & Literature Expert</h4>
+          <p>M.A. in English Literature | Published Author</p>
+          <p>Specializes in Essay Writing and SAT Verbal</p>
+        </div>
+      </motion.div>
+
+      <motion.div 
+        className="tutor-card"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        <img src="/images/student3.jpg" alt="Test Prep Specialist" className="tutor-image" />
+        <div className="tutor-info">
+          <h3>Ms. Amanda Torres</h3>
+          <h4>Test Prep Specialist</h4>
+          <p>B.S. in Education | Certified Test Prep Instructor</p>
+          <p>Specializes in SAT, ACT, and GRE Preparation</p>
+        </div>
+      </motion.div>
     </div>
   </Section>
 );
@@ -652,7 +734,7 @@ const HowItWorks = () => (
           transition={{ type: "spring", stiffness: 300 }}
         >
           <div className="step-number">1</div>
-          <img src="/images/how-it-works-1.jpg" alt="Initial Consultation" className="step-image" />
+          <img src="/images/student1.jpg" alt="Initial Consultation" className="step-image" />
           <h3>Initial Consultation</h3>
           <p>Schedule a free consultation to discuss your academic goals and challenges. We'll learn about your learning style and match you with the perfect tutor.</p>
         </motion.div>
@@ -663,7 +745,7 @@ const HowItWorks = () => (
           transition={{ type: "spring", stiffness: 300 }}
         >
           <div className="step-number">2</div>
-          <img src="/images/how-it-works-2.jpg" alt="Personalized Plan" className="step-image" />
+          <img src="/images/student2.jpg" alt="Personalized Plan" className="step-image" />
           <h3>Personalized Learning Plan</h3>
           <p>Your tutor creates a customized study plan targeting your specific needs and goals, incorporating proven teaching methods and materials.</p>
         </motion.div>
@@ -674,7 +756,7 @@ const HowItWorks = () => (
           transition={{ type: "spring", stiffness: 300 }}
         >
           <div className="step-number">3</div>
-          <img src="/images/how-it-works-3.jpg" alt="Regular Sessions" className="step-image" />
+          <img src="/images/student3.jpg" alt="Regular Sessions" className="step-image" />
           <h3>Regular Sessions</h3>
           <p>Attend regular one-on-one tutoring sessions, either online or in-person. Track your progress and adjust the plan as needed to ensure optimal results.</p>
         </motion.div>
