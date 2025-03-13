@@ -295,7 +295,7 @@ const Tutors = () => (
       "Our tutors are carefully selected based on their academic excellence, teaching experience, and passion for education.",
       "Each tutor undergoes thorough background checks and regular training to ensure the highest quality of instruction."
     ]}
-    imageUrl="/images/tutors.jpg"
+    imageUrl="tutors.jpg"
   >
     <div className="tutors-grid">
       <motion.div 
