@@ -5,6 +5,8 @@
   background: var(--neutral-white);
   padding: 20px;
   border-radius: 8px;
+  border: 2px solid var(--primary-light);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .schedule-grid {
@@ -16,35 +18,46 @@
 .time-labels {
   display: flex;
   border-bottom: 1px solid var(--primary-light);
+  background-color: var(--primary);
+  border-radius: 8px 8px 0 0;
+  color: var(--text-light);
 }
 
 .corner-cell {
   width: 100px;
   min-width: 100px;
+  padding: 12px;
+  font-weight: 600;
 }
 
 .time-label {
   width: 80px;
   min-width: 80px;
-  padding: 8px;
+  padding: 12px 8px;
   text-align: center;
   font-size: 0.8rem;
-  color: var(--text-dark);
+  font-weight: 600;
 }
 
 .day-row {
   display: flex;
   border-bottom: 1px solid var(--primary-light);
+  transition: background-color 0.2s ease;
+}
+
+.day-row:hover {
+  background-color: rgba(103, 188, 196, 0.05);
 }
 
 .day-label {
   width: 100px;
   min-width: 100px;
-  padding: 8px;
+  padding: 12px;
   font-weight: 600;
   color: var(--text-dark);
   display: flex;
   align-items: center;
+  background-color: var(--primary-light);
 }
 
 .time-slot {
@@ -57,12 +70,51 @@
 }
 
 .time-slot:hover {
-  background-color: var(--primary-light);
+  background-color: var(--accent-light);
   opacity: 0.7;
 }
 
 .time-slot.selected {
-  background-color: var(--primary);
+  background-color: var(--accent);
+}
+
+.selected-times {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--neutral-white);
+  border-radius: 8px;
+  border: 1px solid var(--primary-light);
+}
+
+.selected-times h5 {
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.selected-times ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.selected-times li {
+  background-color: var(--primary-light);
+  color: var(--text-dark);
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+.selected-times li button {
+  background: none;
+  border: none;
+  color: var(--secondary);
+  margin-left: 5px;
+  cursor: pointer;
+  padding: 0 5px;
 }
 
 @media (max-width: 768px) {

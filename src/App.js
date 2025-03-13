@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 import './App.css';
 import logo from './assets/aspire-academics.png';
 import WeeklySchedule from './components/WeeklySchedule';
+import howItWorks1 from './assets/how-it-works-1.jpg';
+import howItWorks2 from './assets/how-it-works-2.jpg';
+import howItWorks3 from './assets/how-it-works-3.jpg';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -23,6 +26,7 @@ const Navbar = () => (
     <div className="nav-links">
       <Link to="/">Home</Link>
       <Link to="/about">About</Link>
+      <Link to="/how-it-works">How It Works</Link>
       <Link to="/services">Services</Link>
       <Link to="/tutors">Meet Our Tutors</Link>
       <Link to="/apply">Apply</Link>
@@ -32,9 +36,9 @@ const Navbar = () => (
   </motion.nav>
 );
 
-const Section = ({ title, content, imageUrl, children, subtitle }) => (
+const Section = ({ title, content, imageUrl, children, subtitle, className }) => (
   <motion.section
-    className="section"
+    className={`section ${className || ''}`}
     style={{ backgroundImage: `url(${process.env.PUBLIC_URL + imageUrl})` }}
     variants={fadeIn}
     initial="hidden"
@@ -54,16 +58,134 @@ const Section = ({ title, content, imageUrl, children, subtitle }) => (
 );
 
 const Home = () => (
-  <Section
-    title="Welcome to Aspire Academics"
-    subtitle="Empowering Students Through Personalized Learning"
-    content={[
-      "At Aspire Academics, we believe every student has the potential to excel. Our personalized tutoring approach focuses on building confidence, developing strong study habits, and achieving academic success.",
-      "Our experienced tutors work one-on-one with students to identify their unique learning styles and create customized study plans that deliver results.",
-      "Whether you're preparing for standardized tests, need help with specific subjects, or want to advance your academic career, we're here to support your educational journey."
-    ]}
-    imageUrl="/images/home.jpg"
-  />
+  <>
+    <motion.section 
+      className="hero-section"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      <div className="hero-content">
+        <motion.h1
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
+          Transform Your Academic Journey
+        </motion.h1>
+        <motion.p
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="hero-subtitle"
+        >
+          Personalized tutoring that empowers students to achieve their full potential
+        </motion.p>
+        <motion.div
+          className="hero-buttons"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+        >
+          <Link to="/apply-student" className="cta-button primary">Get Started</Link>
+          <Link to="/services" className="cta-button secondary">Learn More</Link>
+        </motion.div>
+      </div>
+      <motion.div 
+        className="hero-image-container"
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+      >
+        <img src="/images/hero-student.jpg" alt="Student learning" className="hero-image" />
+      </motion.div>
+    </motion.section>
+
+    <motion.section 
+      className="features-section"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="features-grid">
+        <motion.div 
+          className="feature-card"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <i className="fas fa-graduation-cap"></i>
+          <h3>Expert Tutors</h3>
+          <p>Learn from experienced educators passionate about student success</p>
+        </motion.div>
+        <motion.div 
+          className="feature-card"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <i className="fas fa-chalkboard-teacher"></i>
+          <h3>Personalized Learning</h3>
+          <p>Customized study plans tailored to your unique needs and goals</p>
+        </motion.div>
+        <motion.div 
+          className="feature-card"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <i className="fas fa-chart-line"></i>
+          <h3>Proven Results</h3>
+          <p>Track your progress with measurable improvements in grades and scores</p>
+        </motion.div>
+      </div>
+    </motion.section>
+
+    <motion.section 
+      className="stats-section"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="stats-grid">
+        <div className="stat-item">
+          <motion.span 
+            className="stat-number"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 100 }}
+          >
+            95%
+          </motion.span>
+          <p>Student Satisfaction</p>
+        </div>
+        <div className="stat-item">
+          <motion.span 
+            className="stat-number"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
+          >
+            500+
+          </motion.span>
+          <p>Students Helped</p>
+        </div>
+        <div className="stat-item">
+          <motion.span 
+            className="stat-number"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+          >
+            30+
+          </motion.span>
+          <p>Expert Tutors</p>
+        </div>
+      </div>
+    </motion.section>
+  </>
 );
 
 const About = () => (
@@ -125,14 +247,14 @@ const Apply = () => (
     subtitle="Join Our Community of Learners and Educators"
     content={[
       "Whether you're seeking academic support or want to join our team of dedicated tutors, we're excited to hear from you.",
-      "Our tutoring services are available both online and in-person, with flexible scheduling to accommodate your needs.",
-      "For tutors, we offer competitive compensation, professional development opportunities, and a supportive teaching environment."
+      "Our tutoring services are available both online and in-person, with flexible scheduling to accommodate your needs."
     ]}
     imageUrl="/images/apply-bg.jpg"
+    className="apply-section"
   >
     <div className="apply-buttons">
-      <Link to="/apply-tutor" className="apply-button">Apply to be a Tutor</Link>
-      <Link to="/apply-student" className="apply-button">Apply for Tutoring</Link>
+      <Link to="/apply-tutor" className="cta-button primary">Apply to be a Tutor</Link>
+      <Link to="/apply-student" className="cta-button primary">Apply for Tutoring</Link>
     </div>
   </Section>
 );
@@ -160,16 +282,26 @@ const ApplyTutor = () => {
     formData.append('phone', e.target.phone.value);
     formData.append('subjects', Array.from(e.target.subjects.selectedOptions).map(opt => opt.value).join(', '));
     
-    // Add availability to the message
+    // Add resume file
+    const resumeFile = e.target.resume.files[0];
+    if (resumeFile) {
+      formData.append('resume', resumeFile);
+    }
+    
+    // Format availability times nicely
     const availabilityText = availability
       .map(slot => {
         const [day, hour] = slot.split('-');
-        return `${day} at ${hour}:00`;
+        const period = hour >= 12 ? 'PM' : 'AM';
+        const displayHour = hour > 12 ? hour - 12 : hour;
+        return `${day} at ${displayHour}:00 ${period}`;
       })
       .join('\n');
     
     formData.append('message', 
-      `Experience:\n${e.target.experience.value}\n\nAvailability:\n${availabilityText}`
+      `Experience:\n${e.target.experience.value}\n\n` +
+      `Availability:\n${availabilityText}\n\n` +
+      `Resume: ${resumeFile ? resumeFile.name : 'Not provided'}`
     );
     
     formData.append('from_name', "Aspire Academics Website");
@@ -217,6 +349,16 @@ const ApplyTutor = () => {
           <option value="test-prep">Test Prep</option>
         </select>
         <textarea name="experience" placeholder="Describe your teaching experience and qualifications" required></textarea>
+        <div className="form-group">
+          <label htmlFor="resume">Upload Resume (PDF, DOC, or DOCX)</label>
+          <input
+            type="file"
+            id="resume"
+            name="resume"
+            accept=".pdf,.doc,.docx"
+            required
+          />
+        </div>
         <div className="form-section">
           <h4>Select Your Available Time Slots</h4>
           <p>Click on the time slots when you're available to tutor</p>
@@ -465,6 +607,100 @@ const ThankYou = () => (
   </Section>
 );
 
+const HowItWorks = () => (
+  <>
+    <Section
+      title="How It Works"
+      subtitle="Your Path to Academic Excellence"
+      content={[
+        "Our streamlined process makes it easy to get started with personalized tutoring that fits your schedule and learning style.",
+      ]}
+      imageUrl="/images/how-it-works-hero.jpg"
+    />
+    
+    <motion.section 
+      className="process-section"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="process-steps">
+        <motion.div 
+          className="process-step"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="step-number">1</div>
+          <img src={howItWorks1} alt="Initial Consultation" className="step-image" />
+          <h3>Initial Consultation</h3>
+          <p>Schedule a free consultation to discuss your academic goals and challenges. We'll learn about your learning style and match you with the perfect tutor.</p>
+        </motion.div>
+
+        <motion.div 
+          className="process-step"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="step-number">2</div>
+          <img src={howItWorks2} alt="Personalized Plan" className="step-image" />
+          <h3>Personalized Learning Plan</h3>
+          <p>Your tutor creates a customized study plan targeting your specific needs and goals, incorporating proven teaching methods and materials.</p>
+        </motion.div>
+
+        <motion.div 
+          className="process-step"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="step-number">3</div>
+          <img src={howItWorks3} alt="Regular Sessions" className="step-image" />
+          <h3>Regular Sessions</h3>
+          <p>Attend regular one-on-one tutoring sessions, either online or in-person. Track your progress and adjust the plan as needed to ensure optimal results.</p>
+        </motion.div>
+      </div>
+
+      <div className="process-features">
+        <motion.div 
+          className="feature"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+        >
+          <i className="fas fa-clock"></i>
+          <h4>Flexible Scheduling</h4>
+          <p>Choose from morning, afternoon, or evening sessions that fit your schedule</p>
+        </motion.div>
+
+        <motion.div 
+          className="feature"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+        >
+          <i className="fas fa-video"></i>
+          <h4>Online & In-Person</h4>
+          <p>Select the learning format that works best for you</p>
+        </motion.div>
+
+        <motion.div 
+          className="feature"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6 }}
+        >
+          <i className="fas fa-chart-line"></i>
+          <h4>Progress Tracking</h4>
+          <p>Regular assessments and progress reports to measure improvement</p>
+        </motion.div>
+      </div>
+    </motion.section>
+  </>
+);
+
 export default function App() {
   return (
     <Router>
@@ -472,6 +708,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/services" element={<Services />} />
         <Route path="/tutors" element={<Tutors />} />
         <Route path="/apply" element={<Apply />} />
