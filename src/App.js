@@ -132,7 +132,7 @@ const Home = () => (
           transition={{ delay: 0.4, duration: 0.8 }}
           className="hero-subtitle"
         >
-          Personalized tutoring that empowers students to reach their full academic, personal, and professional potential
+          At Aspire Academics, we know how to put ourselves in your shoes—after all, we were in them just a couple years ago!
         </motion.p>
         <motion.div
           className="hero-buttons"
@@ -155,12 +155,29 @@ const Home = () => (
     </motion.section>
 
     <motion.section 
+      className="welcome-section"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="section-content-wrapper">
+        <h2>Welcome to Aspire Academics</h2>
+        <p>Our tutors aren't just awesome at the subjects they teach—they're also high school and college students who aced the same classes and standardized tests while juggling hours of extracurriculars, just like you. We know what it's like to be busy, and we're here to make your learning efficient, engaging, and empowering.</p>
+        <p>We believe every student has the potential to excel. Our personalized tutoring approach focuses on building confidence, developing strong study habits, and achieving academic success. Our experienced tutors work one-on-one with students to identify their unique learning styles and create customized study plans that deliver results.</p>
+      </div>
+    </motion.section>
+
+    <motion.section 
       className="features-section"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
     >
+      <h2>Why Choose Aspire?</h2>
+      <p>Our tutors aren't just teachers—they're mentors. We know the shortcuts, tricks, and best ways to master material because we've been there ourselves. Whether you need help breaking down tough concepts, staying motivated, or balancing school with extracurriculars, we're here to help in any way we can.</p>
+      <p>With flexible scheduling, competitive pricing, and approachable tutors, Aspire Academics makes learning feel like an opportunity to grow—not just as a chore.</p>
       <div className="features-grid">
         <motion.div 
           className="feature-card"
@@ -189,6 +206,11 @@ const Home = () => (
           <h3>Proven Results</h3>
           <p>Track your progress with measurable improvements in grades and scores</p>
         </motion.div>
+      </div>
+      <div className="get-started-section">
+        <h2>Get Started Today!</h2>
+        <p>Ready to achieve more? Click below to begin your journey with Aspire Academics.</p>
+        <Link to="/apply-student" className="cta-button primary">Get Started</Link>
       </div>
     </motion.section>
 
@@ -242,82 +264,114 @@ const Home = () => (
 );
 
 const About = () => (
-  <Section
-    title="About Us"
-    subtitle="Our Mission and Values"
-    content={[
-      "Founded by experienced educators, Aspire Academics is committed to delivering excellence in education through personalized tutoring services.",
-      "We carefully select our tutors based on their academic achievements, teaching experience, and passion for education. All our tutors undergo rigorous training and background checks.",
-      "Our approach combines traditional teaching methods with modern learning technologies to create an engaging and effective learning experience.",
-      "We measure our success through our students' achievements and their growing confidence in tackling academic challenges."
-    ]}
-    imageUrl="about.jpg"
-  />
+  <>
+    <Section
+      title="About Us"
+      subtitle="Our Mission & Values"
+      content={[
+        "At Aspire Academics, we believe in helping every student strive to meet their full potential—regardless of background, experience, or learning style. Our goal is to provide personalized guidance that equips our students with all the tools they need to succeed academically and beyond."
+      ]}
+      imageUrl="about-us.jpg"
+    />
+    
+    <motion.section 
+      className="team-section"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
+      <h2>Meet Our Founders</h2>
+      <div className="team-grid">
+        <motion.div 
+          className="team-member"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <img src={`${process.env.PUBLIC_URL}/images/team1.jpg`} alt="Adam Kamenetsky" className="team-image" />
+          <h3>Adam Kamenetsky</h3>
+          <p className="team-title">Co-Founder</p>
+          <p>Adam is a current freshman at the University of Florida majoring in aerospace engineering. In high school, he had a 4.41 GPA and scored a 1540 on his SATs, while also participating in Speech and Debate and DECA. In his free time, he enjoys eating sushi, going to the gym, and skiing.</p>
+        </motion.div>
+        
+        <motion.div 
+          className="team-member"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <img src={`${process.env.PUBLIC_URL}/images/team2.jpg`} alt="Meaghan Lu" className="team-image" />
+          <h3>Meaghan Lu</h3>
+          <p className="team-title">Co-Founder</p>
+          <p>Meaghan is a current freshman at the University of Michigan majoring in statistics. In high school, she had a 4.39 GPA and scored 1540 on her SATs, while also being involved in DECA, cross country, and Book Club. In her free time, she enjoys baking, finding new places to eat, and watching Modern Family.</p>
+        </motion.div>
+      </div>
+    </motion.section>
+  </>
 );
 
 const Services = () => (
-  <Section
-    title="Our Services"
-    subtitle="Comprehensive Academic Support"
-    content={[
-      "We offer a wide range of tutoring services to help students achieve their academic goals.",
-      "All our programs are customized to meet individual student needs and learning styles."
-    ]}
-    imageUrl="services.jpg"
-  >
-    <div className="services-grid">
+  <>
+    <Section
+      title="Services"
+      subtitle="OUR SERVICES"
+      content={[
+        "Comprehensive Academic Support",
+        "No matter what you need, we've got you covered! We offer personalized tutoring within a wide range of subjects—from standardized test prep to all your high school or middle school coursework."
+      ]}
+      imageUrl="services.jpg"
+    />
+    
+    <motion.section 
+      className="services-grid"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
       <motion.div 
         className="service-card"
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <i className="fas fa-graduation-cap"></i>
-        <h3>Academic Tutoring</h3>
-        <p>One-on-one tutoring in all major subjects for K-12 and college students</p>
-        <ul>
-          <li>Mathematics</li>
-          <li>Sciences</li>
-          <li>English & Literature</li>
-          <li>History & Social Studies</li>
-          <li>Foreign Languages</li>
-        </ul>
+        <img src={`${process.env.PUBLIC_URL}/images/service1.jpg`} alt="Service" className="service-image" />
+        <h3>Standardized Tests</h3>
+        <p>Trusted guidance for the SAT & ACT, with proven strategies from tutors who've scored in the 99% and above.</p>
       </motion.div>
-
+      
       <motion.div 
         className="service-card"
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <i className="fas fa-book"></i>
-        <h3>Test Preparation</h3>
-        <p>Comprehensive prep for standardized tests</p>
-        <ul>
-          <li>SAT & ACT</li>
-          <li>AP Exams</li>
-          <li>GRE & GMAT</li>
-          <li>Subject Tests</li>
-          <li>State Assessments</li>
-        </ul>
+        <img src={`${process.env.PUBLIC_URL}/images/service2.jpg`} alt="Service" className="service-image" />
+        <h3>High School Coursework</h3>
+        <p>Support in math (Algebra I, Geometry, Algebra II, Precalculus, Trigonometry, Calculus), sciences (Biology, Chemistry, Physics).</p>
       </motion.div>
-
+      
       <motion.div 
         className="service-card"
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <i className="fas fa-tasks"></i>
-        <h3>Study Skills</h3>
-        <p>Building fundamental academic skills</p>
-        <ul>
-          <li>Time Management</li>
-          <li>Note-Taking</li>
-          <li>Organization</li>
-          <li>Test-Taking Strategies</li>
-          <li>Research Methods</li>
-        </ul>
+        <img src={`${process.env.PUBLIC_URL}/images/service3.jpg`} alt="Service" className="service-image" />
+        <h3>Middle School Coursework</h3>
+        <p>ELA, Math, Science, Social Studies</p>
+        <p><i>* Advanced placement (AP) coming soon!</i></p>
       </motion.div>
-    </div>
-  </Section>
+    </motion.section>
+    
+    <motion.section 
+      className="tutors-preview"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
+      <h2>Meet Our Tutors</h2>
+      <p>Our tutors are passionate, dedicated, and committed to helping you succeed. They have been carefully vetted—going through background checks and extensive training—to ensure you get the highest quality of instruction as well as mentors who truly care.</p>
+      <Link to="/tutors" className="cta-button secondary">View All Tutors</Link>
+    </motion.section>
+  </>
 );
 
 const Tutors = () => (
@@ -398,7 +452,6 @@ const ApplyTutor = () => {
     name: '',
     email: '',
     phone: '',
-    education: '',
     educationLevel: '',
     experience: '',
     subjects: [],
@@ -439,32 +492,37 @@ const ApplyTutor = () => {
     });
     
     try {
-      // Use JSON format for reliable submission
-      const submissionData = {
-        access_key: '0e051380-5394-4e26-8ffd-af5cc378e7b6',
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        education: formData.education,
-        educationLevel: formData.educationLevel,
-        experience: formData.experience,
-        subjects: formData.subjects.join(', '),
-        preferredTimes: formattedTimes.join(', '),
-        availability: formData.availability,
-        applicationType: 'tutor',
-        from_name: 'Aspire Academics Website',
-        subject: `New Tutor Application: ${formData.name}`,
-        resume_note: 'Resume will be sent separately via email'
-      };
+      // Create FormData for file uploads
+      const formData = new FormData();
+      
+      // Add the access key
+      formData.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
+      
+      // Add all form fields
+      formData.append('name', formData.name);
+      formData.append('email', formData.email);
+      formData.append('phone', formData.phone);
+      formData.append('educationLevel', formData.educationLevel);
+      formData.append('experience', formData.experience);
+      formData.append('subjects', formData.subjects.join(', '));
+      formData.append('preferredTimes', formattedTimes.join(', '));
+      formData.append('availability', formData.availability);
+      formData.append('applicationType', 'tutor');
+      
+      // Add metadata
+      formData.append('from_name', 'Aspire Academics Website');
+      formData.append('subject', `New Tutor Application: ${formData.name}`);
+      
+      // Get the resume file and add it as an attachment (special field name for Web3Forms)
+      const fileInput = document.querySelector('input[name="resume"]');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        formData.append('attachment', fileInput.files[0]);
+      }
     
-      // Submit the form using JSON for reliability
+      // Submit the form with file upload - don't set Content-Type header
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(submissionData)
+        body: formData
       })
       .then(async (response) => {
         const data = await response.json();
@@ -519,16 +577,9 @@ const ApplyTutor = () => {
           <input 
             type="tel" 
             name="phone" 
-            placeholder="Phone Number" 
-            required 
+            placeholder="Phone" 
+            required
             value={formData.phone}
-            onChange={handleInputChange}
-          />
-          <input 
-            name="education" 
-            placeholder="Education Background" 
-            required 
-            value={formData.education}
             onChange={handleInputChange}
           />
         </div>
@@ -595,7 +646,7 @@ const ApplyTutor = () => {
         </div>
         
         <p className="file-upload-note">
-          Note: Due to technical limitations, your resume will be noted in our system, but you may need to email it separately to admin@aspireacademicstutoring.com after submission.
+          Note: Your resume will be attached to your application. Maximum file size is 10MB.
         </p>
         
         {error && <div className="error-message">{error}</div>}
@@ -1010,7 +1061,7 @@ const Contact = () => {
           </div>
           <div className="contact-item">
             <i className="fas fa-envelope"></i>
-            <p>admin@aspireacademicstutoring.com</p>
+            <p>support@aspireacademicstutoring.com</p>
           </div>
         </div>
         <form className="form contact-form" onSubmit={handleSubmit}>
