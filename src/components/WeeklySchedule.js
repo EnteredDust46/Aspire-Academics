@@ -7,6 +7,9 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
   
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartSlot, setDragStartSlot] = useState(null);
+  const [dragSelectMode, setDragSelectMode] = useState(true); // true = select, false = deselect
   
   // Check if device is mobile
   useEffect(() => {
@@ -16,6 +19,50 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  // Handle mouse down on a slot
+  const handleMouseDown = (day, hour) => {
+    const slotId = `${day}-${hour}`;
+    setIsDragging(true);
+    setDragStartSlot(slotId);
+    
+    // Determine if we're selecting or deselecting based on the first slot clicked
+    const isSelected = selectedSlots.includes(slotId);
+    setDragSelectMode(!isSelected);
+    
+    // Toggle the slot
+    toggleSlot(day, hour);
+  };
+  
+  // Handle mouse enter on a slot during drag
+  const handleMouseEnter = (day, hour) => {
+    if (isDragging) {
+      const slotId = `${day}-${hour}`;
+      const isSelected = selectedSlots.includes(slotId);
+      
+      // Only toggle if the current selection state doesn't match our drag mode
+      if (dragSelectMode && !isSelected) {
+        toggleSlot(day, hour);
+      } else if (!dragSelectMode && isSelected) {
+        toggleSlot(day, hour);
+      }
+    }
+  };
+  
+  // Handle mouse up to end dragging
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+  
+  // Add event listeners for mouse up on the document
+  useEffect(() => {
+    const handleDocumentMouseUp = () => {
+      setIsDragging(false);
+    };
+    
+    document.addEventListener('mouseup', handleDocumentMouseUp);
+    return () => document.removeEventListener('mouseup', handleDocumentMouseUp);
   }, []);
   
   const toggleSlot = (day, hour) => {
@@ -67,6 +114,9 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
           Scroll horizontally to view the full schedule
         </p>
       )}
+      <p style={{ fontSize: '0.8rem', color: '#666', marginBottom: '10px', textAlign: 'center' }}>
+        Click and drag to select multiple time slots
+      </p>
       <div className="schedule-grid">
         <div className="time-header"></div>
         {days.map(day => (
@@ -82,7 +132,9 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
               <div 
                 key={`${day}-${hour}`}
                 className={`schedule-slot ${selectedSlots.includes(`${day}-${hour}`) ? 'selected' : ''}`}
-                onClick={() => toggleSlot(day, hour)}
+                onMouseDown={() => handleMouseDown(day, hour)}
+                onMouseEnter={() => handleMouseEnter(day, hour)}
+                onMouseUp={handleMouseUp}
               ></div>
             ))}
           </React.Fragment>

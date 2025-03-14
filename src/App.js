@@ -375,106 +375,156 @@ const Apply = () => (
 
 const ApplyTutor = () => {
   const navigate = useNavigate();
-  const [preferredTimes, setPreferredTimes] = useState([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    education: '',
+    experience: '',
+    subjects: '',
+    availability: '',
+    resume: ''
+  });
   
-  const handleSubmit = async (e) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
     
-    const accessKey = '0e051380-5394-4e26-8ffd-af5cc378e7b6';
+    const submissionData = {
+      ...formData,
+      applicationType: 'tutor'
+    };
     
-    // Add required fields
-    formData.append('access_key', accessKey);
-    formData.append('name', e.target.name.value);
-    formData.append('email', e.target.email.value);
-    formData.append('student_email', e.target.student_email.value);
-    formData.append('phone', e.target.phone.value);
-    formData.append('education', e.target.education.value);
-    formData.append('subjects', Array.from(e.target.subjects.selectedOptions).map(opt => opt.value).join(', '));
-    
-    // Format availability times nicely
-    const availabilityText = preferredTimes && preferredTimes.length > 0 
-      ? preferredTimes
-        .map(slot => {
-          const [day, hour] = slot.split('-');
-          const period = hour >= 12 ? 'PM' : 'AM';
-          const displayHour = hour > 12 ? hour - 12 : hour;
-          return `${day} at ${displayHour}:00 ${period}`;
-        })
-        .join('\n')
-      : 'No specific time slots selected';
-    
-    formData.append('message', 
-      `Experience:\n${e.target.experience.value}\n\n` +
-      `Availability:\n${availabilityText}\n\n` +
-      `Student Email: ${e.target.student_email.value}\n\n` +
-      `Available Start Date: ${e.target.availability.value}`
-    );
-    
-    formData.append('from_name', "Aspire Academics Website");
-    formData.append('subject', 'New Tutor Application');
-    
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
+    fetch('https://hook.us1.make.com/your-webhook-url', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(submissionData),
+    })
+    .then(response => {
+      if (response.ok) {
         navigate('/thank-you');
       } else {
-        throw new Error(data.message || 'Form submission failed');
+        alert('There was an error submitting your application. Please try again.');
       }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      alert('There was an error submitting your form. Please try again.');
-    }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('There was an error submitting your application. Please try again.');
+    });
   };
 
   return (
     <Section
-      title="Tutor Application"
-      subtitle="Join Our Team of Educators"
+      title="Join Our Tutoring Team"
+      subtitle="Share your knowledge and make a difference"
       content={[
-        "We're looking for experienced tutors in all academic subjects, particularly in STEM fields, standardized test prep, and writing."
+        "We're looking for passionate educators to join our team. Complete the form below to apply.",
       ]}
-      imageUrl="about.jpg"
+      imageUrl="tutor-apply-bg.jpg"
     >
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-row">
-          <input name="name" placeholder="Full Name" required />
-          <input type="email" name="email" placeholder="Email" required />
-        </div>
-        <div className="form-row">
-          <input type="email" name="student_email" placeholder="Student Email (if applicable)" />
-          <input type="tel" name="phone" placeholder="Phone Number" required />
-        </div>
-        <div className="form-row">
-          <input type="text" name="education" placeholder="Highest Education" required />
-          <input type="date" name="availability" placeholder="Available Start Date" required />
-        </div>
-        <div className="form-row">
-          <select name="subjects" multiple required>
-            <option value="">Select Subjects You Can Teach</option>
-            <option value="math">Mathematics</option>
-            <option value="science">Science</option>
-            <option value="english">English</option>
-            <option value="history">History</option>
-            <option value="sat">SAT Prep</option>
-            <option value="act">ACT Prep</option>
-          </select>
-        </div>
-        <div className="form-section">
-          <h4>Select Your Available Time Slots</h4>
-          <p>Click on the time slots when you're available to tutor</p>
-          <WeeklySchedule 
-            setPreferredTimes={setPreferredTimes} 
-            onScheduleChange={(times) => setPreferredTimes(times)} 
+          <input 
+            name="name" 
+            placeholder="Full Name" 
+            required 
+            value={formData.name}
+            onChange={handleInputChange}
+          />
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="Email" 
+            required 
+            value={formData.email}
+            onChange={handleInputChange}
           />
         </div>
-        <textarea name="experience" placeholder="Describe your teaching experience" required rows="5"></textarea>
+        <div className="form-row">
+          <input 
+            type="tel" 
+            name="phone" 
+            placeholder="Phone Number" 
+            required 
+            value={formData.phone}
+            onChange={handleInputChange}
+          />
+          <input 
+            name="education" 
+            placeholder="Highest Education Level" 
+            required 
+            value={formData.education}
+            onChange={handleInputChange}
+          />
+        </div>
+        
+        <textarea 
+          name="experience" 
+          placeholder="Tell us about your teaching/tutoring experience" 
+          rows="4" 
+          required
+          value={formData.experience}
+          onChange={handleInputChange}
+        ></textarea>
+        
+        <select 
+          name="subjects" 
+          multiple 
+          required
+          value={formData.subjects ? formData.subjects.split(',') : []}
+          onChange={(e) => {
+            const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+            setFormData({
+              ...formData,
+              subjects: selectedOptions.join(',')
+            });
+          }}
+        >
+          <option value="math">Mathematics</option>
+          <option value="science">Science</option>
+          <option value="english">English</option>
+          <option value="history">History</option>
+          <option value="sat">SAT Prep</option>
+          <option value="act">ACT Prep</option>
+          <option value="foreign">Foreign Languages</option>
+          <option value="computer">Computer Science</option>
+        </select>
+        <p className="form-help">Hold Ctrl/Cmd to select multiple subjects</p>
+        
+        <textarea 
+          name="availability" 
+          placeholder="What is your general availability? (Days/Times)" 
+          rows="3" 
+          required
+          value={formData.availability}
+          onChange={handleInputChange}
+        ></textarea>
+        
+        <div className="form-row">
+          <input 
+            type="file" 
+            name="resume" 
+            accept=".pdf,.doc,.docx" 
+            required 
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                resume: e.target.files[0]?.name || ''
+              });
+            }}
+          />
+          <p className="form-help">Upload your resume/CV (PDF, DOC, or DOCX)</p>
+        </div>
+        
         <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
       </form>
     </Section>
@@ -485,11 +535,61 @@ const ApplyStudent = () => {
   const navigate = useNavigate();
   const [subjects, setSubjects] = useState([]);
   const [preferredTimes, setPreferredTimes] = useState([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    grade: '',
+    format: '',
+    frequency: '',
+    goals: ''
+  });
+  
+  const handleSubjectChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setSubjects([...subjects, value]);
+    } else {
+      setSubjects(subjects.filter(subject => subject !== value));
+    }
+  };
+  
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Process form submission
-    navigate('/thank-you');
+    
+    const submissionData = {
+      ...formData,
+      subjects: subjects,
+      preferredTimes: preferredTimes,
+      applicationType: 'student'
+    };
+    
+    fetch('https://hook.us1.make.com/your-webhook-url', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(submissionData),
+    })
+    .then(response => {
+      if (response.ok) {
+        navigate('/thank-you');
+      } else {
+        alert('There was an error submitting your application. Please try again.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('There was an error submitting your application. Please try again.');
+    });
   };
 
   return (
@@ -503,12 +603,37 @@ const ApplyStudent = () => {
     >
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-row">
-          <input name="name" placeholder="Full Name" required />
-          <input type="email" name="email" placeholder="Email" required />
+          <input 
+            name="name" 
+            placeholder="Full Name" 
+            required 
+            value={formData.name}
+            onChange={handleInputChange}
+          />
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="Email" 
+            required 
+            value={formData.email}
+            onChange={handleInputChange}
+          />
         </div>
         <div className="form-row">
-          <input type="tel" name="phone" placeholder="Phone Number" required />
-          <select name="grade" required>
+          <input 
+            type="tel" 
+            name="phone" 
+            placeholder="Phone Number" 
+            required 
+            value={formData.phone}
+            onChange={handleInputChange}
+          />
+          <select 
+            name="grade" 
+            required
+            value={formData.grade}
+            onChange={handleInputChange}
+          >
             <option value="">Select Grade Level</option>
             <option value="elementary">Elementary School</option>
             <option value="middle">Middle School</option>
@@ -522,7 +647,86 @@ const ApplyStudent = () => {
           <h4>What subjects do you need help with?</h4>
           <p>Select all that apply</p>
           <div className="checkbox-group">
-            {/* Subject checkboxes */}
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="subjects" 
+                value="math" 
+                checked={subjects.includes('math')}
+                onChange={handleSubjectChange}
+              />
+              Mathematics
+            </label>
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="subjects" 
+                value="science" 
+                checked={subjects.includes('science')}
+                onChange={handleSubjectChange}
+              />
+              Science
+            </label>
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="subjects" 
+                value="english" 
+                checked={subjects.includes('english')}
+                onChange={handleSubjectChange}
+              />
+              English
+            </label>
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="subjects" 
+                value="history" 
+                checked={subjects.includes('history')}
+                onChange={handleSubjectChange}
+              />
+              History
+            </label>
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="subjects" 
+                value="sat" 
+                checked={subjects.includes('sat')}
+                onChange={handleSubjectChange}
+              />
+              SAT Prep
+            </label>
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="subjects" 
+                value="act" 
+                checked={subjects.includes('act')}
+                onChange={handleSubjectChange}
+              />
+              ACT Prep
+            </label>
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="subjects" 
+                value="foreign" 
+                checked={subjects.includes('foreign')}
+                onChange={handleSubjectChange}
+              />
+              Foreign Languages
+            </label>
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="subjects" 
+                value="computer" 
+                checked={subjects.includes('computer')}
+                onChange={handleSubjectChange}
+              />
+              Computer Science
+            </label>
           </div>
         </div>
         
@@ -533,13 +737,23 @@ const ApplyStudent = () => {
         </div>
         
         <div className="form-row">
-          <select name="format" required>
+          <select 
+            name="format" 
+            required
+            value={formData.format}
+            onChange={handleInputChange}
+          >
             <option value="">Preferred Tutoring Format</option>
             <option value="online">Online</option>
             <option value="in-person">In-Person</option>
             <option value="both">Either Online or In-Person</option>
           </select>
-          <select name="frequency" required>
+          <select 
+            name="frequency" 
+            required
+            value={formData.frequency}
+            onChange={handleInputChange}
+          >
             <option value="">Preferred Session Frequency</option>
             <option value="once">Once per week</option>
             <option value="twice">Twice per week</option>
@@ -548,7 +762,14 @@ const ApplyStudent = () => {
           </select>
         </div>
         
-        <textarea name="goals" placeholder="What are your academic goals? What specific areas do you want to improve?" rows="4" required></textarea>
+        <textarea 
+          name="goals" 
+          placeholder="What are your academic goals? What specific areas do you want to improve?" 
+          rows="4" 
+          required
+          value={formData.goals}
+          onChange={handleInputChange}
+        ></textarea>
         
         <motion.button type="submit" whileHover={{ scale: 1.05 }}>Get Started</motion.button>
       </form>
