@@ -381,10 +381,12 @@ const ApplyTutor = () => {
     phone: '',
     education: '',
     experience: '',
-    subjects: '',
-    availability: '',
-    resume: ''
+    subjects: [],
+    availability: ''
   });
+  const [preferredTimes, setPreferredTimes] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -393,32 +395,68 @@ const ApplyTutor = () => {
       [name]: value
     });
   };
+  
+  const handleSubjectsChange = (e) => {
+    const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+    setFormData({
+      ...formData,
+      subjects: selectedOptions
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
     
-    const submissionData = {
-      ...formData,
-      applicationType: 'tutor'
-    };
+    // Create form data for Web3Forms
+    const web3FormData = new FormData();
     
-    fetch('https://hook.us1.make.com/your-webhook-url', {
+    // Add the access key for Web3Forms
+    web3FormData.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
+    
+    // Add form fields
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === 'subjects') {
+        web3FormData.append(key, value.join(', '));
+      } else {
+        web3FormData.append(key, value);
+      }
+    });
+    
+    // Add preferred times
+    web3FormData.append('preferredTimes', preferredTimes.join(', '));
+    web3FormData.append('applicationType', 'tutor');
+    
+    // Add metadata
+    web3FormData.append('from_name', 'Aspire Academics Website');
+    web3FormData.append('subject', `New Tutor Application: ${formData.name}`);
+    
+    // Get the resume file
+    const resumeFile = document.querySelector('input[name="resume"]').files[0];
+    if (resumeFile) {
+      web3FormData.append('resume', resumeFile);
+    }
+    
+    // Submit the form
+    fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(submissionData),
+      body: web3FormData
     })
-    .then(response => {
-      if (response.ok) {
+    .then(async (response) => {
+      const data = await response.json();
+      
+      if (data.success) {
+        setIsSubmitting(false);
         navigate('/thank-you');
       } else {
-        alert('There was an error submitting your application. Please try again.');
+        throw new Error(data.message || 'Form submission failed');
       }
     })
     .catch(error => {
       console.error('Error:', error);
-      alert('There was an error submitting your application. Please try again.');
+      setError('There was a problem submitting your application. Please try again.');
+      setIsSubmitting(false);
     });
   };
 
@@ -480,14 +518,8 @@ const ApplyTutor = () => {
           name="subjects" 
           multiple 
           required
-          value={formData.subjects ? formData.subjects.split(',') : []}
-          onChange={(e) => {
-            const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
-            setFormData({
-              ...formData,
-              subjects: selectedOptions.join(',')
-            });
-          }}
+          value={formData.subjects}
+          onChange={handleSubjectsChange}
         >
           <option value="math">Mathematics</option>
           <option value="science">Science</option>
@@ -500,32 +532,34 @@ const ApplyTutor = () => {
         </select>
         <p className="form-help">Hold Ctrl/Cmd to select multiple subjects</p>
         
+        <div className="form-section">
+          <h4>When are you available to tutor?</h4>
+          <p>Select times that work best for your schedule</p>
+          <WeeklySchedule setPreferredTimes={setPreferredTimes} />
+        </div>
+        
         <textarea 
           name="availability" 
-          placeholder="What is your general availability? (Days/Times)" 
+          placeholder="Any additional notes about your availability?" 
           rows="3" 
-          required
           value={formData.availability}
           onChange={handleInputChange}
         ></textarea>
         
         <div className="form-row">
-          <input 
-            type="file" 
-            name="resume" 
-            accept=".pdf,.doc,.docx" 
-            required 
-            onChange={(e) => {
-              setFormData({
-                ...formData,
-                resume: e.target.files[0]?.name || ''
-              });
-            }}
-          />
+          <input type="file" name="resume" accept=".pdf,.doc,.docx" required />
           <p className="form-help">Upload your resume/CV (PDF, DOC, or DOCX)</p>
         </div>
         
-        <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
+        {error && <div className="error-message">{error}</div>}
+        
+        <motion.button 
+          type="submit" 
+          whileHover={{ scale: 1.05 }}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit Application'}
+        </motion.button>
       </form>
     </Section>
   );
@@ -544,6 +578,8 @@ const ApplyStudent = () => {
     frequency: '',
     goals: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
   
   const handleSubjectChange = (e) => {
     const { value, checked } = e.target;
@@ -564,31 +600,48 @@ const ApplyStudent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
     
-    const submissionData = {
-      ...formData,
-      subjects: subjects,
-      preferredTimes: preferredTimes,
-      applicationType: 'student'
-    };
+    // Create form data for Web3Forms
+    const web3FormData = new FormData();
     
-    fetch('https://hook.us1.make.com/your-webhook-url', {
+    // Add the access key for Web3Forms
+    web3FormData.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
+    
+    // Add form fields
+    Object.entries(formData).forEach(([key, value]) => {
+      web3FormData.append(key, value);
+    });
+    
+    // Add subjects and preferred times
+    web3FormData.append('subjects', subjects.join(', '));
+    web3FormData.append('preferredTimes', preferredTimes.join(', '));
+    web3FormData.append('applicationType', 'student');
+    
+    // Add metadata
+    web3FormData.append('from_name', 'Aspire Academics Website');
+    web3FormData.append('subject', `New Student Application: ${formData.name}`);
+    
+    // Submit the form
+    fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(submissionData),
+      body: web3FormData
     })
-    .then(response => {
-      if (response.ok) {
+    .then(async (response) => {
+      const data = await response.json();
+      
+      if (data.success) {
+        setIsSubmitting(false);
         navigate('/thank-you');
       } else {
-        alert('There was an error submitting your application. Please try again.');
+        throw new Error(data.message || 'Form submission failed');
       }
     })
     .catch(error => {
       console.error('Error:', error);
-      alert('There was an error submitting your application. Please try again.');
+      setError('There was a problem submitting your application. Please try again.');
+      setIsSubmitting(false);
     });
   };
 
@@ -771,7 +824,15 @@ const ApplyStudent = () => {
           onChange={handleInputChange}
         ></textarea>
         
-        <motion.button type="submit" whileHover={{ scale: 1.05 }}>Get Started</motion.button>
+        {error && <div className="error-message">{error}</div>}
+        
+        <motion.button 
+          type="submit" 
+          whileHover={{ scale: 1.05 }}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Submitting...' : 'Get Started'}
+        </motion.button>
       </form>
     </Section>
   );
@@ -807,40 +868,71 @@ const Testimonials = () => (
 );
 
 const Contact = () => {
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    inquiryType: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
   
-  const handleSubmit = async (e) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
+    setIsSubmitting(true);
+    setError(null);
     
-    const accessKey = '0e051380-5394-4e26-8ffd-af5cc378e7b6';
+    // Create form data for Web3Forms
+    const web3FormData = new FormData();
     
-    // Add required fields
-    formData.append('access_key', accessKey);
-    formData.append('name', e.target.name.value);
-    formData.append('email', e.target.email.value);
-    formData.append('message', e.target.message.value);
-    formData.append('from_name', "Aspire Academics Website");
-    formData.append('subject', 'New Contact Form Submission');
+    // Add the access key for Web3Forms
+    web3FormData.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
     
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      });
-
+    // Add form fields
+    Object.entries(formData).forEach(([key, value]) => {
+      web3FormData.append(key, value);
+    });
+    
+    // Add metadata
+    web3FormData.append('from_name', 'Aspire Academics Website');
+    web3FormData.append('subject', `New Contact Form: ${formData.inquiryType} from ${formData.name}`);
+    
+    // Submit the form
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: web3FormData
+    })
+    .then(async (response) => {
       const data = await response.json();
-
+      
       if (data.success) {
-        alert('Message sent successfully! We will get back to you soon.');
-        e.target.reset();
+        setIsSubmitting(false);
+        alert('Thank you for your message! We will get back to you soon.');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          inquiryType: '',
+          message: ''
+        });
       } else {
         throw new Error(data.message || 'Form submission failed');
       }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      alert('There was an error submitting your form. Please try again. Error: ' + error.message);
-    }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      setError('There was a problem sending your message. Please try again.');
+      setIsSubmitting(false);
+    });
   };
 
   return (
@@ -870,12 +962,36 @@ const Contact = () => {
         </div>
         <form className="form contact-form" onSubmit={handleSubmit}>
           <div className="form-row">
-            <input name="name" placeholder="Full Name" required />
-            <input type="email" name="email" placeholder="Email" required />
+            <input 
+              name="name" 
+              placeholder="Full Name" 
+              required 
+              value={formData.name}
+              onChange={handleInputChange}
+            />
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="Email" 
+              required 
+              value={formData.email}
+              onChange={handleInputChange}
+            />
           </div>
           <div className="form-row">
-            <input type="tel" name="phone" placeholder="Phone (optional)" />
-            <select name="inquiry-type" required>
+            <input 
+              type="tel" 
+              name="phone" 
+              placeholder="Phone (optional)" 
+              value={formData.phone}
+              onChange={handleInputChange}
+            />
+            <select 
+              name="inquiryType" 
+              required
+              value={formData.inquiryType}
+              onChange={handleInputChange}
+            >
               <option value="">Select Inquiry Type</option>
               <option value="tutoring">Tutoring Services</option>
               <option value="test-prep">Test Preparation</option>
@@ -883,8 +999,24 @@ const Contact = () => {
               <option value="other">Other</option>
             </select>
           </div>
-          <textarea name="message" placeholder="Your Message" required rows="5"></textarea>
-          <motion.button type="submit" whileHover={{ scale: 1.05 }}>Send Message</motion.button>
+          <textarea 
+            name="message" 
+            placeholder="Your Message" 
+            required 
+            rows="5"
+            value={formData.message}
+            onChange={handleInputChange}
+          ></textarea>
+          
+          {error && <div className="error-message">{error}</div>}
+          
+          <motion.button 
+            type="submit" 
+            whileHover={{ scale: 1.05 }}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Sending...' : 'Send Message'}
+          </motion.button>
         </form>
       </div>
     </Section>

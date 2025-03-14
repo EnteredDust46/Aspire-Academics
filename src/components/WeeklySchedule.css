@@ -164,6 +164,7 @@
   overflow: hidden;
   box-sizing: border-box;
   cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .time-header, .day-header {
@@ -188,18 +189,14 @@
   background: linear-gradient(145deg, var(--primary-dark) 0%, var(--primary) 40%, var(--primary-light) 100%);
   color: white;
   font-size: 0.7rem;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-right: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   margin: 0;
   height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
-  width: 60px;
-  min-width: 60px;
-  overflow: hidden;
 }
 
 .schedule-slot {
