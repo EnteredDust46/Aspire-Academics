@@ -358,31 +358,21 @@ const Services = () => (
         <p>ELA, Math, Science, Social Studies</p>
       </motion.div>
     </motion.section>
-    
-    <motion.section 
-      className="tutors-preview"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-    >
-      <h2>Meet Our Tutors</h2>
-      <p>Our tutors are passionate, dedicated, and committed to helping you succeed. They have been carefully vetted—going through background checks and extensive training—to ensure you get the highest quality of instruction as well as mentors who truly care.</p>
-      <Link to="/tutors" className="cta-button secondary">View All Tutors</Link>
-    </motion.section>
   </>
 );
 
 const Tutors = () => (
-  <Section
-    title="Meet Our Tutors"
-    subtitle="Expert Educators Dedicated to Your Success"
-    content={[
-      "Our tutors are carefully selected based on their academic excellence, teaching experience, and passion for education.",
-      "Each tutor undergoes thorough background checks and regular training to ensure the highest quality of instruction."
-    ]}
-    imageUrl="tutors.jpg"
-  >
+  <>
+    <Section
+      title="Meet Our Tutors"
+      subtitle="Expert Guidance from Dedicated Educators"
+      content={[
+        "Our tutors are selected for their academic excellence, teaching ability, and passion for helping students succeed.",
+        "Our tutors are passionate, dedicated, and committed to helping you succeed. They have been carefully vetted—going through background checks and extensive training—to ensure you get the highest quality of instruction as well as mentors who truly care."
+      ]}
+      imageUrl="tutors.jpg"
+    />
+    
     <div className="tutors-grid">
       <motion.div 
         className="tutor-card"
@@ -426,7 +416,7 @@ const Tutors = () => (
         </div>
       </motion.div>
     </div>
-  </Section>
+  </>
 );
 
 const Apply = () => (

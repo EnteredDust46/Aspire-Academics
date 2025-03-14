@@ -39,7 +39,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 90px;
+  margin-top: 110px;
   background: linear-gradient(165deg, var(--primary-dark) 0%, var(--primary) 40%, var(--primary-light) 70%, #f0f0f0 100%);
 }
 
@@ -297,11 +297,11 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px 30px;
+  padding: 10px 20px 40px;
   background-color: var(--neutral-white);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  height: 80px;
+  height: 90px;
   box-sizing: border-box;
 }
 
@@ -310,20 +310,20 @@ textarea {
   align-items: center;
   z-index: 1001;
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   background-color: var(--neutral-white);
   border-radius: 50%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  margin-top: 25px;
+  margin-top: 30px;
   border: 2px solid var(--primary-light);
   justify-content: center;
-  padding: 10px;
+  padding: 15px;
 }
 
 .logo-image {
-  height: 80px;
+  height: 100px;
   width: auto;
   object-fit: contain;
   padding: 0;
@@ -543,13 +543,13 @@ textarea {
   }
   
   .logo-container {
-    width: 90px;
-    height: 90px;
-    margin-top: 20px;
+    width: 100px;
+    height: 100px;
+    margin-top: 25px;
   }
   
   .logo-image {
-    height: 75px;
+    height: 85px;
   }
 }
 
@@ -994,6 +994,11 @@ input[type="file"]::-webkit-file-upload-button:hover {
   padding: 0;
   margin: 20px 0;
   text-align: left;
+}
+
+.service-card ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--primary-light);
 }
 
 .service-card ul li {
@@ -1510,4 +1515,69 @@ body, html {
   padding: 10px;
   border-radius: 5px;
   border-left: 3px solid var(--accent);
+}
+
+/* Enhance team member cards with more color and shadows */
+.team-member {
+  background-color: var(--neutral-white);
+  border-radius: 15px;
+  padding: 30px;
+  margin: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 400px;
+  border-top: 5px solid var(--accent);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(241, 173, 72, 0.1));
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.team-member h3 {
+  color: var(--accent-dark);
+  margin-top: 20px;
+  font-size: 1.8rem;
+}
+
+.team-title {
+  color: var(--primary-dark);
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.team-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--accent);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin: 40px auto;
+  max-width: 1200px;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-button {
+    display: block;
+  }
+  
+  .logo-container {
+    width: 100px;
+    height: 100px;
+    margin-top: 25px;
+  }
+  
+  .logo-image {
+    height: 85px;
+  }
 }
