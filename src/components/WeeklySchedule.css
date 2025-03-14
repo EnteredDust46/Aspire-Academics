@@ -48,6 +48,8 @@
   transition: background-color 0.3s ease;
   position: relative;
   z-index: 2;
+  border: 1px solid rgba(103, 188, 196, 0.2);
+  box-sizing: border-box;
 }
 
 .day-header {
@@ -70,7 +72,6 @@
 .time-slot {
   cursor: pointer;
   user-select: none;
-  border: 1px solid rgba(103, 188, 196, 0.2);
 }
 
 .time-slot:hover {
@@ -206,23 +207,7 @@
 
 .weekly-schedule::before,
 .weekly-schedule::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 15px;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.weekly-schedule::before {
-  left: 0;
-  background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0));
-}
-
-.weekly-schedule::after {
-  right: 0;
-  background: linear-gradient(to left, rgba(255,255,255,0.9), rgba(255,255,255,0));
+  display: none;
 }
 
 @media (max-width: 900px) {
@@ -257,28 +242,6 @@
   .selected-times li {
     margin-bottom: 5px;
     font-size: 0.8rem;
-  }
-  
-  .weekly-schedule::before,
-  .weekly-schedule::after {
-    display: block;
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 15px;
-    z-index: 1;
-    pointer-events: none;
-  }
-  
-  .weekly-schedule::before {
-    left: 0;
-    background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0));
-  }
-  
-  .weekly-schedule::after {
-    right: 0;
-    background: linear-gradient(to left, rgba(255,255,255,0.9), rgba(255,255,255,0));
   }
 }
 
@@ -374,4 +337,45 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Fix the white line issue in the calendar */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 100px repeat(7, 1fr);
+  gap: 2px;
+  background-color: var(--primary-light);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.schedule-grid::before {
+  display: none;
+}
+
+/* Fix the white line running through Sunday column */
+.day-header:first-of-type {
+  position: relative;
+  z-index: 3; /* Higher z-index to prevent overlap */
+  border-left: none;
+}
+
+.time-slot:nth-child(8n+2) {
+  position: relative;
+  z-index: 3; /* Higher z-index for Sunday column slots */
+  border-left: none;
+}
+
+/* Remove any gradient overlays that might be causing the issue */
+.weekly-schedule::before,
+.weekly-schedule::after {
+  display: none;
+}
+
+/* Ensure clean borders */
+.day-header, .time-slot {
+  border: 1px solid rgba(103, 188, 196, 0.2);
+  box-sizing: border-box;
 } 
