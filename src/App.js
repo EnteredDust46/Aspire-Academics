@@ -515,16 +515,64 @@ const ApplyTutor = () => {
           // Now handle the resume separately with FormSubmit
           const resumeInput = document.querySelector('input[name="resume"]');
           if (resumeInput && resumeInput.files && resumeInput.files[0]) {
-            const resumeFormData = new FormData();
-            resumeFormData.append('name', formData.name);
-            resumeFormData.append('email', formData.email);
-            resumeFormData.append('resume', resumeInput.files[0]);
-            resumeFormData.append('_subject', `Resume for ${formData.name} - Tutor Application`);
+            // Create a proper form for FormSubmit.co
+            const formElement = document.createElement('form');
+            formElement.method = 'POST';
+            formElement.action = 'https://formsubmit.co/admin@aspireacademicstutoring.com';
+            formElement.enctype = 'multipart/form-data';
+            formElement.style.display = 'none';
             
-            // Submit the resume to FormSubmit
-            return fetch('https://formsubmit.co/admin@aspireacademicstutoring.com', {
-              method: 'POST',
-              body: resumeFormData
+            // Add form fields
+            const nameField = document.createElement('input');
+            nameField.type = 'text';
+            nameField.name = 'name';
+            nameField.value = formData.name;
+            
+            const emailField = document.createElement('input');
+            emailField.type = 'email';
+            emailField.name = 'email';
+            emailField.value = formData.email;
+            
+            const subjectField = document.createElement('input');
+            subjectField.type = 'hidden';
+            subjectField.name = '_subject';
+            subjectField.value = `Resume for ${formData.name} - Tutor Application`;
+            
+            const redirectField = document.createElement('input');
+            redirectField.type = 'hidden';
+            redirectField.name = '_next';
+            redirectField.value = window.location.origin + '/thank-you';
+            
+            const captchaField = document.createElement('input');
+            captchaField.type = 'hidden';
+            captchaField.name = '_captcha';
+            captchaField.value = 'false';
+            
+            const honeypotField = document.createElement('input');
+            honeypotField.type = 'text';
+            honeypotField.name = '_honey';
+            honeypotField.style.display = 'none';
+            
+            // Clone the file input to include the file
+            const fileField = resumeInput.cloneNode(true);
+            
+            // Add all fields to the form
+            formElement.appendChild(nameField);
+            formElement.appendChild(emailField);
+            formElement.appendChild(subjectField);
+            formElement.appendChild(redirectField);
+            formElement.appendChild(captchaField);
+            formElement.appendChild(honeypotField);
+            formElement.appendChild(fileField);
+            
+            // Add form to the document, submit it, and remove it
+            document.body.appendChild(formElement);
+            formElement.submit();
+            
+            // Don't navigate yet - let the form submission handle it
+            return new Promise(resolve => {
+              // We'll resolve after a short delay to allow the form to submit
+              setTimeout(resolve, 500);
             });
           }
           return Promise.resolve();
