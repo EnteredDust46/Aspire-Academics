@@ -356,7 +356,6 @@ const Services = () => (
         <img src={`${process.env.PUBLIC_URL}/images/service3.jpg`} alt="Service" className="service-image" />
         <h3>Middle School Coursework</h3>
         <p>ELA, Math, Science, Social Studies</p>
-        <p><i>* Advanced placement (AP) coming soon!</i></p>
       </motion.div>
     </motion.section>
     
@@ -492,47 +491,60 @@ const ApplyTutor = () => {
     });
     
     try {
-      // Create FormData for file uploads
-      const formData = new FormData();
-      
-      // Add the access key
-      formData.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
-      
-      // Add all form fields
-      formData.append('name', formData.name);
-      formData.append('email', formData.email);
-      formData.append('phone', formData.phone);
-      formData.append('educationLevel', formData.educationLevel);
-      formData.append('experience', formData.experience);
-      formData.append('subjects', formData.subjects.join(', '));
-      formData.append('preferredTimes', formattedTimes.join(', '));
-      formData.append('availability', formData.availability);
-      formData.append('applicationType', 'tutor');
-      
-      // Add metadata
-      formData.append('from_name', 'Aspire Academics Website');
-      formData.append('subject', `New Tutor Application: ${formData.name}`);
-      
-      // Get the resume file and add it as an attachment (special field name for Web3Forms)
-      const fileInput = document.querySelector('input[name="resume"]');
-      if (fileInput && fileInput.files && fileInput.files[0]) {
-        formData.append('attachment', fileInput.files[0]);
-      }
+      // Use Web3Forms for the form data (which works well)
+      const submissionData = {
+        access_key: '0e051380-5394-4e26-8ffd-af5cc378e7b6',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        educationLevel: formData.educationLevel,
+        experience: formData.experience,
+        subjects: formData.subjects.join(', '),
+        preferredTimes: formattedTimes.join(', '),
+        availability: formData.availability,
+        applicationType: 'tutor',
+        from_name: 'Aspire Academics Website',
+        subject: `New Tutor Application: ${formData.name}`,
+        resume_note: 'Resume sent separately via FormSubmit',
+        to_email: 'admin@aspireacademicstutoring.com'
+      };
     
-      // Submit the form with file upload - don't set Content-Type header
+      // Submit the form data to Web3Forms
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(submissionData)
       })
       .then(async (response) => {
         const data = await response.json();
         
         if (data.success) {
-          setIsSubmitting(false);
-          navigate('/thank-you');
+          // Now handle the resume separately with FormSubmit
+          const resumeInput = document.querySelector('input[name="resume"]');
+          if (resumeInput && resumeInput.files && resumeInput.files[0]) {
+            const resumeFormData = new FormData();
+            resumeFormData.append('name', formData.name);
+            resumeFormData.append('email', formData.email);
+            resumeFormData.append('resume', resumeInput.files[0]);
+            resumeFormData.append('_subject', `Resume for ${formData.name} - Tutor Application`);
+            
+            // Submit the resume to FormSubmit
+            return fetch('https://formsubmit.co/admin@aspireacademicstutoring.com', {
+              method: 'POST',
+              body: resumeFormData
+            });
+          }
+          return Promise.resolve();
         } else {
           throw new Error(data.message || 'Form submission failed');
         }
+      })
+      .then(() => {
+        setIsSubmitting(false);
+        navigate('/thank-you');
       })
       .catch(error => {
         console.error('Error:', error);
@@ -601,12 +613,21 @@ const ApplyTutor = () => {
         
         <textarea 
           name="experience" 
-          placeholder="Tell us about your teaching/tutoring experience" 
-          rows="4" 
-          required
+          placeholder="Tell us about your tutoring experience" 
+          required 
+          rows="5"
           value={formData.experience}
           onChange={handleInputChange}
         ></textarea>
+        
+        <div className="form-row">
+          <input type="file" name="resume" accept=".pdf,.doc,.docx" required />
+          <p className="form-help">Upload your resume/CV (PDF, DOC, or DOCX)</p>
+        </div>
+        
+        <p className="file-upload-note">
+          Note: Your resume will be attached to your application. Maximum file size is 10MB.
+        </p>
         
         <select 
           name="subjects" 
@@ -640,14 +661,8 @@ const ApplyTutor = () => {
           onChange={handleInputChange}
         ></textarea>
         
-        <div className="form-row">
-          <input type="file" name="resume" accept=".pdf,.doc,.docx" required />
-          <p className="form-help">Upload your resume/CV (PDF, DOC, or DOCX)</p>
-        </div>
-        
-        <p className="file-upload-note">
-          Note: Your resume will be attached to your application. Maximum file size is 10MB.
-        </p>
+        <input type="text" name="_honey" style={{ display: 'none' }} />
+        <input type="hidden" name="_captcha" value="false" />
         
         {error && <div className="error-message">{error}</div>}
         
@@ -710,46 +725,49 @@ const ApplyStudent = () => {
       return `${day} at ${displayHour}:00 ${period}`;
     });
     
-    // Create FormData for potential file uploads
-    const formDataWithFiles = new FormData();
-    
-    // Add the access key
-    formDataWithFiles.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
-    
-    // Add all form fields
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataWithFiles.append(key, value);
-    });
-    
-    // Add subjects and preferred times
-    formDataWithFiles.append('subjects', subjects.join(', '));
-    formDataWithFiles.append('preferredTimes', formattedTimes.join(', '));
-    formDataWithFiles.append('applicationType', 'student');
-    
-    // Add metadata
-    formDataWithFiles.append('from_name', 'Aspire Academics Website');
-    formDataWithFiles.append('subject', `New Student Application: ${formData.name}`);
-    
-    // Submit the form with FormData
-    fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      body: formDataWithFiles
-    })
-    .then(async (response) => {
-      const data = await response.json();
+    try {
+      const formData = new FormData();
+      formData.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
       
-      if (data.success) {
+      // Add all form fields
+      Object.entries(formData).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+      
+      // Add preferred times
+      formData.append('preferredTimes', formattedTimes.join(', '));
+      formData.append('applicationType', 'student');
+      
+      // Add metadata
+      formData.append('from_name', 'Aspire Academics Website');
+      formData.append('subject', `New Student Application: ${formData.name}`);
+      formData.append('to_email', 'admin@aspireacademicstutoring.com');
+      
+      // Submit the form
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(async (response) => {
+        const data = await response.json();
+        
+        if (data.success) {
+          setIsSubmitting(false);
+          navigate('/thank-you');
+        } else {
+          throw new Error(data.message || 'Form submission failed');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        setError('There was a problem submitting your application. Please try again.');
         setIsSubmitting(false);
-        navigate('/thank-you');
-      } else {
-        throw new Error(data.message || 'Form submission failed');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
+      });
+    } catch (error) {
+      console.error('Error in form submission:', error);
       setError('There was a problem submitting your application. Please try again.');
       setIsSubmitting(false);
-    });
+    }
   };
 
   return (
@@ -1003,7 +1021,8 @@ const Contact = () => {
       access_key: '0e051380-5394-4e26-8ffd-af5cc378e7b6',
       ...formData,
       from_name: 'Aspire Academics Website',
-      subject: `New Contact Form: ${formData.inquiryType} from ${formData.name}`
+      subject: `Contact Form: ${formData.inquiryType}`,
+      to_email: 'support@aspireacademicstutoring.com'
     };
     
     // Submit the form using JSON instead of FormData

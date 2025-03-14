@@ -39,7 +39,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 70px;
+  margin-top: 90px;
   background: linear-gradient(165deg, var(--primary-dark) 0%, var(--primary) 40%, var(--primary-light) 70%, #f0f0f0 100%);
 }
 
@@ -79,7 +79,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding: 30px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(5px);
   border-radius: 15px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
@@ -139,6 +139,9 @@ p {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  color: var(--text-dark);
+  font-weight: 500;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 /* Button Styling */
@@ -294,11 +297,11 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 20px 30px;
   background-color: var(--neutral-white);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  height: 70px;
+  height: 80px;
   box-sizing: border-box;
 }
 
@@ -307,22 +310,24 @@ textarea {
   align-items: center;
   z-index: 1001;
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   background-color: var(--neutral-white);
   border-radius: 50%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  margin-top: 15px;
+  margin-top: 25px;
   border: 2px solid var(--primary-light);
   justify-content: center;
+  padding: 10px;
 }
 
 .logo-image {
-  height: 70px;
+  height: 80px;
   width: auto;
   object-fit: contain;
-  padding: 5px;
+  padding: 0;
+  margin: 0;
 }
 
 .mobile-menu-button {
@@ -330,10 +335,10 @@ textarea {
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: var(--primary);
+  color: var(--primary-dark);
   cursor: pointer;
-  z-index: 1001;
-  transition: transform 0.3s ease;
+  z-index: 1002;
+  margin-bottom: 15px;
 }
 
 .nav-links {
@@ -531,6 +536,20 @@ textarea {
     padding: 15px;
     margin: 15px auto;
     overflow-x: hidden;
+  }
+  
+  .mobile-menu-button {
+    display: block;
+  }
+  
+  .logo-container {
+    width: 90px;
+    height: 90px;
+    margin-top: 20px;
+  }
+  
+  .logo-image {
+    height: 75px;
   }
 }
 
@@ -1370,11 +1389,125 @@ body, html {
 /* Add a note about file uploads */
 .file-upload-note {
   margin-top: 10px;
-  font-size: 0.85rem;
-  color: var(--text-dark);
+  font-size: 0.9rem;
+  color: var(--accent-dark);
   font-style: italic;
   text-align: center;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  background-color: rgba(241, 173, 72, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 3px solid var(--accent);
+}
+
+/* Add more orange accent elements */
+.welcome-section h2,
+.features-section h2,
+.get-started-section h2,
+.team-section h2,
+.tutors-preview h2 {
+  color: var(--accent);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 25px;
+  position: relative;
+  display: inline-block;
+}
+
+.welcome-section h2::after,
+.features-section h2::after,
+.get-started-section h2::after,
+.team-section h2::after,
+.tutors-preview h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--accent);
+  border-radius: 2px;
+}
+
+/* Standardize margins and padding */
+.welcome-section,
+.features-section,
+.get-started-section,
+.team-section,
+.process-section,
+.tutors-preview {
+  padding: 60px 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  text-align: center;
+}
+
+/* Improve service cards with orange accents */
+.service-card {
+  background-color: var(--neutral-white);
+  border-radius: 10px;
+  padding: 25px;
+  margin: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
+  border-top: 4px solid var(--accent);
+}
+
+.service-card h3 {
+  color: var(--accent-dark);
+  font-weight: 700;
+  margin-top: 15px;
+}
+
+/* Add AP coming soon note to services */
+.services-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin: 40px auto;
+  max-width: 1200px;
+  position: relative;
+}
+
+.services-grid::after {
+  content: "* Advanced placement (AP) coming soon!";
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-style: italic;
+  color: var(--accent-dark);
+  font-size: 1.1rem;
+}
+
+/* Make the form more reliable with a simpler approach */
+.form-row input[type="file"] {
+  padding: 10px;
+  border: 1px dashed var(--primary);
+  background-color: rgba(103, 188, 196, 0.05);
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.file-upload-note {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--accent-dark);
+  font-style: italic;
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(241, 173, 72, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 3px solid var(--accent);
 }
