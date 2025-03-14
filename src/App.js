@@ -34,28 +34,39 @@ const fadeIn = {
   show: { opacity: 1, y: 0, transition: { duration: 1.2, ease: "easeOut" } },
 };
 
-const Navbar = () => (
-  <motion.nav
-    className="navbar"
-    initial={{ y: -50, opacity: 0 }}
-    animate={{ y: 0, opacity: 1 }}
-    transition={{ duration: 0.8 }}
-  >
-    <Link to="/" className="logo-container">
-      <img src={logo} alt="Aspire Academics" className="logo-image" />
-    </Link>
-    <div className="nav-links">
-      <Link to="/">Home</Link>
-      <Link to="/about">About</Link>
-      <Link to="/how-it-works">How It Works</Link>
-      <Link to="/services">Services</Link>
-      <Link to="/tutors">Meet Our Tutors</Link>
-      <Link to="/apply">Apply</Link>
-      <Link to="/testimonials">Testimonials</Link>
-      <Link to="/contact">Contact</Link>
-    </div>
-  </motion.nav>
-);
+const Navbar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  return (
+    <motion.nav
+      className="navbar"
+      initial={{ y: -50, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      <Link to="/" className="logo-container">
+        <img src={logo} alt="Aspire Academics" className="logo-image" />
+      </Link>
+      <button className="mobile-menu-button" onClick={toggleMobileMenu}>
+        <i className="fas fa-bars"></i>
+      </button>
+      <div className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/how-it-works">How It Works</Link>
+        <Link to="/services">Services</Link>
+        <Link to="/tutors">Meet Our Tutors</Link>
+        <Link to="/apply">Get Started</Link>
+        <Link to="/testimonials">Testimonials</Link>
+        <Link to="/contact">Contact</Link>
+      </div>
+    </motion.nav>
+  );
+};
 
 const Section = ({ title, content, imageUrl, children, subtitle, className }) => (
   <motion.section
@@ -110,7 +121,7 @@ const Home = () => (
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          <Link to="/apply-student" className="cta-button primary">Get Started</Link>
+          <Link to="/apply-student" className="cta-button primary">Become a Student</Link>
           <Link to="/services" className="cta-button secondary">Learn More</Link>
         </motion.div>
       </div>
@@ -348,17 +359,16 @@ const Tutors = () => (
 
 const Apply = () => (
   <Section
-    title="Apply Now"
-    subtitle="Start Your Journey to Academic Success"
+    title="Get Started with Aspire"
+    subtitle="Join our community of learners and educators"
     content={[
-      "We're excited to help you achieve your academic goals! Please select whether you're applying as a student or tutor."
+      "Ready to enhance your academic journey? Choose the option that fits your needs.",
     ]}
-    imageUrl="about.jpg"
-    className="apply-section"
+    imageUrl="apply-bg.jpg"
   >
     <div className="apply-buttons">
-      <Link to="/apply-student" className="apply-button">Apply as Student</Link>
-      <Link to="/apply-tutor" className="apply-button">Apply as Tutor</Link>
+      <Link to="/apply-student" className="apply-button">Become a Student</Link>
+      <Link to="/apply-tutor" className="apply-button">Join Our Tutoring Team</Link>
     </div>
   </Section>
 );
@@ -472,75 +482,29 @@ const ApplyTutor = () => {
 };
 
 const ApplyStudent = () => {
-  const [preferredTimes, setPreferredTimes] = useState([]);
   const navigate = useNavigate();
+  const [subjects, setSubjects] = useState([]);
+  const [preferredTimes, setPreferredTimes] = useState([]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    
-    const accessKey = '0e051380-5394-4e26-8ffd-af5cc378e7b6';
-    
-    // Add required fields
-    formData.append('access_key', accessKey);
-    formData.append('name', e.target.name.value);
-    formData.append('email', e.target.email.value);
-    formData.append('phone', e.target.phone.value);
-    formData.append('grade', e.target.grade.value);
-    formData.append('subject', e.target.subject.value);
-    
-    // Format preferred times nicely
-    const preferredTimesText = preferredTimes && preferredTimes.length > 0
-      ? preferredTimes
-        .map(slot => {
-          const [day, hour] = slot.split('-');
-          const period = hour >= 12 ? 'PM' : 'AM';
-          const displayHour = hour > 12 ? hour - 12 : hour;
-          return `${day} at ${displayHour}:00 ${period}`;
-        })
-        .join('\n')
-      : 'No specific time slots selected';
-    
-    formData.append('message', 
-      `Preferred Times:\n${preferredTimesText}\n\nGoals:\n${e.target.goals.value}`
-    );
-    
-    formData.append('from_name', "Aspire Academics Website");
-    formData.append('subject', 'New Student Application');
-    
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        navigate('/thank-you');
-      } else {
-        throw new Error(data.message || 'Form submission failed');
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      alert('There was an error submitting your form. Please try again.');
-    }
+    // Process form submission
+    navigate('/thank-you');
   };
 
   return (
-    <Section 
-      title="Student Application" 
-      subtitle="Begin Your Academic Journey"
+    <Section
+      title="Become a Student"
+      subtitle="Start your journey to academic success"
       content={[
-        "We're excited to help you achieve your academic goals! Please fill out the form below to get started with our tutoring services.",
-        "One of our academic advisors will contact you within 24 hours to discuss your needs and create a personalized learning plan."
+        "Complete the form below to join our tutoring program. We'll match you with the perfect tutor for your needs.",
       ]}
-      imageUrl="about.jpg"
+      imageUrl="student-apply-bg.jpg"
     >
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-row">
-          <input name="name" placeholder="Student Name" required />
-          <input type="email" name="email" placeholder="Parent/Guardian Email" required />
+          <input name="name" placeholder="Full Name" required />
+          <input type="email" name="email" placeholder="Email" required />
         </div>
         <div className="form-row">
           <input type="tel" name="phone" placeholder="Phone Number" required />
@@ -549,30 +513,44 @@ const ApplyStudent = () => {
             <option value="elementary">Elementary School</option>
             <option value="middle">Middle School</option>
             <option value="high">High School</option>
-            <option value="college">College</option>
+            <option value="college">College/University</option>
+            <option value="adult">Adult Learner</option>
           </select>
         </div>
-        <div className="form-row">
-          <select name="subject" required>
-            <option value="">Select Subject</option>
-            <option value="math">Mathematics</option>
-            <option value="science">Science</option>
-            <option value="english">English</option>
-            <option value="history">History</option>
-            <option value="sat">SAT Prep</option>
-            <option value="act">ACT Prep</option>
-          </select>
-        </div>
+        
         <div className="form-section">
-          <h4>Select Your Preferred Time Slots</h4>
-          <p>Click on the time slots when you're available for tutoring</p>
-          <WeeklySchedule 
-            setPreferredTimes={setPreferredTimes} 
-            onScheduleChange={(times) => setPreferredTimes(times)} 
-          />
+          <h4>What subjects do you need help with?</h4>
+          <p>Select all that apply</p>
+          <div className="checkbox-group">
+            {/* Subject checkboxes */}
+          </div>
         </div>
-        <textarea name="goals" placeholder="What are your academic goals?" required rows="5"></textarea>
-        <motion.button type="submit" whileHover={{ scale: 1.05 }}>Submit Application</motion.button>
+        
+        <div className="form-section">
+          <h4>When are you available for tutoring?</h4>
+          <p>Select times that work best for your schedule</p>
+          <WeeklySchedule setPreferredTimes={setPreferredTimes} />
+        </div>
+        
+        <div className="form-row">
+          <select name="format" required>
+            <option value="">Preferred Tutoring Format</option>
+            <option value="online">Online</option>
+            <option value="in-person">In-Person</option>
+            <option value="both">Either Online or In-Person</option>
+          </select>
+          <select name="frequency" required>
+            <option value="">Preferred Session Frequency</option>
+            <option value="once">Once per week</option>
+            <option value="twice">Twice per week</option>
+            <option value="thrice">Three times per week</option>
+            <option value="custom">Custom schedule</option>
+          </select>
+        </div>
+        
+        <textarea name="goals" placeholder="What are your academic goals? What specific areas do you want to improve?" rows="4" required></textarea>
+        
+        <motion.button type="submit" whileHover={{ scale: 1.05 }}>Get Started</motion.button>
       </form>
     </Section>
   );

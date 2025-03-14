@@ -6,6 +6,17 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
   const hours = Array.from({ length: 12 }, (_, i) => i + 8); // 8 AM to 7 PM
   
   const [selectedSlots, setSelectedSlots] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  
+  // Check if device is mobile
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   const toggleSlot = (day, hour) => {
     const slotId = `${day}-${hour}`;
@@ -51,6 +62,11 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
 
   return (
     <div className="weekly-schedule">
+      {isMobile && (
+        <p style={{ fontSize: '0.8rem', color: '#666', marginBottom: '10px', textAlign: 'center' }}>
+          Scroll horizontally to view the full schedule
+        </p>
+      )}
       <div className="schedule-grid">
         <div className="time-header"></div>
         {days.map(day => (
