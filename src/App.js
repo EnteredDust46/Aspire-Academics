@@ -424,8 +424,15 @@ const ApplyTutor = () => {
       }
     });
     
-    // Add preferred times
-    web3FormData.append('preferredTimes', preferredTimes.join(', '));
+    // Add preferred times - format them for better readability
+    const formattedTimes = preferredTimes.map(time => {
+      const [day, hour] = time.split('-');
+      const hourNum = parseInt(hour);
+      const period = hourNum >= 12 ? 'PM' : 'AM';
+      const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
+      return `${day} at ${displayHour}:00 ${period}`;
+    });
+    web3FormData.append('preferredTimes', formattedTimes.join(', '));
     web3FormData.append('applicationType', 'tutor');
     
     // Add metadata
@@ -614,9 +621,16 @@ const ApplyStudent = () => {
       web3FormData.append(key, value);
     });
     
-    // Add subjects and preferred times
+    // Add subjects and preferred times - format them for better readability
     web3FormData.append('subjects', subjects.join(', '));
-    web3FormData.append('preferredTimes', preferredTimes.join(', '));
+    const formattedTimes = preferredTimes.map(time => {
+      const [day, hour] = time.split('-');
+      const hourNum = parseInt(hour);
+      const period = hourNum >= 12 ? 'PM' : 'AM';
+      const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
+      return `${day} at ${displayHour}:00 ${period}`;
+    });
+    web3FormData.append('preferredTimes', formattedTimes.join(', '));
     web3FormData.append('applicationType', 'student');
     
     // Add metadata

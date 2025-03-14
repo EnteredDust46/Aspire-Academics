@@ -1243,97 +1243,80 @@ input[type="file"]:hover {
   }
 }
 
-/* Ensure text contrast on light backgrounds */
-.form-help {
+/* Ensure text contrast on all form elements */
+.form input, 
+.form select, 
+.form textarea {
   color: var(--text-dark);
-  font-size: 0.85rem;
-  margin-top: 5px;
-  margin-bottom: 15px;
+  background-color: white;
+}
+
+.form input::placeholder, 
+.form textarea::placeholder {
+  color: #666;
   opacity: 0.8;
 }
 
-/* Fix selected times text */
+/* Fix text contrast in schedule grid */
+.schedule-grid {
+  color: var(--text-dark);
+}
+
+.time-header, .day-header {
+  color: white;
+  background: linear-gradient(145deg, var(--primary-dark) 0%, var(--primary) 70%, var(--primary-light) 100%);
+}
+
+.time-slot {
+  color: white;
+  background: linear-gradient(145deg, var(--primary-dark) 0%, var(--primary) 40%, var(--primary-light) 100%);
+}
+
+.schedule-slot {
+  background: linear-gradient(145deg, #f8f8f8 0%, #f0f0f0 100%);
+}
+
+.schedule-slot.selected {
+  background: linear-gradient(145deg, var(--accent-light) 0%, var(--accent) 60%, var(--accent-dark) 100%);
+}
+
+/* Fix text contrast in selected times */
 .selected-times {
-  margin-top: 15px;
-  padding: 15px;
   background: linear-gradient(145deg, var(--primary-light) 0%, #f5f5f5 100%);
-  border-radius: 8px;
-  border: 1px solid var(--primary-light);
-  width: 100%;
-  min-width: 800px;
-  max-width: 850px;
-  box-sizing: border-box;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .selected-times h5 {
   color: var(--text-dark);
-  margin-bottom: 10px;
-  font-size: 1rem;
-  text-shadow: none;
-}
-
-.selected-times ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
 }
 
 .selected-times li {
+  color: white;
   background: linear-gradient(145deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.selected-times li button {
-  background: none;
-  border: none;
-  color: white;
-  margin-left: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
+/* Fix text contrast in buttons */
+.form button[type="submit"] {
+  color: var(--text-dark);
+  background-color: var(--accent);
+  font-weight: 700;
 }
 
-.selected-times li button:hover {
-  transform: scale(1.2);
+/* Fix text contrast in section content */
+.section-content p {
+  color: var(--text-dark);
 }
 
-/* Add styling for form submission states */
-.error-message {
-  color: #d9534f;
-  background-color: rgba(217, 83, 79, 0.1);
-  border: 1px solid rgba(217, 83, 79, 0.2);
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0;
-  font-size: 0.9rem;
-  text-align: center;
+/* Fix text contrast in checkboxes */
+.checkbox-label {
+  color: var(--text-dark);
 }
 
-.form button[type="submit"]:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+/* Fix text contrast in form help text */
+.form-help {
+  color: var(--text-dark);
 }
 
-.form button[type="submit"]:disabled:hover {
-  background-color: #cccccc;
-  transform: none;
-  box-shadow: none;
-}
-
-.form button[type="submit"]:disabled::after {
-  display: none;
+/* Fix text contrast in weekly schedule instructions */
+.weekly-schedule p {
+  color: var(--text-dark) !important;
 }

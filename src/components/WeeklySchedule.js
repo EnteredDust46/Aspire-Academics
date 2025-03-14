@@ -67,66 +67,67 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
   
   const toggleSlot = (day, hour) => {
     const slotId = `${day}-${hour}`;
-    const isSelected = selectedSlots.includes(slotId);
+    let updatedSlots;
     
-    let newSelectedSlots;
-    if (isSelected) {
-      newSelectedSlots = selectedSlots.filter(slot => slot !== slotId);
+    if (selectedSlots.includes(slotId)) {
+      updatedSlots = selectedSlots.filter(slot => slot !== slotId);
     } else {
-      newSelectedSlots = [...selectedSlots, slotId];
+      updatedSlots = [...selectedSlots, slotId];
     }
     
-    setSelectedSlots(newSelectedSlots);
-    if (typeof setPreferredTimes === 'function') {
-      setPreferredTimes(newSelectedSlots);
+    setSelectedSlots(updatedSlots);
+    
+    // If parent component provided a callback, call it
+    if (setPreferredTimes) {
+      setPreferredTimes(updatedSlots);
     }
-    if (typeof onScheduleChange === 'function') {
-      onScheduleChange(newSelectedSlots);
+    
+    if (onScheduleChange) {
+      onScheduleChange(updatedSlots);
     }
   };
   
-  const formatHour = (hour) => {
-    const period = hour >= 12 ? 'PM' : 'AM';
-    const displayHour = hour > 12 ? hour - 12 : hour;
-    return `${displayHour}:00 ${period}`;
+  const removeSlot = (slotId) => {
+    const updatedSlots = selectedSlots.filter(slot => slot !== slotId);
+    setSelectedSlots(updatedSlots);
+    
+    if (setPreferredTimes) {
+      setPreferredTimes(updatedSlots);
+    }
+    
+    if (onScheduleChange) {
+      onScheduleChange(updatedSlots);
+    }
   };
-
+  
   const formatSlot = (slot) => {
     const [day, hour] = slot.split('-');
-    return `${day} at ${formatHour(parseInt(hour))}`;
+    const hourNum = parseInt(hour);
+    const period = hourNum >= 12 ? 'PM' : 'AM';
+    const displayHour = hourNum > 12 ? hourNum - 12 : hourNum;
+    return `${day} at ${displayHour}:00 ${period}`;
   };
-
-  const removeSlot = (slot) => {
-    const newSelectedSlots = selectedSlots.filter(s => s !== slot);
-    setSelectedSlots(newSelectedSlots);
-    if (typeof onScheduleChange === 'function') {
-      onScheduleChange(newSelectedSlots);
-    }
-    if (typeof setPreferredTimes === 'function') {
-      setPreferredTimes(newSelectedSlots);
-    }
-  };
-
+  
   return (
     <div className="weekly-schedule">
       {isMobile && (
-        <p style={{ fontSize: '0.8rem', color: '#666', marginBottom: '10px', textAlign: 'center' }}>
-          Scroll horizontally to view the full schedule
+        <p style={{ fontSize: '0.9rem', color: 'var(--text-dark)', marginBottom: '10px' }}>
+          Scroll horizontally to see all days
         </p>
       )}
-      <p style={{ fontSize: '0.8rem', color: '#666', marginBottom: '10px', textAlign: 'center' }}>
+      <p style={{ fontSize: '0.8rem', color: 'var(--text-dark)', marginBottom: '10px', textAlign: 'center' }}>
         Click and drag to select multiple time slots
       </p>
       <div className="schedule-grid">
         <div className="time-header"></div>
         {days.map(day => (
-          <div key={day} className="day-header">{day.substring(0, 3)}</div>
+          <div key={day} className="day-header">{day}</div>
         ))}
         
         {hours.map(hour => (
           <React.Fragment key={hour}>
             <div className="time-slot">
-              {hour > 12 ? `${hour-12}` : hour}{hour >= 12 ? 'PM' : 'AM'}
+              {hour > 12 ? `${hour-12} PM` : `${hour} AM`}
             </div>
             {days.map(day => (
               <div 
