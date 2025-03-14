@@ -175,9 +175,11 @@ const Home = () => (
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
     >
-      <h2>Why Choose Aspire?</h2>
-      <p>Our tutors aren't just teachers—they're mentors. We know the shortcuts, tricks, and best ways to master material because we've been there ourselves. Whether you need help breaking down tough concepts, staying motivated, or balancing school with extracurriculars, we're here to help in any way we can.</p>
-      <p>With flexible scheduling, competitive pricing, and approachable tutors, Aspire Academics makes learning feel like an opportunity to grow—not just as a chore.</p>
+      <div className="section-content-wrapper">
+        <h2>Why Choose Aspire?</h2>
+        <p>Our tutors aren't just teachers—they're mentors. We know the shortcuts, tricks, and best ways to master material because we've been there ourselves. Whether you need help breaking down tough concepts, staying motivated, or balancing school with extracurriculars, we're here to help in any way we can.</p>
+        <p>With flexible scheduling, competitive pricing, and approachable tutors, Aspire Academics makes learning feel like an opportunity to grow—not just as a chore.</p>
+      </div>
       <div className="features-grid">
         <motion.div 
           className="feature-card"
@@ -208,9 +210,11 @@ const Home = () => (
         </motion.div>
       </div>
       <div className="get-started-section">
-        <h2>Get Started Today!</h2>
-        <p>Ready to achieve more? Click below to begin your journey with Aspire Academics.</p>
-        <Link to="/apply-student" className="cta-button primary">Get Started</Link>
+        <div className="section-content-wrapper">
+          <h2>Get Started Today!</h2>
+          <p>Ready to achieve more? Click below to begin your journey with Aspire Academics.</p>
+          <Link to="/apply-student" className="cta-button primary">Get Started</Link>
+        </div>
       </div>
     </motion.section>
 
@@ -471,13 +475,57 @@ const ApplyTutor = () => {
     setIsSubmitting(true);
     setError(null);
     
-    // Format the preferred times for better readability
-    const formattedTimes = preferredTimes.map(time => {
+    // Format the preferred times in a condensed way by grouping by day
+    const timesByDay = {};
+    
+    // Group times by day
+    preferredTimes.forEach(time => {
       const [day, hour] = time.split('-');
-      const hourNum = parseInt(hour);
-      const period = hourNum >= 12 ? 'PM' : 'AM';
-      const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
-      return `${day} at ${displayHour}:00 ${period}`;
+      if (!timesByDay[day]) {
+        timesByDay[day] = [];
+      }
+      timesByDay[day].push(parseInt(hour));
+    });
+    
+    // Format each day's times in a condensed way
+    const formattedTimes = Object.entries(timesByDay).map(([day, hours]) => {
+      // Sort hours
+      hours.sort((a, b) => a - b);
+      
+      // Find consecutive ranges
+      const ranges = [];
+      let rangeStart = hours[0];
+      let rangeEnd = hours[0];
+      
+      for (let i = 1; i < hours.length; i++) {
+        if (hours[i] === rangeEnd + 1) {
+          // Continue the current range
+          rangeEnd = hours[i];
+        } else {
+          // End the current range and start a new one
+          ranges.push([rangeStart, rangeEnd]);
+          rangeStart = hours[i];
+          rangeEnd = hours[i];
+        }
+      }
+      // Add the last range
+      ranges.push([rangeStart, rangeEnd]);
+      
+      // Format each range
+      const formattedRanges = ranges.map(([start, end]) => {
+        const startPeriod = start >= 12 ? 'PM' : 'AM';
+        const endPeriod = end >= 12 ? 'PM' : 'AM';
+        const displayStart = start > 12 ? start - 12 : (start === 0 ? 12 : start);
+        const displayEnd = end > 12 ? end - 12 : (end === 0 ? 12 : end);
+        
+        if (start === end) {
+          return `${displayStart}${startPeriod}`;
+        } else {
+          return `${displayStart}${startPeriod}-${displayEnd}${endPeriod}`;
+        }
+      });
+      
+      return `${day}: ${formattedRanges.join(', ')}`;
     });
     
     try {
@@ -754,13 +802,57 @@ const ApplyStudent = () => {
     setIsSubmitting(true);
     setError(null);
     
-    // Format the preferred times for better readability
-    const formattedTimes = preferredTimes.map(time => {
+    // Format the preferred times in a condensed way by grouping by day
+    const timesByDay = {};
+    
+    // Group times by day
+    preferredTimes.forEach(time => {
       const [day, hour] = time.split('-');
-      const hourNum = parseInt(hour);
-      const period = hourNum >= 12 ? 'PM' : 'AM';
-      const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
-      return `${day} at ${displayHour}:00 ${period}`;
+      if (!timesByDay[day]) {
+        timesByDay[day] = [];
+      }
+      timesByDay[day].push(parseInt(hour));
+    });
+    
+    // Format each day's times in a condensed way
+    const formattedTimes = Object.entries(timesByDay).map(([day, hours]) => {
+      // Sort hours
+      hours.sort((a, b) => a - b);
+      
+      // Find consecutive ranges
+      const ranges = [];
+      let rangeStart = hours[0];
+      let rangeEnd = hours[0];
+      
+      for (let i = 1; i < hours.length; i++) {
+        if (hours[i] === rangeEnd + 1) {
+          // Continue the current range
+          rangeEnd = hours[i];
+        } else {
+          // End the current range and start a new one
+          ranges.push([rangeStart, rangeEnd]);
+          rangeStart = hours[i];
+          rangeEnd = hours[i];
+        }
+      }
+      // Add the last range
+      ranges.push([rangeStart, rangeEnd]);
+      
+      // Format each range
+      const formattedRanges = ranges.map(([start, end]) => {
+        const startPeriod = start >= 12 ? 'PM' : 'AM';
+        const endPeriod = end >= 12 ? 'PM' : 'AM';
+        const displayStart = start > 12 ? start - 12 : (start === 0 ? 12 : start);
+        const displayEnd = end > 12 ? end - 12 : (end === 0 ? 12 : end);
+        
+        if (start === end) {
+          return `${displayStart}${startPeriod}`;
+        } else {
+          return `${displayStart}${startPeriod}-${displayEnd}${endPeriod}`;
+        }
+      });
+      
+      return `${day}: ${formattedRanges.join(', ')}`;
     });
     
     try {
