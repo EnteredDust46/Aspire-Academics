@@ -461,13 +461,20 @@ const ApplyTutor = () => {
       [name]: value
     });
   };
-
-  const handleSubjectsChange = (e) => {
-    const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
-    setFormData({
-      ...formData,
-      subjects: selectedOptions
-    });
+  
+  const handleSubjectChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setFormData({
+        ...formData,
+        subjects: [...formData.subjects, value]
+      });
+    } else {
+      setFormData({
+        ...formData,
+        subjects: formData.subjects.filter(subject => subject !== value)
+      });
+    }
   };
   
   const handleScheduleChange = (times) => {
@@ -479,295 +486,85 @@ const ApplyTutor = () => {
     setIsSubmitting(true);
     setError(null);
     
-    // Format the preferred times in a condensed way by grouping by day
-    const timesByDay = {};
-    
-    // Group times by day
-    preferredTimes.forEach(time => {
+    // Format the preferred times for better readability
+    const formattedTimes = preferredTimes.map(time => {
       const [day, hour] = time.split('-');
-      if (!timesByDay[day]) {
-        timesByDay[day] = [];
-      }
-      timesByDay[day].push(parseInt(hour));
-    });
+      const hourNum = parseInt(hour);
+      const period = hourNum >= 12 ? 'PM' : 'AM';
+      const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
+      return `${day} at ${displayHour}:00 ${period}`;
+    }).join(', ');
     
-    // Format each day's times in a condensed way
-    const formattedTimes = Object.entries(timesByDay).map(([day, hours]) => {
-      // Sort hours
-      hours.sort((a, b) => a - b);
-      
-      // Find consecutive ranges
-      const ranges = [];
-      let rangeStart = hours[0];
-      let rangeEnd = hours[0];
-      
-      for (let i = 1; i < hours.length; i++) {
-        if (hours[i] === rangeEnd + 1) {
-          // Continue the current range
-          rangeEnd = hours[i];
-        } else {
-          // End the current range and start a new one
-          ranges.push([rangeStart, rangeEnd]);
-          rangeStart = hours[i];
-          rangeEnd = hours[i];
-        }
-      }
-      // Add the last range
-      ranges.push([rangeStart, rangeEnd]);
-      
-      // Format each range
-      const formattedRanges = ranges.map(([start, end]) => {
-        const startPeriod = start >= 12 ? 'PM' : 'AM';
-        const endPeriod = end >= 12 ? 'PM' : 'AM';
-        const displayStart = start > 12 ? start - 12 : (start === 0 ? 12 : start);
-        const displayEnd = end > 12 ? end - 12 : (end === 0 ? 12 : end);
-        
-        if (start === end) {
-          return `${displayStart}${startPeriod}`;
-        } else {
-          return `${displayStart}${startPeriod}-${displayEnd}${endPeriod}`;
-        }
-      });
-      
-      return `${day}: ${formattedRanges.join(', ')}`;
-    });
+    // Create form data for submission to FormSubmit.co
+    const submissionData = new FormData(e.target);
     
-    try {
-      // Use Web3Forms for the form data (which works well)
-      const submissionData = {
-        access_key: '0e051380-5394-4e26-8ffd-af5cc378e7b6',
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        educationLevel: formData.educationLevel,
-        experience: formData.experience,
-        subjects: formData.subjects.join(', '),
-        preferredTimes: formattedTimes.join(', '),
-        availability: formData.availability,
-        applicationType: 'tutor',
-        from_name: 'Aspire Academics Website',
-        subject: `New Tutor Application: ${formData.name}`,
-        resume_note: 'Resume sent separately via FormSubmit',
-        to_email: 'admin@aspireacademicstutoring.com'
-      };
+    // Add the formatted availability
+    submissionData.append('availability', formattedTimes);
     
-      // Submit the form data to Web3Forms
-      fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(submissionData)
-      })
-      .then(async (response) => {
-        const data = await response.json();
-        
-        if (data.success) {
-          // Now handle the resume separately with FormSubmit
-          const resumeInput = document.querySelector('input[name="resume"]');
-          if (resumeInput && resumeInput.files && resumeInput.files[0]) {
-            // Create a proper form for FormSubmit.co
-            const formElement = document.createElement('form');
-            formElement.method = 'POST';
-            formElement.action = 'https://formsubmit.co/admin@aspireacademicstutoring.com';
-            formElement.enctype = 'multipart/form-data';
-            formElement.style.display = 'none';
-            
-            // Add form fields
-            const nameField = document.createElement('input');
-            nameField.type = 'text';
-            nameField.name = 'name';
-            nameField.value = formData.name;
-            
-            const emailField = document.createElement('input');
-            emailField.type = 'email';
-            emailField.name = 'email';
-            emailField.value = formData.email;
-            
-            const subjectField = document.createElement('input');
-            subjectField.type = 'hidden';
-            subjectField.name = '_subject';
-            subjectField.value = `Resume for ${formData.name} - Tutor Application`;
-            
-            const redirectField = document.createElement('input');
-            redirectField.type = 'hidden';
-            redirectField.name = '_next';
-            redirectField.value = window.location.origin + '/thank-you';
-            
-            const captchaField = document.createElement('input');
-            captchaField.type = 'hidden';
-            captchaField.name = '_captcha';
-            captchaField.value = 'false';
-            
-            const honeypotField = document.createElement('input');
-            honeypotField.type = 'text';
-            honeypotField.name = '_honey';
-            honeypotField.style.display = 'none';
-            
-            // Clone the file input to include the file
-            const fileField = resumeInput.cloneNode(true);
-            
-            // Add all fields to the form
-            formElement.appendChild(nameField);
-            formElement.appendChild(emailField);
-            formElement.appendChild(subjectField);
-            formElement.appendChild(redirectField);
-            formElement.appendChild(captchaField);
-            formElement.appendChild(honeypotField);
-            formElement.appendChild(fileField);
-            
-            // Add form to the document, submit it, and remove it
-            document.body.appendChild(formElement);
-            formElement.submit();
-            
-            // Don't navigate yet - let the form submission handle it
-            return new Promise(resolve => {
-              // We'll resolve after a short delay to allow the form to submit
-              setTimeout(resolve, 500);
-            });
-          }
-          return Promise.resolve();
-        } else {
-          throw new Error(data.message || 'Form submission failed');
-        }
-      })
-      .then(() => {
+    // Add subjects as a comma-separated list
+    submissionData.append('subjects', formData.subjects.join(', '));
+    
+    // Submit to FormSubmit.co
+    fetch('https://formsubmit.co/your-formsubmit-endpoint', {
+      method: 'POST',
+      body: submissionData
+    })
+    .then(response => {
+      if (response.ok) {
         setIsSubmitting(false);
         navigate('/thank-you');
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        setError('There was a problem submitting your application. Please try again.');
-        setIsSubmitting(false);
-      });
-    } catch (error) {
-      console.error('Error in form submission:', error);
+      } else {
+        throw new Error('Form submission failed');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
       setError('There was a problem submitting your application. Please try again.');
       setIsSubmitting(false);
-    }
+    });
   };
-
+  
   return (
-    <Section
-      title="Join Our Tutoring Team"
-      subtitle="Share your knowledge and make a difference"
-      content={[
-        "We're looking for passionate educators to join our team. Complete the form below to apply.",
-      ]}
-      imageUrl="tutor-apply-bg.jpg"
+    <motion.section 
+      className="section"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
     >
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="form-row">
-          <input 
-            name="name" 
-            placeholder="Full Name" 
-            required 
-            value={formData.name}
-            onChange={handleInputChange}
-          />
-          <input 
-            type="email" 
-            name="email" 
-            placeholder="Email" 
-            required 
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-row">
-          <input 
-            type="tel" 
-            name="phone" 
-            placeholder="Phone" 
-            required
-            value={formData.phone}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-row">
-          <select 
-            name="educationLevel" 
-            required
-            value={formData.educationLevel}
-            onChange={handleInputChange}
-          >
-            <option value="">Select Education Level</option>
-            <option value="bachelors">Bachelor's Degree</option>
-            <option value="masters">Master's Degree</option>
-            <option value="phd">PhD</option>
-            <option value="teaching">Teaching Credential</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        
-        <textarea 
-          name="experience" 
-          placeholder="Tell us about your tutoring experience" 
-          required 
-          rows="5"
-          value={formData.experience}
-          onChange={handleInputChange}
-        ></textarea>
-        
-        <div className="form-row">
-          <input type="file" name="resume" accept=".pdf,.doc,.docx" required />
-          <p className="form-help">Upload your resume/CV (PDF, DOC, or DOCX)</p>
-        </div>
-        
-        <p className="file-upload-note">
-          Note: Your resume will be attached to your application. Maximum file size is 10MB.
-        </p>
-        
-        <select 
-          name="subjects" 
-          multiple 
-          required
-          value={formData.subjects}
-          onChange={handleSubjectsChange}
-        >
-          <option value="math">Mathematics</option>
-          <option value="science">Science</option>
-          <option value="english">English</option>
-          <option value="history">History</option>
-          <option value="sat">SAT Prep</option>
-          <option value="act">ACT Prep</option>
-          <option value="foreign">Foreign Languages</option>
-          <option value="computer">Computer Science</option>
-        </select>
-        <p className="form-help">Hold Ctrl/Cmd to select multiple subjects</p>
-        
-        <div className="form-section">
-          <h4>When are you available to tutor?</h4>
-          <p>Select times that work best for your schedule</p>
-          <WeeklySchedule 
-            setPreferredTimes={setPreferredTimes}
-            onScheduleChange={handleScheduleChange}
-          />
-        </div>
-        
-        <textarea 
-          name="availability" 
-          placeholder="Any additional notes about your availability?" 
-          rows="3" 
-          value={formData.availability}
-          onChange={handleInputChange}
-        ></textarea>
-        
-        <input type="text" name="_honey" style={{ display: 'none' }} />
-        <input type="hidden" name="_captcha" value="false" />
+      <div className="section-content-wrapper">
+        <h2>Apply to Become a Tutor</h2>
+        <p>Join our team of dedicated educators and make a difference in students' lives.</p>
         
         {error && <div className="error-message">{error}</div>}
         
-        <motion.button 
-          type="submit" 
-          whileHover={{ scale: 1.05 }}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 'Submitting...' : 'Submit Application'}
-        </motion.button>
-      </form>
-    </Section>
+        <form className="form" onSubmit={handleSubmit} action="https://formsubmit.co/your-formsubmit-endpoint" method="POST" encType="multipart/form-data">
+          {/* Hidden fields for FormSubmit.co */}
+          <input type="hidden" name="_subject" value="New Tutor Application" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you" />
+          
+          {/* Form fields... */}
+          
+          <div className="form-section">
+            <h4>When are you available to tutor?</h4>
+            <p>Select times that work best for your schedule</p>
+            <WeeklySchedule 
+              setPreferredTimes={setPreferredTimes}
+              onScheduleChange={handleScheduleChange}
+            />
+          </div>
+          
+          <button 
+            type="submit" 
+            className="submit-button"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit Application'}
+          </button>
+        </form>
+      </div>
+    </motion.section>
   );
 };
 
@@ -792,7 +589,7 @@ const ApplyStudent = () => {
       [name]: value
     });
   };
-
+  
   const handleSubjectChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
@@ -807,7 +604,7 @@ const ApplyStudent = () => {
       });
     }
   };
-
+  
   const handleScheduleChange = (times) => {
     setPreferredTimes(times);
   };
@@ -817,271 +614,87 @@ const ApplyStudent = () => {
     setIsSubmitting(true);
     setError(null);
     
-    // Format the preferred times in a condensed way by grouping by day
-    const timesByDay = {};
-    
-    // Group times by day
-    preferredTimes.forEach(time => {
+    // Format the preferred times for better readability
+    const formattedTimes = preferredTimes.map(time => {
       const [day, hour] = time.split('-');
-      if (!timesByDay[day]) {
-        timesByDay[day] = [];
-      }
-      timesByDay[day].push(parseInt(hour));
-    });
+      const hourNum = parseInt(hour);
+      const period = hourNum >= 12 ? 'PM' : 'AM';
+      const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
+      return `${day} at ${displayHour}:00 ${period}`;
+    }).join(', ');
     
-    // Format each day's times in a condensed way
-    const formattedTimes = Object.entries(timesByDay).map(([day, hours]) => {
-      // Sort hours
-      hours.sort((a, b) => a - b);
-      
-      // Find consecutive ranges
-      const ranges = [];
-      let rangeStart = hours[0];
-      let rangeEnd = hours[0];
-      
-      for (let i = 1; i < hours.length; i++) {
-        if (hours[i] === rangeEnd + 1) {
-          // Continue the current range
-          rangeEnd = hours[i];
-        } else {
-          // End the current range and start a new one
-          ranges.push([rangeStart, rangeEnd]);
-          rangeStart = hours[i];
-          rangeEnd = hours[i];
-        }
-      }
-      // Add the last range
-      ranges.push([rangeStart, rangeEnd]);
-      
-      // Format each range
-      const formattedRanges = ranges.map(([start, end]) => {
-        const startPeriod = start >= 12 ? 'PM' : 'AM';
-        const endPeriod = end >= 12 ? 'PM' : 'AM';
-        const displayStart = start > 12 ? start - 12 : (start === 0 ? 12 : start);
-        const displayEnd = end > 12 ? end - 12 : (end === 0 ? 12 : end);
-        
-        if (start === end) {
-          return `${displayStart}${startPeriod}`;
-        } else {
-          return `${displayStart}${startPeriod}-${displayEnd}${endPeriod}`;
-        }
-      });
-      
-      return `${day}: ${formattedRanges.join(', ')}`;
-    });
+    // Create form data for submission to Web3Forms
+    const submissionData = new FormData(e.target);
     
-    try {
-      const formData = new FormData();
-      formData.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
-      
-      // Add all form fields
-      Object.entries(formData).forEach(([key, value]) => {
-        formData.append(key, value);
-      });
-      
-      // Add preferred times
-      formData.append('preferredTimes', formattedTimes.join(', '));
-      formData.append('applicationType', 'student');
-      
-      // Add metadata
-      formData.append('from_name', 'Aspire Academics Website');
-      formData.append('subject', `New Student Application: ${formData.name}`);
-      formData.append('to_email', 'admin@aspireacademicstutoring.com');
-      
-      // Submit the form
-      fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      })
-      .then(async (response) => {
-        const data = await response.json();
-        
-        if (data.success) {
-          setIsSubmitting(false);
-          navigate('/thank-you');
-        } else {
-          throw new Error(data.message || 'Form submission failed');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        setError('There was a problem submitting your application. Please try again.');
+    // Add the formatted availability
+    submissionData.append('availability', formattedTimes);
+    
+    // Add subjects as a comma-separated list
+    submissionData.append('subjects', formData.subjects.join(', '));
+    
+    // Add Web3Forms access key
+    submissionData.append('access_key', 'YOUR_WEB3FORMS_ACCESS_KEY');
+    
+    // Submit to Web3Forms
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: submissionData
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
         setIsSubmitting(false);
-      });
-    } catch (error) {
-      console.error('Error in form submission:', error);
+        navigate('/thank-you');
+      } else {
+        throw new Error(data.message || 'Form submission failed');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
       setError('There was a problem submitting your application. Please try again.');
       setIsSubmitting(false);
-    }
+    });
   };
-
+  
   return (
-    <Section
-      title="Become a Student"
-      subtitle="Start your journey to academic success"
-      content={[
-        "Complete the form below to join our tutoring program. We'll match you with the perfect tutor for your needs.",
-      ]}
-      imageUrl="student-apply-bg.jpg"
+    <motion.section 
+      className="section"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
     >
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="form-row">
-          <input 
-            name="name" 
-            placeholder="Full Name" 
-            required 
-            value={formData.name}
-            onChange={handleInputChange}
-          />
-          <input 
-            type="email" 
-            name="email" 
-            placeholder="Email" 
-            required 
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-row">
-          <input 
-            type="tel" 
-            name="phone" 
-            placeholder="Phone Number" 
-            required 
-            value={formData.phone}
-            onChange={handleInputChange}
-          />
-          <select 
-            name="grade" 
-            required
-            value={formData.grade}
-            onChange={handleInputChange}
-          >
-            <option value="">Select Grade Level</option>
-            <option value="elementary">Elementary School</option>
-            <option value="middle">Middle School</option>
-            <option value="high">High School</option>
-            <option value="college">College/University</option>
-            <option value="adult">Adult Learner</option>
-          </select>
-        </div>
-        
-        <div className="form-section">
-          <h4>What subjects do you need help with?</h4>
-          <p>Select all that apply</p>
-          <div className="checkbox-group">
-            <label className="checkbox-label">
-              <input 
-                type="checkbox" 
-                name="subjects" 
-                value="math" 
-                checked={formData.subjects.includes('math')}
-                onChange={handleSubjectChange}
-              />
-              Mathematics
-            </label>
-            <label className="checkbox-label">
-              <input 
-                type="checkbox" 
-                name="subjects" 
-                value="science" 
-                checked={formData.subjects.includes('science')}
-                onChange={handleSubjectChange}
-              />
-              Science
-            </label>
-            <label className="checkbox-label">
-              <input 
-                type="checkbox" 
-                name="subjects" 
-                value="english" 
-                checked={formData.subjects.includes('english')}
-                onChange={handleSubjectChange}
-              />
-              English
-            </label>
-            <label className="checkbox-label">
-              <input 
-                type="checkbox" 
-                name="subjects" 
-                value="history" 
-                checked={formData.subjects.includes('history')}
-                onChange={handleSubjectChange}
-              />
-              History
-            </label>
-            <label className="checkbox-label">
-              <input 
-                type="checkbox" 
-                name="subjects" 
-                value="sat" 
-                checked={formData.subjects.includes('sat')}
-                onChange={handleSubjectChange}
-              />
-              SAT Prep
-            </label>
-            <label className="checkbox-label">
-              <input 
-                type="checkbox" 
-                name="subjects" 
-                value="act" 
-                checked={formData.subjects.includes('act')}
-                onChange={handleSubjectChange}
-              />
-              ACT Prep
-            </label>
-            <label className="checkbox-label">
-              <input 
-                type="checkbox" 
-                name="subjects" 
-                value="foreign" 
-                checked={formData.subjects.includes('foreign')}
-                onChange={handleSubjectChange}
-              />
-              Foreign Languages
-            </label>
-            <label className="checkbox-label">
-              <input 
-                type="checkbox" 
-                name="subjects" 
-                value="computer" 
-                checked={formData.subjects.includes('computer')}
-                onChange={handleSubjectChange}
-              />
-              Computer Science
-            </label>
-          </div>
-        </div>
-        
-        <div className="form-section">
-          <h4>When are you available for tutoring?</h4>
-          <p>Select times that work best for your schedule</p>
-          <WeeklySchedule 
-            setPreferredTimes={setPreferredTimes}
-            onScheduleChange={handleScheduleChange}
-          />
-        </div>
-        
-        <textarea 
-          name="goals" 
-          placeholder="What are your academic goals? What specific areas do you want to improve?" 
-          rows="4" 
-          required
-          value={formData.goals}
-          onChange={handleInputChange}
-        ></textarea>
+      <div className="section-content-wrapper">
+        <h2>Apply for Tutoring</h2>
+        <p>Take the first step toward academic success by applying for tutoring services.</p>
         
         {error && <div className="error-message">{error}</div>}
         
-        <motion.button 
-          type="submit" 
-          whileHover={{ scale: 1.05 }}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 'Submitting...' : 'Get Started'}
-        </motion.button>
-      </form>
-    </Section>
+        <form className="form" onSubmit={handleSubmit}>
+          {/* Hidden fields for Web3Forms */}
+          <input type="hidden" name="subject" value="New Student Application" />
+          <input type="hidden" name="from_name" value="Aspire Academics Website" />
+          
+          {/* Form fields... */}
+          
+          <div className="form-section">
+            <h4>When are you available for tutoring?</h4>
+            <p>Select times that work best for your schedule</p>
+            <WeeklySchedule 
+              setPreferredTimes={setPreferredTimes}
+              onScheduleChange={handleScheduleChange}
+            />
+          </div>
+          
+          <button 
+            type="submit" 
+            className="submit-button"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit Application'}
+          </button>
+        </form>
+      </div>
+    </motion.section>
   );
 };
 
