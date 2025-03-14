@@ -51,19 +51,38 @@ const Navbar = () => {
       <Link to="/" className="logo-container">
         <img src={logo} alt="Aspire Academics" className="logo-image" />
       </Link>
-      <button className="mobile-menu-button" onClick={toggleMobileMenu}>
-        <i className="fas fa-bars"></i>
-      </button>
-      <div className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/how-it-works">How It Works</Link>
-        <Link to="/services">Services</Link>
-        <Link to="/tutors">Meet Our Tutors</Link>
-        <Link to="/apply">Get Started</Link>
-        <Link to="/testimonials">Testimonials</Link>
-        <Link to="/contact">Contact</Link>
-      </div>
+      <motion.button 
+        className="mobile-menu-button" 
+        onClick={toggleMobileMenu}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        animate={{ rotate: mobileMenuOpen ? 90 : 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <i className={`fas ${mobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
+      </motion.button>
+      <motion.div 
+        className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}
+        initial={false}
+        animate={{ 
+          right: mobileMenuOpen ? 0 : '-100%',
+          opacity: mobileMenuOpen ? 1 : 0.8
+        }}
+        transition={{ 
+          type: "spring", 
+          stiffness: 400, 
+          damping: 40
+        }}
+      >
+        <Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+        <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
+        <Link to="/how-it-works" onClick={() => setMobileMenuOpen(false)}>How It Works</Link>
+        <Link to="/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
+        <Link to="/tutors" onClick={() => setMobileMenuOpen(false)}>Meet Our Tutors</Link>
+        <Link to="/apply" onClick={() => setMobileMenuOpen(false)}>Get Started</Link>
+        <Link to="/testimonials" onClick={() => setMobileMenuOpen(false)}>Testimonials</Link>
+        <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+      </motion.div>
     </motion.nav>
   );
 };
@@ -419,55 +438,61 @@ const ApplyTutor = () => {
       return `${day} at ${displayHour}:00 ${period}`;
     });
     
-    // Create FormData for file uploads using the attachment feature
-    const formDataWithFiles = new FormData();
-    
-    // Add the access key
-    formDataWithFiles.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
-    
-    // Add all form fields
-    Object.entries(formData).forEach(([key, value]) => {
-      if (key === 'subjects') {
-        formDataWithFiles.append(key, value.join(', '));
-      } else {
-        formDataWithFiles.append(key, value);
-      }
-    });
-    
-    // Add preferred times
-    formDataWithFiles.append('preferredTimes', formattedTimes.join(', '));
-    formDataWithFiles.append('applicationType', 'tutor');
-    
-    // Add metadata
-    formDataWithFiles.append('from_name', 'Aspire Academics Website');
-    formDataWithFiles.append('subject', `New Tutor Application: ${formData.name}`);
-    
-    // Get the resume file and add it as an attachment
-    const resumeFile = document.querySelector('input[name="resume"]').files[0];
-    if (resumeFile) {
-      formDataWithFiles.append('attachment', resumeFile);
-    }
-    
-    // Submit the form with file upload - don't set Content-Type header
-    fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      body: formDataWithFiles
-    })
-    .then(async (response) => {
-      const data = await response.json();
+    try {
+      // Create a new FormData object
+      const formDataWithFiles = new FormData();
       
-      if (data.success) {
-        setIsSubmitting(false);
-        navigate('/thank-you');
-      } else {
-        throw new Error(data.message || 'Form submission failed');
+      // Add the access key (required by Web3Forms)
+      formDataWithFiles.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
+      
+      // Add form fields
+      formDataWithFiles.append('name', formData.name);
+      formDataWithFiles.append('email', formData.email);
+      formDataWithFiles.append('phone', formData.phone);
+      formDataWithFiles.append('education', formData.education);
+      formDataWithFiles.append('educationLevel', formData.educationLevel);
+      formDataWithFiles.append('experience', formData.experience);
+      formDataWithFiles.append('subjects', formData.subjects.join(', '));
+      formDataWithFiles.append('preferredTimes', formattedTimes.join(', '));
+      formDataWithFiles.append('availability', formData.availability);
+      formDataWithFiles.append('applicationType', 'tutor');
+      
+      // Add metadata
+      formDataWithFiles.append('from_name', 'Aspire Academics Website');
+      formDataWithFiles.append('subject', `New Tutor Application: ${formData.name}`);
+      
+      // Get the resume file and add it as an attachment
+      const resumeInput = document.querySelector('input[name="resume"]');
+      if (resumeInput && resumeInput.files && resumeInput.files[0]) {
+        const resumeFile = resumeInput.files[0];
+        formDataWithFiles.append('attachment', resumeFile, resumeFile.name);
       }
-    })
-    .catch(error => {
-      console.error('Error:', error);
+    
+      // Submit the form with file upload - don't set Content-Type header
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formDataWithFiles
+      })
+      .then(async (response) => {
+        const data = await response.json();
+        
+        if (data.success) {
+          setIsSubmitting(false);
+          navigate('/thank-you');
+        } else {
+          throw new Error(data.message || 'Form submission failed');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        setError('There was a problem submitting your application. Please try again.');
+        setIsSubmitting(false);
+      });
+    } catch (error) {
+      console.error('Error in form submission:', error);
       setError('There was a problem submitting your application. Please try again.');
       setIsSubmitting(false);
-    });
+    }
   };
 
   return (
