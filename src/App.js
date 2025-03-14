@@ -419,7 +419,7 @@ const ApplyTutor = () => {
       return `${day} at ${displayHour}:00 ${period}`;
     });
     
-    // Create FormData for file uploads
+    // Create FormData for file uploads using the attachment feature
     const formDataWithFiles = new FormData();
     
     // Add the access key
@@ -442,13 +442,13 @@ const ApplyTutor = () => {
     formDataWithFiles.append('from_name', 'Aspire Academics Website');
     formDataWithFiles.append('subject', `New Tutor Application: ${formData.name}`);
     
-    // Get the resume file
+    // Get the resume file and add it as an attachment
     const resumeFile = document.querySelector('input[name="resume"]').files[0];
     if (resumeFile) {
-      formDataWithFiles.append('resume', resumeFile);
+      formDataWithFiles.append('attachment', resumeFile);
     }
     
-    // Submit the form with file upload
+    // Submit the form with file upload - don't set Content-Type header
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       body: formDataWithFiles
