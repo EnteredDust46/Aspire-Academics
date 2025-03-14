@@ -14,12 +14,13 @@
 .schedule-grid {
   display: grid;
   grid-template-columns: 100px repeat(7, 1fr);
-  gap: 2px;
+  gap: 1px;
   background-color: var(--primary-light);
   border-radius: 10px;
   overflow: hidden;
   position: relative;
   z-index: 1;
+  padding: 1px;
 }
 
 .schedule-grid::before {
@@ -50,6 +51,10 @@
   z-index: 2;
   border: 1px solid rgba(103, 188, 196, 0.2);
   box-sizing: border-box;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .day-header {
@@ -67,6 +72,7 @@
   align-items: center;
   justify-content: center;
   border-right: 2px solid var(--primary-dark);
+  height: 42px;
 }
 
 .time-slot {
@@ -343,12 +349,13 @@
 .schedule-grid {
   display: grid;
   grid-template-columns: 100px repeat(7, 1fr);
-  gap: 2px;
+  gap: 1px;
   background-color: var(--primary-light);
   border-radius: 10px;
   overflow: hidden;
   position: relative;
   z-index: 1;
+  padding: 1px;
 }
 
 .schedule-grid::before {
