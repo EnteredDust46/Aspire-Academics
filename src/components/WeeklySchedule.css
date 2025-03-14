@@ -9,19 +9,17 @@
   background: transparent;
   padding: 20px;
   border-radius: 8px;
-  -webkit-overflow-scrolling: touch;
 }
 
 .schedule-grid {
   display: grid;
   grid-template-columns: 100px repeat(7, 1fr);
-  gap: 1px;
+  gap: 2px;
   background-color: var(--primary-light);
   border-radius: 10px;
   overflow: hidden;
   position: relative;
   z-index: 1;
-  padding: 1px;
 }
 
 .schedule-grid::before {
@@ -50,12 +48,6 @@
   transition: background-color 0.3s ease;
   position: relative;
   z-index: 2;
-  border: 1px solid rgba(103, 188, 196, 0.2);
-  box-sizing: border-box;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .day-header {
@@ -69,11 +61,7 @@
   font-weight: bold;
   background-color: var(--primary);
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-right: 2px solid var(--primary-dark);
-  height: 42px;
 }
 
 .time-slot {
@@ -256,33 +244,24 @@
 
 @media (max-width: 768px) {
   .form-section {
-    padding: 15px 0;
-    margin: 15px 0;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: visible;
-    box-sizing: border-box;
+    padding: 15px 10px;
+    margin: 15px 10px;
+    width: auto;
   }
   
   .weekly-schedule {
-    padding: 5px 0;
+    padding: 5px;
     margin: 10px 0;
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    display: block;
-    box-sizing: border-box;
   }
   
   .schedule-container {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     padding: 0;
     margin: 0;
-    width: 100%;
     max-width: 100%;
-    box-sizing: border-box;
   }
   
   .selected-times {
@@ -386,14 +365,10 @@
 /* Fix the white line running through Sunday column */
 .day-header:first-of-type {
   position: relative;
-  z-index: 3; /* Higher z-index to prevent overlap */
-  border-left: none;
 }
 
 .time-slot:nth-child(8n+2) {
   position: relative;
-  z-index: 3; /* Higher z-index for Sunday column slots */
-  border-left: none;
 }
 
 /* Remove any gradient overlays that might be causing the issue */
