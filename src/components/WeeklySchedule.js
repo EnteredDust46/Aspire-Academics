@@ -109,52 +109,61 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
   };
   
   return (
-    <div className="weekly-schedule">
-      {isMobile && (
-        <p style={{ fontSize: '0.9rem', color: 'var(--text-dark)', marginBottom: '10px' }}>
-          Scroll horizontally to see all days
-        </p>
-      )}
-      <p style={{ fontSize: '0.8rem', color: 'var(--text-dark)', marginBottom: '10px', textAlign: 'center' }}>
-        Click and drag to select multiple time slots
-      </p>
-      <div className="schedule-grid">
-        <div className="time-header"></div>
-        {days.map(day => (
-          <div key={day} className="day-header">{day}</div>
-        ))}
-        
-        {hours.map(hour => (
-          <React.Fragment key={hour}>
-            <div className="time-slot">
-              {hour > 12 ? `${hour-12} PM` : `${hour} AM`}
-            </div>
-            {days.map(day => (
-              <div 
-                key={`${day}-${hour}`}
-                className={`schedule-slot ${selectedSlots.includes(`${day}-${hour}`) ? 'selected' : ''}`}
-                onMouseDown={() => handleMouseDown(day, hour)}
-                onMouseEnter={() => handleMouseEnter(day, hour)}
-                onMouseUp={handleMouseUp}
-              ></div>
+    <div className="form-section">
+      <h3>Select Your Availability</h3>
+      <p>Please select all times you're available for tutoring sessions.</p>
+      
+      {/* Add a mobile-specific instruction */}
+      <p className="mobile-scroll-note">Swipe left/right to view all days</p>
+      
+      <div className="weekly-schedule">
+        <div className="schedule-container">
+          <div className="schedule-grid">
+            {/* Time labels column */}
+            <div className="time-label"></div>
+            <div className="day-header">Sunday</div>
+            <div className="day-header">Monday</div>
+            <div className="day-header">Tuesday</div>
+            <div className="day-header">Wednesday</div>
+            <div className="day-header">Thursday</div>
+            <div className="day-header">Friday</div>
+            <div className="day-header">Saturday</div>
+            
+            {/* Generate time slots */}
+            {hours.map(hour => (
+              React.Fragment.key(hour, [
+                <div className="time-label" key={`time-${hour}`}>
+                  {formatSlot(hour > 12 ? `${hour-12} PM` : `${hour} AM`)}
+                </div>,
+                ...days.map(day => (
+                  <div
+                    className={`time-slot ${selectedSlots.includes(`${day}-${hour}`) ? 'selected' : ''}`}
+                    key={`${day}-${hour}`}
+                    onClick={() => toggleSlot(`${day}-${hour}`)}
+                  ></div>
+                ))
+              ])
             ))}
-          </React.Fragment>
-        ))}
+          </div>
+        </div>
       </div>
       
-      {selectedSlots.length > 0 && (
-        <div className="selected-times">
-          <h5>Selected Time Slots:</h5>
+      {/* Display selected times */}
+      <div className="selected-times">
+        <h5>Selected Times:</h5>
+        {selectedSlots.length === 0 ? (
+          <p>No times selected yet.</p>
+        ) : (
           <ul>
             {selectedSlots.map(slot => (
               <li key={slot}>
                 {formatSlot(slot)}
-                <button onClick={() => removeSlot(slot)}>&times;</button>
+                <button onClick={() => removeSlot(slot)}>×</button>
               </li>
             ))}
           </ul>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

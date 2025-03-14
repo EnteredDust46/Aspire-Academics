@@ -565,15 +565,19 @@ textarea {
   .weekly-schedule {
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     padding: 5px 0;
+    box-sizing: border-box;
   }
   
   .schedule-container {
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     padding: 0;
+    box-sizing: border-box;
   }
 }
 
@@ -1635,15 +1639,19 @@ body, html {
   .weekly-schedule {
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     padding: 5px 0;
+    box-sizing: border-box;
   }
   
   .schedule-container {
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     padding: 0;
+    box-sizing: border-box;
   }
 }
 

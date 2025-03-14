@@ -9,6 +9,7 @@
   background: transparent;
   padding: 20px;
   border-radius: 8px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .schedule-grid {
@@ -255,20 +256,23 @@
 
 @media (max-width: 768px) {
   .form-section {
-    padding: 15px 10px;
-    margin: 15px 10px;
-    width: auto;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    padding: 15px 0;
+    margin: 15px 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: visible;
+    box-sizing: border-box;
   }
   
   .weekly-schedule {
-    padding: 5px;
+    padding: 5px 0;
     margin: 10px 0;
+    width: 100%;
     max-width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     display: block;
+    box-sizing: border-box;
   }
   
   .schedule-container {
@@ -276,7 +280,9 @@
     -webkit-overflow-scrolling: touch;
     padding: 0;
     margin: 0;
+    width: 100%;
     max-width: 100%;
+    box-sizing: border-box;
   }
   
   .selected-times {
@@ -400,4 +406,20 @@
 .day-header, .time-slot {
   border: 1px solid rgba(103, 188, 196, 0.2);
   box-sizing: border-box;
+}
+
+/* Add mobile scroll note styling */
+.mobile-scroll-note {
+  display: none;
+  font-size: 0.9rem;
+  color: var(--accent-dark);
+  text-align: center;
+  margin: 5px 0 10px;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .mobile-scroll-note {
+    display: block;
+  }
 } 
