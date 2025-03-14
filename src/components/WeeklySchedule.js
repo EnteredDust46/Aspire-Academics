@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './WeeklySchedule.css';
 
 const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const hours = Array.from({ length: 12 }, (_, i) => i + 8); // 8 AM to 7 PM
   
   const [selectedSlots, setSelectedSlots] = useState([]);
@@ -32,7 +32,7 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
     setDragSelectMode(!isSelected);
     
     // Toggle the slot
-    toggleSlot(day, hour);
+    toggleSlot(slotId);
   };
   
   // Handle mouse enter on a slot during drag
@@ -43,9 +43,9 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
       
       // Only toggle if the current selection state doesn't match our drag mode
       if (dragSelectMode && !isSelected) {
-        toggleSlot(day, hour);
+        toggleSlot(slotId);
       } else if (!dragSelectMode && isSelected) {
-        toggleSlot(day, hour);
+        toggleSlot(slotId);
       }
     }
   };
@@ -65,8 +65,7 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
     return () => document.removeEventListener('mouseup', handleDocumentMouseUp);
   }, []);
   
-  const toggleSlot = (day, hour) => {
-    const slotId = `${day}-${hour}`;
+  const toggleSlot = (slotId) => {
     let updatedSlots;
     
     if (selectedSlots.includes(slotId)) {
@@ -101,11 +100,14 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
   };
   
   const formatSlot = (slot) => {
-    const [day, hour] = slot.split('-');
-    const hourNum = parseInt(hour);
-    const period = hourNum >= 12 ? 'PM' : 'AM';
-    const displayHour = hourNum > 12 ? hourNum - 12 : hourNum;
-    return `${day} at ${displayHour}:00 ${period}`;
+    if (typeof slot === 'string' && slot.includes('-')) {
+      const [day, hour] = slot.split('-');
+      const hourNum = parseInt(hour);
+      const period = hourNum >= 12 ? 'PM' : 'AM';
+      const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
+      return `${day} at ${displayHour}:00 ${period}`;
+    }
+    return slot; // Return as is if not in expected format
   };
   
   return (
@@ -121,28 +123,24 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
           <div className="schedule-grid">
             {/* Time labels column */}
             <div className="time-label"></div>
-            <div className="day-header">Sunday</div>
-            <div className="day-header">Monday</div>
-            <div className="day-header">Tuesday</div>
-            <div className="day-header">Wednesday</div>
-            <div className="day-header">Thursday</div>
-            <div className="day-header">Friday</div>
-            <div className="day-header">Saturday</div>
+            {days.map(day => (
+              <div className="day-header" key={day}>{day}</div>
+            ))}
             
             {/* Generate time slots */}
             {hours.map(hour => (
-              React.Fragment.key(hour, [
-                <div className="time-label" key={`time-${hour}`}>
-                  {formatSlot(hour > 12 ? `${hour-12} PM` : `${hour} AM`)}
-                </div>,
-                ...days.map(day => (
+              <React.Fragment key={hour}>
+                <div className="time-label">
+                  {hour > 12 ? `${hour-12} PM` : `${hour} AM`}
+                </div>
+                {days.map(day => (
                   <div
                     className={`time-slot ${selectedSlots.includes(`${day}-${hour}`) ? 'selected' : ''}`}
                     key={`${day}-${hour}`}
                     onClick={() => toggleSlot(`${day}-${hour}`)}
                   ></div>
-                ))
-              ])
+                ))}
+              </React.Fragment>
             ))}
           </div>
         </div>

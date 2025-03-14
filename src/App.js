@@ -470,6 +470,10 @@ const ApplyTutor = () => {
     });
   };
   
+  const handleScheduleChange = (times) => {
+    setPreferredTimes(times);
+  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -736,7 +740,10 @@ const ApplyTutor = () => {
         <div className="form-section">
           <h4>When are you available to tutor?</h4>
           <p>Select times that work best for your schedule</p>
-          <WeeklySchedule setPreferredTimes={setPreferredTimes} />
+          <WeeklySchedule 
+            setPreferredTimes={setPreferredTimes}
+            onScheduleChange={handleScheduleChange}
+          />
         </div>
         
         <textarea 
@@ -766,28 +773,17 @@ const ApplyTutor = () => {
 
 const ApplyStudent = () => {
   const navigate = useNavigate();
-  const [subjects, setSubjects] = useState([]);
-  const [preferredTimes, setPreferredTimes] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     grade: '',
-    format: '',
-    frequency: '',
+    subjects: [],
     goals: ''
   });
+  const [preferredTimes, setPreferredTimes] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
-  
-  const handleSubjectChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setSubjects([...subjects, value]);
-    } else {
-      setSubjects(subjects.filter(subject => subject !== value));
-    }
-  };
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -797,6 +793,25 @@ const ApplyStudent = () => {
     });
   };
 
+  const handleSubjectChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setFormData({
+        ...formData,
+        subjects: [...formData.subjects, value]
+      });
+    } else {
+      setFormData({
+        ...formData,
+        subjects: formData.subjects.filter(subject => subject !== value)
+      });
+    }
+  };
+
+  const handleScheduleChange = (times) => {
+    setPreferredTimes(times);
+  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -960,7 +975,7 @@ const ApplyStudent = () => {
                 type="checkbox" 
                 name="subjects" 
                 value="math" 
-                checked={subjects.includes('math')}
+                checked={formData.subjects.includes('math')}
                 onChange={handleSubjectChange}
               />
               Mathematics
@@ -970,7 +985,7 @@ const ApplyStudent = () => {
                 type="checkbox" 
                 name="subjects" 
                 value="science" 
-                checked={subjects.includes('science')}
+                checked={formData.subjects.includes('science')}
                 onChange={handleSubjectChange}
               />
               Science
@@ -980,7 +995,7 @@ const ApplyStudent = () => {
                 type="checkbox" 
                 name="subjects" 
                 value="english" 
-                checked={subjects.includes('english')}
+                checked={formData.subjects.includes('english')}
                 onChange={handleSubjectChange}
               />
               English
@@ -990,7 +1005,7 @@ const ApplyStudent = () => {
                 type="checkbox" 
                 name="subjects" 
                 value="history" 
-                checked={subjects.includes('history')}
+                checked={formData.subjects.includes('history')}
                 onChange={handleSubjectChange}
               />
               History
@@ -1000,7 +1015,7 @@ const ApplyStudent = () => {
                 type="checkbox" 
                 name="subjects" 
                 value="sat" 
-                checked={subjects.includes('sat')}
+                checked={formData.subjects.includes('sat')}
                 onChange={handleSubjectChange}
               />
               SAT Prep
@@ -1010,7 +1025,7 @@ const ApplyStudent = () => {
                 type="checkbox" 
                 name="subjects" 
                 value="act" 
-                checked={subjects.includes('act')}
+                checked={formData.subjects.includes('act')}
                 onChange={handleSubjectChange}
               />
               ACT Prep
@@ -1020,7 +1035,7 @@ const ApplyStudent = () => {
                 type="checkbox" 
                 name="subjects" 
                 value="foreign" 
-                checked={subjects.includes('foreign')}
+                checked={formData.subjects.includes('foreign')}
                 onChange={handleSubjectChange}
               />
               Foreign Languages
@@ -1030,7 +1045,7 @@ const ApplyStudent = () => {
                 type="checkbox" 
                 name="subjects" 
                 value="computer" 
-                checked={subjects.includes('computer')}
+                checked={formData.subjects.includes('computer')}
                 onChange={handleSubjectChange}
               />
               Computer Science
@@ -1041,33 +1056,10 @@ const ApplyStudent = () => {
         <div className="form-section">
           <h4>When are you available for tutoring?</h4>
           <p>Select times that work best for your schedule</p>
-          <WeeklySchedule setPreferredTimes={setPreferredTimes} />
-        </div>
-        
-        <div className="form-row">
-          <select 
-            name="format" 
-            required
-            value={formData.format}
-            onChange={handleInputChange}
-          >
-            <option value="">Preferred Tutoring Format</option>
-            <option value="online">Online</option>
-            <option value="in-person">In-Person</option>
-            <option value="both">Either Online or In-Person</option>
-          </select>
-          <select 
-            name="frequency" 
-            required
-            value={formData.frequency}
-            onChange={handleInputChange}
-          >
-            <option value="">Preferred Session Frequency</option>
-            <option value="once">Once per week</option>
-            <option value="twice">Twice per week</option>
-            <option value="thrice">Three times per week</option>
-            <option value="custom">Custom schedule</option>
-          </select>
+          <WeeklySchedule 
+            setPreferredTimes={setPreferredTimes}
+            onScheduleChange={handleScheduleChange}
+          />
         </div>
         
         <textarea 
