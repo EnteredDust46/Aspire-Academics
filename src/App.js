@@ -94,7 +94,7 @@ const Home = () => (
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          Transform Your Academic Journey
+          Achieve More With Aspire
         </motion.h1>
         <motion.p
           initial={{ y: 30, opacity: 0 }}
@@ -102,7 +102,7 @@ const Home = () => (
           transition={{ delay: 0.4, duration: 0.8 }}
           className="hero-subtitle"
         >
-          Personalized tutoring that empowers students to achieve their full potential
+          Personalized tutoring that empowers students to reach their full academic, personal, and professional potential
         </motion.p>
         <motion.div
           className="hero-buttons"
