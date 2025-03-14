@@ -380,6 +380,7 @@ const ApplyTutor = () => {
     email: '',
     phone: '',
     education: '',
+    educationLevel: '',
     experience: '',
     subjects: [],
     availability: ''
@@ -395,7 +396,7 @@ const ApplyTutor = () => {
       [name]: value
     });
   };
-  
+
   const handleSubjectsChange = (e) => {
     const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
     setFormData({
@@ -403,28 +404,13 @@ const ApplyTutor = () => {
       subjects: selectedOptions
     });
   };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
     
-    // Create form data for Web3Forms
-    const web3FormData = new FormData();
-    
-    // Add the access key for Web3Forms
-    web3FormData.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
-    
-    // Add form fields
-    Object.entries(formData).forEach(([key, value]) => {
-      if (key === 'subjects') {
-        web3FormData.append(key, value.join(', '));
-      } else {
-        web3FormData.append(key, value);
-      }
-    });
-    
-    // Add preferred times - format them for better readability
+    // Format the preferred times for better readability
     const formattedTimes = preferredTimes.map(time => {
       const [day, hour] = time.split('-');
       const hourNum = parseInt(hour);
@@ -432,23 +418,40 @@ const ApplyTutor = () => {
       const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
       return `${day} at ${displayHour}:00 ${period}`;
     });
-    web3FormData.append('preferredTimes', formattedTimes.join(', '));
-    web3FormData.append('applicationType', 'tutor');
+    
+    // Create FormData for file uploads
+    const formDataWithFiles = new FormData();
+    
+    // Add the access key
+    formDataWithFiles.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
+    
+    // Add all form fields
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === 'subjects') {
+        formDataWithFiles.append(key, value.join(', '));
+      } else {
+        formDataWithFiles.append(key, value);
+      }
+    });
+    
+    // Add preferred times
+    formDataWithFiles.append('preferredTimes', formattedTimes.join(', '));
+    formDataWithFiles.append('applicationType', 'tutor');
     
     // Add metadata
-    web3FormData.append('from_name', 'Aspire Academics Website');
-    web3FormData.append('subject', `New Tutor Application: ${formData.name}`);
+    formDataWithFiles.append('from_name', 'Aspire Academics Website');
+    formDataWithFiles.append('subject', `New Tutor Application: ${formData.name}`);
     
     // Get the resume file
     const resumeFile = document.querySelector('input[name="resume"]').files[0];
     if (resumeFile) {
-      web3FormData.append('resume', resumeFile);
+      formDataWithFiles.append('resume', resumeFile);
     }
     
-    // Submit the form
+    // Submit the form with file upload
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      body: web3FormData
+      body: formDataWithFiles
     })
     .then(async (response) => {
       const data = await response.json();
@@ -505,11 +508,26 @@ const ApplyTutor = () => {
           />
           <input 
             name="education" 
-            placeholder="Highest Education Level" 
+            placeholder="Education Background" 
             required 
             value={formData.education}
             onChange={handleInputChange}
           />
+        </div>
+        <div className="form-row">
+          <select 
+            name="educationLevel" 
+            required
+            value={formData.educationLevel}
+            onChange={handleInputChange}
+          >
+            <option value="">Select Education Level</option>
+            <option value="bachelors">Bachelor's Degree</option>
+            <option value="masters">Master's Degree</option>
+            <option value="phd">PhD</option>
+            <option value="teaching">Teaching Credential</option>
+            <option value="other">Other</option>
+          </select>
         </div>
         
         <textarea 
@@ -610,19 +628,7 @@ const ApplyStudent = () => {
     setIsSubmitting(true);
     setError(null);
     
-    // Create form data for Web3Forms
-    const web3FormData = new FormData();
-    
-    // Add the access key for Web3Forms
-    web3FormData.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
-    
-    // Add form fields
-    Object.entries(formData).forEach(([key, value]) => {
-      web3FormData.append(key, value);
-    });
-    
-    // Add subjects and preferred times - format them for better readability
-    web3FormData.append('subjects', subjects.join(', '));
+    // Format the preferred times for better readability
     const formattedTimes = preferredTimes.map(time => {
       const [day, hour] = time.split('-');
       const hourNum = parseInt(hour);
@@ -630,17 +636,31 @@ const ApplyStudent = () => {
       const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
       return `${day} at ${displayHour}:00 ${period}`;
     });
-    web3FormData.append('preferredTimes', formattedTimes.join(', '));
-    web3FormData.append('applicationType', 'student');
+    
+    // Create FormData for potential file uploads
+    const formDataWithFiles = new FormData();
+    
+    // Add the access key
+    formDataWithFiles.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
+    
+    // Add all form fields
+    Object.entries(formData).forEach(([key, value]) => {
+      formDataWithFiles.append(key, value);
+    });
+    
+    // Add subjects and preferred times
+    formDataWithFiles.append('subjects', subjects.join(', '));
+    formDataWithFiles.append('preferredTimes', formattedTimes.join(', '));
+    formDataWithFiles.append('applicationType', 'student');
     
     // Add metadata
-    web3FormData.append('from_name', 'Aspire Academics Website');
-    web3FormData.append('subject', `New Student Application: ${formData.name}`);
+    formDataWithFiles.append('from_name', 'Aspire Academics Website');
+    formDataWithFiles.append('subject', `New Student Application: ${formData.name}`);
     
-    // Submit the form
+    // Submit the form with FormData
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      body: web3FormData
+      body: formDataWithFiles
     })
     .then(async (response) => {
       const data = await response.json();
@@ -899,31 +919,28 @@ const Contact = () => {
       [name]: value
     });
   };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
     
-    // Create form data for Web3Forms
-    const web3FormData = new FormData();
+    // Prepare the data for submission
+    const submissionData = {
+      access_key: '0e051380-5394-4e26-8ffd-af5cc378e7b6',
+      ...formData,
+      from_name: 'Aspire Academics Website',
+      subject: `New Contact Form: ${formData.inquiryType} from ${formData.name}`
+    };
     
-    // Add the access key for Web3Forms
-    web3FormData.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
-    
-    // Add form fields
-    Object.entries(formData).forEach(([key, value]) => {
-      web3FormData.append(key, value);
-    });
-    
-    // Add metadata
-    web3FormData.append('from_name', 'Aspire Academics Website');
-    web3FormData.append('subject', `New Contact Form: ${formData.inquiryType} from ${formData.name}`);
-    
-    // Submit the form
+    // Submit the form using JSON instead of FormData
     fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      body: web3FormData
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(submissionData)
     })
     .then(async (response) => {
       const data = await response.json();
