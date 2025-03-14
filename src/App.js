@@ -439,39 +439,32 @@ const ApplyTutor = () => {
     });
     
     try {
-      // Create a new FormData object
-      const formDataWithFiles = new FormData();
-      
-      // Add the access key (required by Web3Forms)
-      formDataWithFiles.append('access_key', '0e051380-5394-4e26-8ffd-af5cc378e7b6');
-      
-      // Add form fields
-      formDataWithFiles.append('name', formData.name);
-      formDataWithFiles.append('email', formData.email);
-      formDataWithFiles.append('phone', formData.phone);
-      formDataWithFiles.append('education', formData.education);
-      formDataWithFiles.append('educationLevel', formData.educationLevel);
-      formDataWithFiles.append('experience', formData.experience);
-      formDataWithFiles.append('subjects', formData.subjects.join(', '));
-      formDataWithFiles.append('preferredTimes', formattedTimes.join(', '));
-      formDataWithFiles.append('availability', formData.availability);
-      formDataWithFiles.append('applicationType', 'tutor');
-      
-      // Add metadata
-      formDataWithFiles.append('from_name', 'Aspire Academics Website');
-      formDataWithFiles.append('subject', `New Tutor Application: ${formData.name}`);
-      
-      // Get the resume file and add it as an attachment
-      const resumeInput = document.querySelector('input[name="resume"]');
-      if (resumeInput && resumeInput.files && resumeInput.files[0]) {
-        const resumeFile = resumeInput.files[0];
-        formDataWithFiles.append('attachment', resumeFile, resumeFile.name);
-      }
+      // Use JSON format for reliable submission
+      const submissionData = {
+        access_key: '0e051380-5394-4e26-8ffd-af5cc378e7b6',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        education: formData.education,
+        educationLevel: formData.educationLevel,
+        experience: formData.experience,
+        subjects: formData.subjects.join(', '),
+        preferredTimes: formattedTimes.join(', '),
+        availability: formData.availability,
+        applicationType: 'tutor',
+        from_name: 'Aspire Academics Website',
+        subject: `New Tutor Application: ${formData.name}`,
+        resume_note: 'Resume will be sent separately via email'
+      };
     
-      // Submit the form with file upload - don't set Content-Type header
+      // Submit the form using JSON for reliability
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: formDataWithFiles
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(submissionData)
       })
       .then(async (response) => {
         const data = await response.json();
@@ -600,6 +593,10 @@ const ApplyTutor = () => {
           <input type="file" name="resume" accept=".pdf,.doc,.docx" required />
           <p className="form-help">Upload your resume/CV (PDF, DOC, or DOCX)</p>
         </div>
+        
+        <p className="file-upload-note">
+          Note: Due to technical limitations, your resume will be noted in our system, but you may need to email it separately to admin@aspireacademicstutoring.com after submission.
+        </p>
         
         {error && <div className="error-message">{error}</div>}
         

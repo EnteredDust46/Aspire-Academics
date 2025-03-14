@@ -19,7 +19,7 @@
   min-width: 800px;
   max-width: 800px;
   margin: 0 auto;
-  border: 1px solid #ddd;
+  border: 1px solid #000;
   border-collapse: collapse;
   border-radius: 4px;
   overflow: hidden;
@@ -80,6 +80,8 @@
   border: 1px solid var(--primary-light);
   cursor: pointer;
   transition: all 0.2s ease;
+  padding: 8px 0 8px 10px;
+  text-align: left;
 }
 
 .time-slot:hover {
@@ -182,15 +184,17 @@
   font-size: 0.9rem;
   background: var(--primary);
   color: white;
+  border: 1px solid #000;
 }
 
 .time-slot {
-  padding: 8px 4px;
-  text-align: center;
+  padding: 8px 0 8px 10px;
+  text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
   background: var(--primary);
   color: white;
+  border: 1px solid #000;
 }
 
 .schedule-slot {
@@ -200,6 +204,7 @@
   transition: all 0.2s ease;
   height: 40px;
   background: #f8f8f8;
+  border: 1px solid #000;
 }
 
 .schedule-slot:hover {
