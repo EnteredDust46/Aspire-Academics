@@ -311,13 +311,13 @@ textarea {
   justify-content: center;
   z-index: 1001;
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   background-color: var(--neutral-white);
   border-radius: 50%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  margin-top: 40px;
+  margin-top: 60px;
   margin-bottom: -20px;
   border: 2px solid var(--primary-light);
   padding: 42px;
@@ -549,8 +549,8 @@ textarea {
   }
   
   .logo-container {
-    width: 90px;
-    height: 90px;
+    width: 110px;
+    height: 110px;
     margin-top: 35px;
     margin-bottom: -15px;
     padding: 30px;
@@ -1685,4 +1685,113 @@ body, html {
 .get-started-section .cta-button:hover {
   background-color: var(--accent-dark);
   transform: translateY(-5px);
+}
+
+/* Ensure all text has good contrast with backgrounds */
+.feature-card h3, .feature-card p,
+.process-step h3, .process-step p,
+.feature h4, .feature p,
+.section p, .section h2, .section h3, .section h4 {
+  color: var(--text-dark);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+/* Add contrast to cards with light backgrounds */
+.feature-card, .process-step, .feature {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(103, 188, 196, 0.2);
+}
+
+/* Ensure section content has good contrast */
+.section-content-wrapper {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+}
+
+/* Adjust logo container size and position */
+.logo-container {
+  width: 140px;
+  height: 140px;
+  background-color: var(--neutral-white);
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 60px;
+  margin-bottom: -20px;
+  border: 2px solid var(--primary-light);
+  padding: 42px;
+}
+
+/* Keep logo image size the same */
+.logo-image {
+  height: 65px;
+  width: auto;
+  object-fit: contain;
+  padding: 0;
+  margin: 0 0 0 -16px;
+  display: block;
+  transform: translateY(5px);
+}
+
+/* Adjust navbar to accommodate larger logo */
+.navbar {
+  height: 100px;
+  padding: 0 20px;
+  background-color: var(--neutral-white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust mobile styles for logo */
+@media (max-width: 768px) {
+  .logo-container {
+    width: 110px;
+    height: 110px;
+    margin-top: 35px;
+    margin-bottom: -15px;
+    padding: 30px;
+  }
+  
+  .logo-image {
+    height: 55px;
+    margin: 0 0 0 -13px;
+    transform: translateY(3px);
+  }
+  
+  .navbar {
+    height: 90px;
+  }
+}
+
+/* Ensure good contrast for feature cards on homepage */
+.features-grid .feature-card {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: var(--text-dark);
+}
+
+.features-grid .feature-card h3 {
+  color: var(--primary-dark);
+  margin-top: 15px;
+}
+
+.features-grid .feature-card p {
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+/* Improve contrast for "Personalized Learning" and "Proven Results" sections */
+.welcome-section p, 
+.features-section p {
+  color: var(--text-dark);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.welcome-section h2,
+.features-section h2 {
+  color: var(--primary-dark);
+  margin-bottom: 20px;
 }
