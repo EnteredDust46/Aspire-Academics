@@ -321,16 +321,18 @@ textarea {
   margin-bottom: -20px;
   border: 2px solid var(--primary-light);
   padding: 42px;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .logo-image {
-  height: 65px;
+  height: 75px;
   width: auto;
   object-fit: contain;
   padding: 0;
-  margin: 0 0 0 -16px;
+  margin: 0 0 0 -18px;
   display: block;
   transform: translateY(5px);
+  transition: transform 0.3s ease;
 }
 
 .mobile-menu-button {
@@ -557,7 +559,7 @@ textarea {
   }
   
   .logo-image {
-    height: 55px;
+    height: 65px;
     margin: 0 0 0 -13px;
     transform: translateY(3px);
   }
@@ -1631,7 +1633,7 @@ body, html {
   }
   
   .logo-image {
-    height: 55px;
+    height: 65px;
     margin: 0 0 0 -13px;
     transform: translateY(3px);
   }
@@ -1724,17 +1726,19 @@ body, html {
   margin-bottom: -20px;
   border: 2px solid var(--primary-light);
   padding: 42px;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* Keep logo image size the same */
 .logo-image {
-  height: 65px;
+  height: 75px;
   width: auto;
   object-fit: contain;
   padding: 0;
-  margin: 0 0 0 -16px;
+  margin: 0 0 0 -18px;
   display: block;
   transform: translateY(5px);
+  transition: transform 0.3s ease;
 }
 
 /* Adjust navbar to accommodate larger logo */
@@ -1756,7 +1760,7 @@ body, html {
   }
   
   .logo-image {
-    height: 55px;
+    height: 65px;
     margin: 0 0 0 -13px;
     transform: translateY(3px);
   }
@@ -1794,4 +1798,10 @@ body, html {
 .features-section h2 {
   color: var(--primary-dark);
   margin-bottom: 20px;
+}
+
+/* Add bounce animation to logo container on hover */
+.logo-container:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
