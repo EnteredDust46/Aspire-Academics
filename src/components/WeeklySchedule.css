@@ -274,22 +274,22 @@
   }
   
   .weekly-schedule {
-    padding: 5px;
-    margin: 10px 0;
     width: 100%;
     max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    position: relative;
+    padding: 10px 0;
+    overflow-x: hidden;
   }
   
   .schedule-container {
-    overflow-x: auto;
-    padding: 0;
-    margin: 0;
-    max-width: 100%;
-    -webkit-overflow-scrolling: touch;
     width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0;
+    margin: 10px 0;
+    position: relative;
+    border: 1px solid rgba(103, 188, 196, 0.2);
+    border-radius: 8px;
   }
   
   .selected-times {
@@ -305,7 +305,31 @@
   .schedule-grid {
     min-width: 800px;
     width: 800px;
-    position: relative;
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  /* Add visual indicator for scrolling */
+  .schedule-container::after {
+    content: "→";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--primary-dark);
+    font-size: 1.2rem;
+    padding: 5px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
   }
 }
 
@@ -324,22 +348,23 @@
   }
   
   .weekly-schedule {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    max-width: 100vw;
-    width: 100%;
+    padding: 5px 0;
+    margin: 10px 0;
+    box-shadow: none;
+    border: none;
   }
   
   .schedule-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    max-width: 100%;
-    width: 100%;
+    border-radius: 6px;
+    margin: 5px 0;
   }
   
-  .form-section, .section-content-wrapper {
-    overflow-x: visible;
-    max-width: 100%;
+  /* Make the scroll indicator more visible on very small screens */
+  .schedule-container::after {
+    right: 5px;
+    font-size: 1rem;
+    background: rgba(241, 173, 72, 0.9);
+    color: white;
   }
 }
 

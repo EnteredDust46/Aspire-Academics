@@ -80,7 +80,7 @@ const Navbar = () => {
         <Link to="/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
         <Link to="/tutors" onClick={() => setMobileMenuOpen(false)}>Meet Our Tutors</Link>
         <Link to="/apply" onClick={() => setMobileMenuOpen(false)}>Get Started</Link>
-        <Link to="/testimonials" onClick={() => setMobileMenuOpen(false)}>Testimonials</Link>
+        <Link to="/pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
         <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
       </motion.div>
     </motion.nav>
@@ -580,88 +580,88 @@ const ApplyTutor = () => {
             ></textarea>
           </div>
           
-          <div className="form-section">
-            <h4>What subjects can you tutor?</h4>
+          <div className="form-section" style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)' }}>
+            <h4>What subjects will you tutor?</h4>
             <div className="checkbox-group">
               <label>
                 <input 
                   type="checkbox" 
-                  name="subject-math" 
-                  value="math" 
-                  checked={formData.subjects.includes('math')}
-                  onChange={handleSubjectChange}
-                />
-                Mathematics
-              </label>
-              <label>
-                <input 
-                  type="checkbox" 
-                  name="subject-science" 
-                  value="science" 
-                  checked={formData.subjects.includes('science')}
-                  onChange={handleSubjectChange}
-                />
-                Science
-              </label>
-              <label>
-                <input 
-                  type="checkbox" 
-                  name="subject-english" 
-                  value="english" 
-                  checked={formData.subjects.includes('english')}
-                  onChange={handleSubjectChange}
-                />
-                English
-              </label>
-              <label>
-                <input 
-                  type="checkbox" 
-                  name="subject-history" 
-                  value="history" 
-                  checked={formData.subjects.includes('history')}
-                  onChange={handleSubjectChange}
-                />
-                History
-              </label>
-              <label>
-                <input 
-                  type="checkbox" 
                   name="subject-sat" 
-                  value="sat" 
-                  checked={formData.subjects.includes('sat')}
+                  value="SAT" 
+                  checked={formData.subjects.includes('SAT')}
                   onChange={handleSubjectChange}
                 />
-                SAT Prep
+                SAT
               </label>
               <label>
                 <input 
                   type="checkbox" 
-                  name="subject-act" 
-                  value="act" 
-                  checked={formData.subjects.includes('act')}
+                  name="subject-hs-biology" 
+                  value="Highschool Biology" 
+                  checked={formData.subjects.includes('Highschool Biology')}
                   onChange={handleSubjectChange}
                 />
-                ACT Prep
+                Highschool Biology
               </label>
               <label>
                 <input 
                   type="checkbox" 
-                  name="subject-foreign" 
-                  value="foreign" 
-                  checked={formData.subjects.includes('foreign')}
+                  name="subject-hs-chemistry" 
+                  value="Highschool Chemistry" 
+                  checked={formData.subjects.includes('Highschool Chemistry')}
                   onChange={handleSubjectChange}
                 />
-                Foreign Languages
+                Highschool Chemistry
               </label>
               <label>
                 <input 
                   type="checkbox" 
-                  name="subject-computer" 
-                  value="computer" 
-                  checked={formData.subjects.includes('computer')}
+                  name="subject-hs-physics" 
+                  value="Highschool Physics" 
+                  checked={formData.subjects.includes('Highschool Physics')}
                   onChange={handleSubjectChange}
                 />
-                Computer Science
+                Highschool Physics
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-hs-geometry" 
+                  value="Highschool Geometry" 
+                  checked={formData.subjects.includes('Highschool Geometry')}
+                  onChange={handleSubjectChange}
+                />
+                Highschool Geometry
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-hs-algebra1" 
+                  value="Highschool Algebra 1" 
+                  checked={formData.subjects.includes('Highschool Algebra 1')}
+                  onChange={handleSubjectChange}
+                />
+                Highschool Algebra 1
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-hs-algebra2" 
+                  value="Highschool Algebra 2" 
+                  checked={formData.subjects.includes('Highschool Algebra 2')}
+                  onChange={handleSubjectChange}
+                />
+                Highschool Algebra 2
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-hs-trig" 
+                  value="Highschool Trigonometry" 
+                  checked={formData.subjects.includes('Highschool Trigonometry')}
+                  onChange={handleSubjectChange}
+                />
+                Highschool Trigonometry
               </label>
             </div>
           </div>
@@ -699,19 +699,150 @@ const ApplyTutor = () => {
   );
 };
 
+const Pricing = () => (
+  <>
+    <Section
+      title="Tutoring Packages"
+      subtitle="Invest in Your Academic Success"
+      content={[
+        "We offer competitive pricing with flexible packages to meet your needs. Choose the option that works best for you and start your journey to academic excellence.",
+      ]}
+      imageUrl="pricing-bg.jpg"
+    />
+    
+    <motion.section 
+      className="pricing-section"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="pricing-container">
+        <motion.div 
+          className="pricing-card"
+          whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(0, 0, 0, 0.15)" }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="pricing-header">
+            <h3>Single Session</h3>
+            <img src={`${process.env.PUBLIC_URL}/images/single-session.jpg`} alt="Single tutoring session" className="pricing-image" />
+          </div>
+          <div className="pricing-content">
+            <div className="price">$60<span>/hour</span></div>
+            <ul className="pricing-features">
+              <li>One-on-one personalized tutoring</li>
+              <li>Flexible scheduling</li>
+              <li>Expert tutors in your subject</li>
+              <li>Online or in-person options</li>
+              <li>No long-term commitment</li>
+            </ul>
+            <Link to="/apply-student" className="pricing-button">Get Started</Link>
+          </div>
+        </motion.div>
+        
+        <motion.div 
+          className="pricing-card featured"
+          whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(0, 0, 0, 0.15)" }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="pricing-badge">Popular</div>
+          <div className="pricing-header">
+            <h3>5-Session Package</h3>
+            <img src={`${process.env.PUBLIC_URL}/images/five-sessions.jpg`} alt="Five tutoring sessions" className="pricing-image" />
+          </div>
+          <div className="pricing-content">
+            <div className="price">$55<span>/hour</span></div>
+            <div className="savings">Save $25</div>
+            <ul className="pricing-features">
+              <li>All benefits of single sessions</li>
+              <li>Consistent tutor assignment</li>
+              <li>Progress tracking</li>
+              <li>Discounted hourly rate</li>
+              <li>Flexible session scheduling</li>
+            </ul>
+            <Link to="/apply-student" className="pricing-button">Get Started</Link>
+          </div>
+        </motion.div>
+        
+        <motion.div 
+          className="pricing-card"
+          whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(0, 0, 0, 0.15)" }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="pricing-header">
+            <h3>10-Session Package</h3>
+            <img src={`${process.env.PUBLIC_URL}/images/ten-sessions.jpg`} alt="Ten tutoring sessions" className="pricing-image" />
+          </div>
+          <div className="pricing-content">
+            <div className="price">$50<span>/hour</span></div>
+            <div className="savings">Save $100</div>
+            <ul className="pricing-features">
+              <li>All benefits of 5-session package</li>
+              <li>Comprehensive progress reports</li>
+              <li>Best value hourly rate</li>
+              <li>Priority scheduling</li>
+              <li>Extended session availability</li>
+            </ul>
+            <Link to="/apply-student" className="pricing-button">Get Started</Link>
+          </div>
+        </motion.div>
+      </div>
+      
+      <motion.div 
+        className="referral-program"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+      >
+        <div className="referral-content">
+          <h3>Referral Program</h3>
+          <p>Share the gift of learning! Refer a friend to Aspire Academics and you'll both benefit.</p>
+          <div className="referral-benefits">
+            <div className="benefit">
+              <i className="fas fa-gift"></i>
+              <h4>$5 Off Per Session</h4>
+              <p>Get $5 off each session for 3 sessions ($15 total savings)</p>
+            </div>
+            <div className="benefit">
+              <i className="fas fa-user-plus"></i>
+              <h4>Easy to Share</h4>
+              <p>Receive a unique referral code after signing up</p>
+            </div>
+            <div className="benefit">
+              <i className="fas fa-infinity"></i>
+              <h4>Unlimited Referrals</h4>
+              <p>No limit to how many friends you can refer</p>
+            </div>
+          </div>
+          <Link to="/apply-student" className="referral-button">Start Referring</Link>
+        </div>
+        <div className="referral-image-container">
+          <img src={`${process.env.PUBLIC_URL}/images/referral-program.jpg`} alt="Students referring friends" className="referral-image" />
+        </div>
+      </motion.div>
+    </motion.section>
+  </>
+);
+
 const ApplyStudent = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
+    studentEmail: '',
+    studentPhone: '',
     grade: '',
     subjects: [],
-    goals: ''
+    goals: '',
+    referralCode: ''
   });
   const [preferredTimes, setPreferredTimes] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [generatedReferralCode, setGeneratedReferralCode] = useState('');
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -740,6 +871,12 @@ const ApplyStudent = () => {
     setPreferredTimes(times);
   };
   
+  const generateReferralCode = () => {
+    const prefix = formData.name.split(' ')[0].substring(0, 3).toUpperCase();
+    const randomNum = Math.floor(1000 + Math.random() * 9000);
+    return `${prefix}${randomNum}`;
+  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -754,14 +891,39 @@ const ApplyStudent = () => {
       return `${day} at ${displayHour}:00 ${period}`;
     }).join(', ');
     
+    // Generate a referral code
+    const newReferralCode = generateReferralCode();
+    setGeneratedReferralCode(newReferralCode);
+    
     // Add the formatted availability to a hidden field
     document.getElementById('student-formatted-availability').value = formattedTimes;
     
     // Add subjects as a comma-separated list to a hidden field
     document.getElementById('student-formatted-subjects').value = formData.subjects.join(', ');
     
+    // Add the generated referral code to a hidden field
+    document.getElementById('generated-referral-code').value = newReferralCode;
+    
     // Submit the form (FormSubmit.co will handle the submission)
-    e.target.submit();
+    const formElement = e.target;
+    
+    fetch(formElement.action, {
+      method: 'POST',
+      body: new FormData(formElement)
+    })
+    .then(response => {
+      if (response.ok) {
+        setIsSubmitting(false);
+        setFormSubmitted(true);
+      } else {
+        throw new Error('Form submission failed');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      setError('There was a problem submitting your application. Please try again.');
+      setIsSubmitting(false);
+    });
   };
   
   return (
@@ -777,359 +939,241 @@ const ApplyStudent = () => {
         
         {error && <div className="error-message">{error}</div>}
         
-        <form className="form" onSubmit={handleSubmit} action="https://formsubmit.co/admin@aspireacademicstutoring.com" method="POST">
-          {/* Hidden fields for FormSubmit.co */}
-          <input type="hidden" name="_subject" value="New Student Application" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you" />
-          
-          {/* Hidden fields for formatted data */}
-          <input type="hidden" id="student-formatted-availability" name="availability" />
-          <input type="hidden" id="student-formatted-subjects" name="subjects" />
-          
-          <div className="form-row">
-            <input 
-              type="text" 
-              name="name" 
-              placeholder="Student Name" 
-              required 
-              value={formData.name}
-              onChange={handleInputChange}
-            />
-            <input 
-              type="email" 
-              name="email" 
-              placeholder="Parent Email" 
-              required
-              value={formData.email}
-              onChange={handleInputChange}
-            />
-          </div>
-          
-          <div className="form-row">
-            <input 
-              type="tel" 
-              name="phone" 
-              placeholder="Parent Phone Number" 
-              value={formData.phone}
-              onChange={handleInputChange}
-            />
-            <select 
-              name="grade" 
-              value={formData.grade}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">Select Grade Level</option>
-              <option value="elementary">Elementary School</option>
-              <option value="middle">Middle School</option>
-              <option value="high-9">High School - 9th Grade</option>
-              <option value="high-10">High School - 10th Grade</option>
-              <option value="high-11">High School - 11th Grade</option>
-              <option value="high-12">High School - 12th Grade</option>
-              <option value="college">College</option>
-              <option value="adult">Adult Learner</option>
-            </select>
-          </div>
-          
-          <div className="form-section">
-            <h4>What subjects do you need help with?</h4>
-            <div className="checkbox-group">
-              <label>
-                <input 
-                  type="checkbox" 
-                  name="subject-math" 
-                  value="math" 
-                  checked={formData.subjects.includes('math')}
-                  onChange={handleSubjectChange}
-                />
-                Mathematics
-              </label>
-              <label>
-                <input 
-                  type="checkbox" 
-                  name="subject-science" 
-                  value="science" 
-                  checked={formData.subjects.includes('science')}
-                  onChange={handleSubjectChange}
-                />
-                Science
-              </label>
-              <label>
-                <input 
-                  type="checkbox" 
-                  name="subject-english" 
-                  value="english" 
-                  checked={formData.subjects.includes('english')}
-                  onChange={handleSubjectChange}
-                />
-                English
-              </label>
-              <label>
-                <input 
-                  type="checkbox" 
-                  name="subject-history" 
-                  value="history" 
-                  checked={formData.subjects.includes('history')}
-                  onChange={handleSubjectChange}
-                />
-                History
-              </label>
-              <label>
-                <input 
-                  type="checkbox" 
-                  name="subject-sat" 
-                  value="sat" 
-                  checked={formData.subjects.includes('sat')}
-                  onChange={handleSubjectChange}
-                />
-                SAT Prep
-              </label>
-              <label>
-                <input 
-                  type="checkbox" 
-                  name="subject-act" 
-                  value="act" 
-                  checked={formData.subjects.includes('act')}
-                  onChange={handleSubjectChange}
-                />
-                ACT Prep
-              </label>
-              <label>
-                <input 
-                  type="checkbox" 
-                  name="subject-foreign" 
-                  value="foreign" 
-                  checked={formData.subjects.includes('foreign')}
-                  onChange={handleSubjectChange}
-                />
-                Foreign Languages
-              </label>
-              <label>
-                <input 
-                  type="checkbox" 
-                  name="subject-other" 
-                  value="other" 
-                  checked={formData.subjects.includes('other')}
-                  onChange={handleSubjectChange}
-                />
-                Other
-              </label>
+        {formSubmitted ? (
+          <div className="success-message">
+            <h3>Thank you for your application!</h3>
+            <p>We'll be in touch with you shortly to discuss the next steps.</p>
+            <div className="referral-code-display">
+              <h4>Your Referral Code</h4>
+              <div className="code">{generatedReferralCode}</div>
+              <p>Share this code with friends and you'll both receive $5 off per session for 3 sessions!</p>
             </div>
+            <Link to="/" className="return-home-button">Return to Home</Link>
           </div>
-          
-          <div className="form-row">
-            <textarea 
-              name="goals" 
-              placeholder="What are your academic goals? Any specific areas you're struggling with?" 
-              value={formData.goals}
-              onChange={handleInputChange}
-            ></textarea>
-          </div>
-          
-          <div className="form-section">
-            <h4>When are you available for tutoring?</h4>
-            <p>Select times that work best for your schedule</p>
-            <WeeklySchedule 
-              setPreferredTimes={setPreferredTimes}
-              onScheduleChange={handleScheduleChange}
-            />
-          </div>
-          
-          <button 
-            type="submit" 
-            className="submit-button"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Submitting...' : 'Submit Application'}
-          </button>
-        </form>
+        ) : (
+          <form className="form" onSubmit={handleSubmit} action="https://formsubmit.co/admin@aspireacademicstutoring.com" method="POST">
+            {/* Hidden fields for FormSubmit.co */}
+            <input type="hidden" name="_subject" value="New Student Application" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you" />
+            
+            {/* Hidden fields for formatted data */}
+            <input type="hidden" id="student-formatted-availability" name="availability" />
+            <input type="hidden" id="student-formatted-subjects" name="subjects" />
+            <input type="hidden" id="generated-referral-code" name="generatedReferralCode" />
+            
+            <div className="form-row">
+              <input 
+                type="text" 
+                name="name" 
+                placeholder="Student Name" 
+                required 
+                value={formData.name}
+                onChange={handleInputChange}
+              />
+              <input 
+                type="email" 
+                name="email" 
+                placeholder="Parent Email" 
+                required
+                value={formData.email}
+                onChange={handleInputChange}
+              />
+            </div>
+            
+            <div className="form-row">
+              <input 
+                type="tel" 
+                name="phone" 
+                placeholder="Parent Phone Number" 
+                value={formData.phone}
+                onChange={handleInputChange}
+              />
+              <select 
+                name="grade" 
+                value={formData.grade}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select Grade Level</option>
+                <option value="elementary">Elementary School</option>
+                <option value="middle">Middle School</option>
+                <option value="high-9">High School - 9th Grade</option>
+                <option value="high-10">High School - 10th Grade</option>
+                <option value="high-11">High School - 11th Grade</option>
+                <option value="high-12">High School - 12th Grade</option>
+                <option value="college">College</option>
+                <option value="adult">Adult Learner</option>
+              </select>
+            </div>
+            
+            <div className="form-row">
+              <input 
+                type="email" 
+                name="studentEmail" 
+                placeholder="Student Email (if different)" 
+                value={formData.studentEmail}
+                onChange={handleInputChange}
+              />
+              <input 
+                type="tel" 
+                name="studentPhone" 
+                placeholder="Student Phone Number (if different)" 
+                value={formData.studentPhone}
+                onChange={handleInputChange}
+              />
+            </div>
+            
+            <div className="form-row">
+              <input 
+                type="text" 
+                name="referralCode" 
+                placeholder="Referral Code (if you have one)" 
+                value={formData.referralCode}
+                onChange={handleInputChange}
+              />
+              <div className="referral-info">
+                <i className="fas fa-info-circle"></i>
+                <span>Have a friend's referral code? Enter it here for $5 off per session for 3 sessions!</span>
+              </div>
+            </div>
+            
+            <div className="form-section" style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)' }}>
+              <h4>What subjects do you need help with?</h4>
+              <div className="checkbox-group">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="subject-sat" 
+                    value="SAT" 
+                    checked={formData.subjects.includes('SAT')}
+                    onChange={handleSubjectChange}
+                  />
+                  SAT
+                </label>
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="subject-hs-biology" 
+                    value="Highschool Biology" 
+                    checked={formData.subjects.includes('Highschool Biology')}
+                    onChange={handleSubjectChange}
+                  />
+                  Highschool Biology
+                </label>
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="subject-hs-chemistry" 
+                    value="Highschool Chemistry" 
+                    checked={formData.subjects.includes('Highschool Chemistry')}
+                    onChange={handleSubjectChange}
+                  />
+                  Highschool Chemistry
+                </label>
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="subject-hs-physics" 
+                    value="Highschool Physics" 
+                    checked={formData.subjects.includes('Highschool Physics')}
+                    onChange={handleSubjectChange}
+                  />
+                  Highschool Physics
+                </label>
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="subject-hs-geometry" 
+                    value="Highschool Geometry" 
+                    checked={formData.subjects.includes('Highschool Geometry')}
+                    onChange={handleSubjectChange}
+                  />
+                  Highschool Geometry
+                </label>
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="subject-hs-algebra1" 
+                    value="Highschool Algebra 1" 
+                    checked={formData.subjects.includes('Highschool Algebra 1')}
+                    onChange={handleSubjectChange}
+                  />
+                  Highschool Algebra 1
+                </label>
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="subject-hs-algebra2" 
+                    value="Highschool Algebra 2" 
+                    checked={formData.subjects.includes('Highschool Algebra 2')}
+                    onChange={handleSubjectChange}
+                  />
+                  Highschool Algebra 2
+                </label>
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="subject-hs-trig" 
+                    value="Highschool Trigonometry" 
+                    checked={formData.subjects.includes('Highschool Trigonometry')}
+                    onChange={handleSubjectChange}
+                  />
+                  Highschool Trigonometry
+                </label>
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="subject-ms-math" 
+                    value="Middleschool Math" 
+                    checked={formData.subjects.includes('Middleschool Math')}
+                    onChange={handleSubjectChange}
+                  />
+                  Middleschool Math
+                </label>
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="subject-ms-science" 
+                    value="Middleschool Science" 
+                    checked={formData.subjects.includes('Middleschool Science')}
+                    onChange={handleSubjectChange}
+                  />
+                  Middleschool Science
+                </label>
+              </div>
+            </div>
+            
+            <div className="form-row">
+              <textarea 
+                name="goals" 
+                placeholder="What are your academic goals? Any specific areas you're struggling with?" 
+                value={formData.goals}
+                onChange={handleInputChange}
+              ></textarea>
+            </div>
+            
+            <div className="form-section">
+              <h4>When are you available for tutoring?</h4>
+              <p>Select times that work best for your schedule</p>
+              <WeeklySchedule 
+                setPreferredTimes={setPreferredTimes}
+                onScheduleChange={handleScheduleChange}
+              />
+            </div>
+            
+            <button 
+              type="submit" 
+              className="submit-button"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit Application'}
+            </button>
+          </form>
+        )}
       </div>
     </motion.section>
-  );
-};
-
-const Testimonials = () => (
-  <Section
-    title="Student Success Stories"
-    subtitle="Real Results from Real Students"
-    content={[
-      "Our tutoring services have helped hundreds of students achieve their academic goals. Here are some of their stories:",
-    ]}
-    imageUrl="testimonials.jpg"
-  >
-    <div className="testimonials-grid">
-      <motion.div className="testimonial-card" whileHover={{ scale: 1.02 }}>
-        <img src={`${process.env.PUBLIC_URL}/images/student1.jpg`} alt="Sarah M." className="testimonial-image" />
-        <h4>Sarah M. - Harvard University</h4>
-        <p>"Thanks to Aspire Academics' SAT prep, I improved my score by 300 points and got into my dream school!"</p>
-      </motion.div>
-      <motion.div className="testimonial-card" whileHover={{ scale: 1.02 }}>
-        <img src={`${process.env.PUBLIC_URL}/images/student2.jpg`} alt="James K." className="testimonial-image" />
-        <h4>James K. - High School Senior</h4>
-        <p>"My math grades went from C's to A's after just one semester of tutoring. The personalized attention made all the difference."</p>
-      </motion.div>
-      <motion.div className="testimonial-card" whileHover={{ scale: 1.02 }}>
-        <img src={`${process.env.PUBLIC_URL}/images/student3.jpg`} alt="Emily R." className="testimonial-image" />
-        <h4>Emily R. - Medical Student</h4>
-        <p>"The study skills I learned at Aspire Academics helped me excel in pre-med and get into medical school."</p>
-      </motion.div>
-    </div>
-  </Section>
-);
-
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    inquiryType: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
-  
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
-  
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
-    
-    // Prepare the data for submission
-    const submissionData = {
-      access_key: '0e051380-5394-4e26-8ffd-af5cc378e7b6',
-      ...formData,
-      from_name: 'Aspire Academics Website',
-      subject: `Contact Form: ${formData.inquiryType}`,
-      to_email: 'support@aspireacademicstutoring.com'
-    };
-    
-    // Submit the form using JSON instead of FormData
-    fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(submissionData)
-    })
-    .then(async (response) => {
-      const data = await response.json();
-      
-      if (data.success) {
-        setIsSubmitting(false);
-        alert('Thank you for your message! We will get back to you soon.');
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          inquiryType: '',
-          message: ''
-        });
-      } else {
-        throw new Error(data.message || 'Form submission failed');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      setError('There was a problem sending your message. Please try again.');
-      setIsSubmitting(false);
-    });
-  };
-
-  return (
-    <Section
-      title="Contact Us"
-      subtitle="We're Here to Help"
-      content={[
-        "Have questions about our tutoring services? Want to learn more about our programs? Reach out to us!",
-        "Our team typically responds within 24 hours."
-      ]}
-      imageUrl="contact.jpg"
-    >
-      <div className="contact-container">
-        <div className="contact-info">
-          <div className="contact-item">
-            <i className="fas fa-map-marker-alt"></i>
-            <p>123 Education Lane<br />Academic City, ST 12345</p>
-          </div>
-          <div className="contact-item">
-            <i className="fas fa-phone"></i>
-            <p>(555) 123-4567</p>
-          </div>
-          <div className="contact-item">
-            <i className="fas fa-envelope"></i>
-            <p>support@aspireacademicstutoring.com</p>
-          </div>
-        </div>
-        <form className="form contact-form" onSubmit={handleSubmit}>
-          <div className="form-row">
-            <input 
-              name="name" 
-              placeholder="Full Name" 
-              required 
-              value={formData.name}
-              onChange={handleInputChange}
-            />
-            <input 
-              type="email" 
-              name="email" 
-              placeholder="Email" 
-              required 
-              value={formData.email}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form-row">
-            <input 
-              type="tel" 
-              name="phone" 
-              placeholder="Phone (optional)" 
-              value={formData.phone}
-              onChange={handleInputChange}
-            />
-            <select 
-              name="inquiryType" 
-              required
-              value={formData.inquiryType}
-              onChange={handleInputChange}
-            >
-              <option value="">Select Inquiry Type</option>
-              <option value="tutoring">Tutoring Services</option>
-              <option value="test-prep">Test Preparation</option>
-              <option value="pricing">Pricing Information</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <textarea 
-            name="message" 
-            placeholder="Your Message" 
-            required 
-            rows="5"
-            value={formData.message}
-            onChange={handleInputChange}
-          ></textarea>
-          
-          {error && <div className="error-message">{error}</div>}
-          
-          <motion.button 
-            type="submit" 
-            whileHover={{ scale: 1.05 }}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Sending...' : 'Send Message'}
-          </motion.button>
-        </form>
-      </div>
-    </Section>
   );
 };
 
@@ -1255,7 +1299,7 @@ export default function App() {
         <Route path="/apply-tutor" element={<ApplyTutor />} />
         <Route path="/apply-student" element={<ApplyStudent />} />
         <Route path="/thank-you" element={<ThankYou />} />
-        <Route path="/testimonials" element={<Testimonials />} />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
