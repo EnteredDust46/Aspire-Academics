@@ -1838,6 +1838,7 @@ body, html {
   justify-content: center;
   gap: 30px;
   margin-bottom: 60px;
+  align-items: stretch;
 }
 
 .pricing-card {
@@ -1848,6 +1849,8 @@ body, html {
   width: 320px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .pricing-card.featured {
@@ -1892,6 +1895,9 @@ body, html {
 }
 
 .pricing-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   padding: 25px;
   text-align: center;
 }
@@ -1923,6 +1929,10 @@ body, html {
   padding: 0;
   margin: 25px 0;
   text-align: left;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .pricing-features li {
@@ -1940,6 +1950,7 @@ body, html {
 }
 
 .pricing-button {
+  margin-top: auto;
   display: inline-block;
   background-color: var(--primary);
   color: white;

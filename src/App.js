@@ -1039,9 +1039,9 @@ const ApplyStudent = () => {
               </div>
             </div>
             
-            <div className="form-section" style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)' }}>
+            <div className="form-section" style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)', color: 'var(--text-dark)' }}>
               <h4>What subjects do you need help with?</h4>
-              <div className="checkbox-group">
+              <div className="checkbox-group" style={{ color: 'var(--text-dark)' }}>
                 <label>
                   <input 
                     type="checkbox" 
