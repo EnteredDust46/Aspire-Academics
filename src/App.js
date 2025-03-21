@@ -426,15 +426,15 @@ const Tutors = () => (
 const Apply = () => (
   <Section
     title="Get Started with Aspire"
-    subtitle="Join our community of learners and educators"
+    subtitle="Choose Your Path"
     content={[
-      "Ready to enhance your academic journey? Choose the option that fits your needs.",
+      "Whether you're looking to improve your grades, prepare for standardized tests, or share your knowledge as a tutor, we're here to help you succeed."
     ]}
     imageUrl="apply-bg.jpg"
   >
     <div className="apply-buttons">
       <Link to="/apply-student" className="apply-button">Become a Student</Link>
-      <Link to="/apply-tutor" className="apply-button">Join Our Tutoring Team</Link>
+      <Link to="/apply-tutor" className="apply-button">Become a Tutor</Link>
     </div>
   </Section>
 );
@@ -448,7 +448,6 @@ const ApplyTutor = () => {
     educationLevel: '',
     experience: '',
     subjects: [],
-    availability: ''
   });
   const [preferredTimes, setPreferredTimes] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -495,33 +494,14 @@ const ApplyTutor = () => {
       return `${day} at ${displayHour}:00 ${period}`;
     }).join(', ');
     
-    // Create form data for submission to FormSubmit.co
-    const submissionData = new FormData(e.target);
+    // Add the formatted availability to a hidden field
+    document.getElementById('formatted-availability').value = formattedTimes;
     
-    // Add the formatted availability
-    submissionData.append('availability', formattedTimes);
+    // Add subjects as a comma-separated list to a hidden field
+    document.getElementById('formatted-subjects').value = formData.subjects.join(', ');
     
-    // Add subjects as a comma-separated list
-    submissionData.append('subjects', formData.subjects.join(', '));
-    
-    // Submit to FormSubmit.co
-    fetch('https://formsubmit.co/your-formsubmit-endpoint', {
-      method: 'POST',
-      body: submissionData
-    })
-    .then(response => {
-      if (response.ok) {
-        setIsSubmitting(false);
-        navigate('/thank-you');
-      } else {
-        throw new Error('Form submission failed');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      setError('There was a problem submitting your application. Please try again.');
-      setIsSubmitting(false);
-    });
+    // Submit the form (FormSubmit.co will handle the submission)
+    e.target.submit();
   };
   
   return (
@@ -537,14 +517,165 @@ const ApplyTutor = () => {
         
         {error && <div className="error-message">{error}</div>}
         
-        <form className="form" onSubmit={handleSubmit} action="https://formsubmit.co/your-formsubmit-endpoint" method="POST" encType="multipart/form-data">
+        <form className="form" onSubmit={handleSubmit} action="https://formsubmit.co/admin@aspireacademicstutoring.com" method="POST" encType="multipart/form-data">
           {/* Hidden fields for FormSubmit.co */}
           <input type="hidden" name="_subject" value="New Tutor Application" />
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you" />
+          <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you" />
           
-          {/* Form fields... */}
+          {/* Hidden fields for formatted data */}
+          <input type="hidden" id="formatted-availability" name="availability" />
+          <input type="hidden" id="formatted-subjects" name="subjects" />
+          
+          <div className="form-row">
+            <input 
+              type="text" 
+              name="name" 
+              placeholder="Full Name" 
+              required 
+              value={formData.name}
+              onChange={handleInputChange}
+            />
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="Email Address" 
+              required
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </div>
+          
+          <div className="form-row">
+            <input 
+              type="tel" 
+              name="phone" 
+              placeholder="Phone Number" 
+              value={formData.phone}
+              onChange={handleInputChange}
+            />
+            <select 
+              name="educationLevel" 
+              value={formData.educationLevel}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Select Education Level</option>
+              <option value="high-school">High School</option>
+              <option value="bachelors">Bachelor's Degree</option>
+              <option value="masters">Master's Degree</option>
+              <option value="phd">PhD</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div className="form-row">
+            <textarea 
+              name="experience" 
+              placeholder="Describe your tutoring experience and qualifications" 
+              required
+              value={formData.experience}
+              onChange={handleInputChange}
+            ></textarea>
+          </div>
+          
+          <div className="form-section">
+            <h4>What subjects can you tutor?</h4>
+            <div className="checkbox-group">
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-math" 
+                  value="math" 
+                  checked={formData.subjects.includes('math')}
+                  onChange={handleSubjectChange}
+                />
+                Mathematics
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-science" 
+                  value="science" 
+                  checked={formData.subjects.includes('science')}
+                  onChange={handleSubjectChange}
+                />
+                Science
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-english" 
+                  value="english" 
+                  checked={formData.subjects.includes('english')}
+                  onChange={handleSubjectChange}
+                />
+                English
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-history" 
+                  value="history" 
+                  checked={formData.subjects.includes('history')}
+                  onChange={handleSubjectChange}
+                />
+                History
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-sat" 
+                  value="sat" 
+                  checked={formData.subjects.includes('sat')}
+                  onChange={handleSubjectChange}
+                />
+                SAT Prep
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-act" 
+                  value="act" 
+                  checked={formData.subjects.includes('act')}
+                  onChange={handleSubjectChange}
+                />
+                ACT Prep
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-foreign" 
+                  value="foreign" 
+                  checked={formData.subjects.includes('foreign')}
+                  onChange={handleSubjectChange}
+                />
+                Foreign Languages
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-computer" 
+                  value="computer" 
+                  checked={formData.subjects.includes('computer')}
+                  onChange={handleSubjectChange}
+                />
+                Computer Science
+              </label>
+            </div>
+          </div>
+          
+          <div className="form-section">
+            <h4>Upload your resume</h4>
+            <input 
+              type="file" 
+              name="resume" 
+              accept=".pdf,.doc,.docx"
+              required
+            />
+            <p className="form-help">Please upload your resume in PDF, DOC, or DOCX format.</p>
+          </div>
           
           <div className="form-section">
             <h4>When are you available to tutor?</h4>
@@ -623,37 +754,14 @@ const ApplyStudent = () => {
       return `${day} at ${displayHour}:00 ${period}`;
     }).join(', ');
     
-    // Create form data for submission to Web3Forms
-    const submissionData = new FormData(e.target);
+    // Add the formatted availability to a hidden field
+    document.getElementById('student-formatted-availability').value = formattedTimes;
     
-    // Add the formatted availability
-    submissionData.append('availability', formattedTimes);
+    // Add subjects as a comma-separated list to a hidden field
+    document.getElementById('student-formatted-subjects').value = formData.subjects.join(', ');
     
-    // Add subjects as a comma-separated list
-    submissionData.append('subjects', formData.subjects.join(', '));
-    
-    // Add Web3Forms access key
-    submissionData.append('access_key', 'YOUR_WEB3FORMS_ACCESS_KEY');
-    
-    // Submit to Web3Forms
-    fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      body: submissionData
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        setIsSubmitting(false);
-        navigate('/thank-you');
-      } else {
-        throw new Error(data.message || 'Form submission failed');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      setError('There was a problem submitting your application. Please try again.');
-      setIsSubmitting(false);
-    });
+    // Submit the form (FormSubmit.co will handle the submission)
+    e.target.submit();
   };
   
   return (
@@ -669,12 +777,156 @@ const ApplyStudent = () => {
         
         {error && <div className="error-message">{error}</div>}
         
-        <form className="form" onSubmit={handleSubmit}>
-          {/* Hidden fields for Web3Forms */}
-          <input type="hidden" name="subject" value="New Student Application" />
-          <input type="hidden" name="from_name" value="Aspire Academics Website" />
+        <form className="form" onSubmit={handleSubmit} action="https://formsubmit.co/admin@aspireacademicstutoring.com" method="POST">
+          {/* Hidden fields for FormSubmit.co */}
+          <input type="hidden" name="_subject" value="New Student Application" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you" />
           
-          {/* Form fields... */}
+          {/* Hidden fields for formatted data */}
+          <input type="hidden" id="student-formatted-availability" name="availability" />
+          <input type="hidden" id="student-formatted-subjects" name="subjects" />
+          
+          <div className="form-row">
+            <input 
+              type="text" 
+              name="name" 
+              placeholder="Student Name" 
+              required 
+              value={formData.name}
+              onChange={handleInputChange}
+            />
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="Parent Email" 
+              required
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </div>
+          
+          <div className="form-row">
+            <input 
+              type="tel" 
+              name="phone" 
+              placeholder="Parent Phone Number" 
+              value={formData.phone}
+              onChange={handleInputChange}
+            />
+            <select 
+              name="grade" 
+              value={formData.grade}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Select Grade Level</option>
+              <option value="elementary">Elementary School</option>
+              <option value="middle">Middle School</option>
+              <option value="high-9">High School - 9th Grade</option>
+              <option value="high-10">High School - 10th Grade</option>
+              <option value="high-11">High School - 11th Grade</option>
+              <option value="high-12">High School - 12th Grade</option>
+              <option value="college">College</option>
+              <option value="adult">Adult Learner</option>
+            </select>
+          </div>
+          
+          <div className="form-section">
+            <h4>What subjects do you need help with?</h4>
+            <div className="checkbox-group">
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-math" 
+                  value="math" 
+                  checked={formData.subjects.includes('math')}
+                  onChange={handleSubjectChange}
+                />
+                Mathematics
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-science" 
+                  value="science" 
+                  checked={formData.subjects.includes('science')}
+                  onChange={handleSubjectChange}
+                />
+                Science
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-english" 
+                  value="english" 
+                  checked={formData.subjects.includes('english')}
+                  onChange={handleSubjectChange}
+                />
+                English
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-history" 
+                  value="history" 
+                  checked={formData.subjects.includes('history')}
+                  onChange={handleSubjectChange}
+                />
+                History
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-sat" 
+                  value="sat" 
+                  checked={formData.subjects.includes('sat')}
+                  onChange={handleSubjectChange}
+                />
+                SAT Prep
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-act" 
+                  value="act" 
+                  checked={formData.subjects.includes('act')}
+                  onChange={handleSubjectChange}
+                />
+                ACT Prep
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-foreign" 
+                  value="foreign" 
+                  checked={formData.subjects.includes('foreign')}
+                  onChange={handleSubjectChange}
+                />
+                Foreign Languages
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-other" 
+                  value="other" 
+                  checked={formData.subjects.includes('other')}
+                  onChange={handleSubjectChange}
+                />
+                Other
+              </label>
+            </div>
+          </div>
+          
+          <div className="form-row">
+            <textarea 
+              name="goals" 
+              placeholder="What are your academic goals? Any specific areas you're struggling with?" 
+              value={formData.goals}
+              onChange={handleInputChange}
+            ></textarea>
+          </div>
           
           <div className="form-section">
             <h4>When are you available for tutoring?</h4>
