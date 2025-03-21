@@ -15,14 +15,19 @@
   --primary-dark: #519399;
   --accent-light: #f4bf6f;
   --accent-dark: #d99b35;
+  
+  /* Gradient variables for consistency */
+  --main-gradient: linear-gradient(165deg, var(--primary-dark) 0%, var(--primary) 30%, var(--primary-light) 60%, #ffffff 100%);
+  --card-gradient: linear-gradient(to bottom, #ffffff 0%, rgba(127, 204, 211, 0.1) 100%);
 }
 
 /* Base Styles */
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background-color: var(--neutral-white);
+  background: linear-gradient(to bottom, var(--primary-light) 0%, #ffffff 300px);
   line-height: 1.6;
+  background-attachment: fixed;
 }
 
 /* Modern Section Styling with Overlay */
@@ -39,15 +44,17 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 120px;
-  background: linear-gradient(165deg, var(--primary-dark) 0%, var(--primary) 40%, var(--primary-light) 70%, #ffffff 100%);
+  margin-top: 0;
+  padding-top: 180px; /* Account for navbar height plus spacing */
+  background: var(--main-gradient);
+  border-radius: 0;
 }
 
 /* Add different gradient variations for different sections */
 .section:nth-of-type(2n),
 .section:nth-of-type(3n),
 .section:nth-of-type(4n) {
-  background: linear-gradient(165deg, var(--primary-dark) 0%, var(--primary) 40%, var(--primary-light) 70%, #ffffff 100%);
+  background: var(--main-gradient);
 }
 
 .section-content-wrapper {
@@ -57,11 +64,12 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding: 30px;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(5px);
-  border-radius: 15px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   color: var(--text-dark);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .section-image-container {
@@ -283,12 +291,15 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px 50px;
-  background-color: var(--neutral-white);
+  padding: 15px 50px;
+  background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   height: 100px;
   box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(127, 204, 211, 0.2);
 }
 
 .logo-container {
@@ -441,9 +452,12 @@ textarea {
 }
 
 .contact-form {
-  background: transparent;
-  box-shadow: none;
-  padding: 0;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  background: var(--card-gradient);
+  border: 1px solid rgba(127, 204, 211, 0.2);
 }
 
 /* Loading State */
@@ -634,14 +648,16 @@ textarea {
 /* Hero Section Styling */
 .hero-section {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 0 5%;
-  background: linear-gradient(165deg, var(--primary-dark) 0%, var(--primary) 40%, var(--primary-light) 70%, #f5f5f5 100%);
+  padding: 120px 50px 50px;
+  background: var(--main-gradient);
   overflow: hidden;
-  margin-top: 60px;
+  margin-top: 0;
+  border-radius: 0;
 }
 
 .hero-content {
@@ -749,6 +765,11 @@ h1 {
   margin: 0 auto;
   max-width: 1200px;
   text-align: center;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  padding: 60px 20px;
+  border-radius: 0;
   position: relative;
   z-index: 1;
 }
@@ -2184,4 +2205,260 @@ body, html {
   .referral-image-container {
     height: 250px;
   }
+}
+
+/* Add styling for the thank you page */
+.thank-you-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: var(--main-gradient);
+  margin-top: 0;
+  padding-top: 120px;
+  border-radius: 0;
+}
+
+.thank-you-container {
+  max-width: 600px;
+  width: 100%;
+}
+
+.thank-you-content {
+  background: white;
+  padding: 50px 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  background: var(--card-gradient);
+  border: 1px solid rgba(127, 204, 211, 0.2);
+}
+
+.thank-you-content i {
+  font-size: 5rem;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.thank-you-content h2 {
+  color: var(--primary-dark);
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.thank-you-content p {
+  color: var(--text-dark);
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.return-home-button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.return-home-button:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Update welcome section for smooth blending */
+.welcome-section,
+.features-section,
+.stats-section,
+.team-section,
+.services-grid,
+.process-section,
+.tutors-grid {
+  background: transparent;
+  padding: 60px 20px;
+  border-radius: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Add smooth transition between sections */
+.welcome-section::before,
+.features-section::before,
+.stats-section::before,
+.team-section::before,
+.services-grid::before,
+.process-section::before,
+.tutors-grid::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.9));
+  z-index: -1;
+}
+
+/* Update card styling for consistent look */
+.process-step,
+.service-card,
+.tutor-card,
+.team-member,
+.pricing-card,
+.feature {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--card-gradient);
+  border: 1px solid rgba(127, 204, 211, 0.2);
+}
+
+/* Update process step styling */
+.process-step {
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Update service card styling */
+.service-card {
+  padding-bottom: 20px;
+}
+
+/* Update tutor card styling */
+.tutor-card {
+  background: var(--card-gradient);
+  border: 1px solid rgba(127, 204, 211, 0.2);
+}
+
+/* Update team member styling */
+.team-member {
+  background: var(--card-gradient);
+  border: 1px solid rgba(127, 204, 211, 0.2);
+}
+
+/* Update pricing card styling */
+.pricing-card {
+  background: var(--card-gradient);
+  border: 1px solid rgba(127, 204, 211, 0.2);
+}
+
+/* Update thank you section for smooth blending */
+.thank-you-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: var(--main-gradient);
+  margin-top: 0;
+  padding-top: 120px;
+  border-radius: 0;
+}
+
+/* Update thank you content for consistent styling */
+.thank-you-content {
+  background: white;
+  padding: 50px 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  background: var(--card-gradient);
+  border: 1px solid rgba(127, 204, 211, 0.2);
+}
+
+/* Update navbar for better blending */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(127, 204, 211, 0.2);
+}
+
+/* Update form styling for consistent look */
+.contact-form,
+.application-form {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  background: var(--card-gradient);
+  border: 1px solid rgba(127, 204, 211, 0.2);
+}
+
+/* Update form inputs for consistent styling */
+input, select, textarea {
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(127, 204, 211, 0.3);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(103, 188, 196, 0.2);
+}
+
+/* Update buttons for consistent styling */
+.cta-button,
+.submit-button,
+.pricing-button,
+.referral-button,
+.return-home-button {
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Update hover effects for all interactive elements */
+.process-step:hover,
+.service-card:hover,
+.tutor-card:hover,
+.team-member:hover,
+.pricing-card:hover,
+.feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Add smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
 }
