@@ -508,4 +508,141 @@
 
 .pricing-features {
   flex-grow: 1;
+}
+
+/* Add mobile-friendly calendar styles */
+/* Mobile Time Selector */
+.mobile-time-selector {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 15px 0;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-day-selector {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.mobile-day-tab {
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--primary-light);
+  padding-bottom: 10px;
+}
+
+.mobile-day-tab h4 {
+  background: var(--primary);
+  color: white;
+  margin: 0;
+  padding: 10px;
+  border-radius: 5px 5px 0 0;
+  font-size: 1rem;
+}
+
+.mobile-hours {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  gap: 8px;
+  justify-content: center;
+}
+
+.mobile-hour-btn {
+  background: #f5f5f5;
+  border: 1px solid var(--primary-light);
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-dark);
+}
+
+.mobile-hour-btn.selected {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent-dark);
+}
+
+.mobile-hour-btn:hover {
+  background: var(--primary-light);
+  color: white;
+}
+
+/* Hide the desktop calendar on mobile */
+@media (max-width: 768px) {
+  .weekly-schedule {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px 0;
+    overflow-x: hidden;
+    margin: 10px 0;
+  }
+  
+  .schedule-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0;
+    margin: 10px 0;
+    position: relative;
+    border: 1px solid rgba(103, 188, 196, 0.2);
+    border-radius: 8px;
+  }
+  
+  .schedule-grid {
+    min-width: 800px;
+    width: 800px;
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  /* Add visual indicator for scrolling */
+  .schedule-container::after {
+    content: "→";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--primary-dark);
+    font-size: 1.2rem;
+    padding: 5px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+  }
+}
+
+/* Improve selected times display on mobile */
+@media (max-width: 768px) {
+  .selected-times {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .selected-times ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: flex-start;
+  }
+  
+  .selected-times li {
+    font-size: 0.8rem;
+    padding: 5px 8px;
+  }
 } 

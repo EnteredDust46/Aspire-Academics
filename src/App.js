@@ -735,7 +735,7 @@ const Pricing = () => (
           </div>
           <div className="pricing-content">
             <div className="price">$60<span>/hour</span></div>
-            <div style={{ height: '20px' }}></div>
+            <div className="price-spacer"></div>
             <ul className="pricing-features">
               <li>One-on-one personalized tutoring</li>
               <li>Flexible scheduling</li>
