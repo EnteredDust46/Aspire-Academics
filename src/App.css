@@ -325,11 +325,11 @@ textarea {
 }
 
 .logo-image {
-  height: 75px;
+  height: 85px;
   width: auto;
   object-fit: contain;
   padding: 0;
-  margin: 0 0 0 -18px;
+  margin: 0 0 0 -20px;
   display: block;
   transform: translateY(5px);
   transition: transform 0.3s ease;
@@ -1731,11 +1731,11 @@ body, html {
 
 /* Keep logo image size the same */
 .logo-image {
-  height: 75px;
+  height: 85px;
   width: auto;
   object-fit: contain;
   padding: 0;
-  margin: 0 0 0 -18px;
+  margin: 0 0 0 -20px;
   display: block;
   transform: translateY(5px);
   transition: transform 0.3s ease;
@@ -1804,4 +1804,23 @@ body, html {
 .logo-container:hover {
   transform: translateY(-10px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Additional fix for very small screens */
+@media (max-width: 480px) {
+  .weekly-schedule {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: auto;
+  }
+  
+  .schedule-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .schedule-grid {
+    min-width: 800px;
+    width: auto;
+  }
 }
