@@ -28,6 +28,7 @@ body {
   background: linear-gradient(to bottom, var(--primary-light) 0%, #ffffff 300px);
   line-height: 1.6;
   background-attachment: fixed;
+  color: var(--text-dark);
 }
 
 /* Modern Section Styling with Overlay */
@@ -38,7 +39,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   text-align: center;
-  color: #fff;
+  color: var(--text-dark);
   overflow: hidden;
   min-height: calc(100vh - 80px);
   display: flex;
@@ -48,6 +49,13 @@ body {
   padding-top: 180px; /* Account for navbar height plus spacing */
   background: var(--main-gradient);
   border-radius: 0;
+}
+
+/* Ensure smooth transitions between sections */
+.section + .section {
+  margin-top: -50px; /* Create overlap for smoother transitions */
+  padding-top: 230px; /* Adjust padding to compensate for overlap */
+  z-index: 1;
 }
 
 /* Add different gradient variations for different sections */
@@ -70,13 +78,14 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   color: var(--text-dark);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  animation: fadeIn 0.8s ease-out;
 }
 
 .section-image-container {
   width: 100%;
   max-width: 800px;
   margin: 20px auto;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
   height: 400px;
@@ -105,8 +114,8 @@ body {
 
 .section-content h2,
 .section-content h3 {
-  color: var(--text-dark);
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+  color: var(--text-light);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* Typography */
@@ -383,11 +392,10 @@ textarea {
 }
 
 .tutor-image {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  margin-bottom: 15px;
+  width: 100%;
+  height: 200px;
   object-fit: cover;
+  object-position: top center;
 }
 
 /* Testimonials Grid */
@@ -451,13 +459,15 @@ textarea {
   color: var(--primary);
 }
 
-.contact-form {
-  background: white;
+.contact-form,
+.application-form {
+  background: var(--card-gradient);
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  background: var(--card-gradient);
   border: 1px solid rgba(127, 204, 211, 0.2);
+  margin: 20px auto;
+  max-width: 800px;
 }
 
 /* Loading State */
@@ -478,108 +488,44 @@ textarea {
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .section {
-    padding: 60px 15px;
-    margin-top: 60px;
+    padding: 150px 15px 50px;
   }
   
   .section-content-wrapper {
-    padding: 20px 15px;
-    margin: 0 10px;
-    width: calc(100% - 20px);
-    box-sizing: border-box;
-    overflow-x: hidden;
+    padding: 20px;
   }
   
   h2 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
   }
   
   h3 {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
   
   p {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
   
-  .form {
-    width: 100%;
-    padding: 15px;
+  .hero-content {
+    padding: 0 20px;
+  }
+  
+  .features-grid,
+  .services-grid,
+  .tutors-grid,
+  .process-steps,
+  .pricing-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
   
   .form-row {
     flex-direction: column;
   }
   
-  .form-row input, 
-  .form-row select {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  
-  .weekly-schedule {
-    max-width: 100%;
-    padding: 10px;
-    margin: 10px auto;
-    overflow-x: auto;
-  }
-  
-  .schedule-grid {
-    min-width: auto;
-    width: 800px;
-  }
-  
-  .selected-times {
-    max-width: 100%;
-    width: 100%;
-  }
-  
-  .selected-times ul {
-    width: 100%;
-  }
-  
-  .form-section {
-    max-width: 100%;
-    width: 100%;
-    padding: 15px;
-    margin: 15px auto;
-    overflow-x: hidden;
-  }
-  
-  .mobile-menu-button {
-    display: block;
-  }
-  
-  .logo-container {
-    width: 110px;
-    height: 110px;
-    margin-top: 35px;
-    margin-bottom: -15px;
-    padding: 30px;
-  }
-  
-  .logo-image {
-    height: 65px;
-    margin: 0 0 0 -13px;
-    transform: translateY(3px);
-  }
-  
-  .weekly-schedule {
-    overflow-x: scroll;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    max-width: 100%;
-    padding: 5px 0;
-    box-sizing: border-box;
-  }
-  
-  .schedule-container {
-    overflow-x: scroll;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-    box-sizing: border-box;
+  .navbar {
+    padding: 10px 20px;
   }
 }
 
@@ -712,7 +658,7 @@ h1 {
 
 .cta-button.primary {
   background-color: var(--accent);
-  color: var(--text-dark);
+  color: white;
   background: linear-gradient(165deg, var(--accent-light) 0%, var(--accent) 100%);
 }
 
@@ -965,10 +911,10 @@ input[type="file"]::-webkit-file-upload-button:hover {
 .process-image {
   width: 100%;
   height: 200px;
-  border-radius: 8px;
-  margin-bottom: 20px;
   object-fit: cover;
   object-position: center;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 15px;
 }
 
 .process-features {
@@ -1045,6 +991,8 @@ input[type="file"]::-webkit-file-upload-button:hover {
   height: 200px;
   object-fit: cover;
   object-position: center;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 15px;
 }
 
 .service-card h3 {
@@ -1089,9 +1037,11 @@ input[type="file"]::-webkit-file-upload-button:hover {
 
 .tutor-image {
   width: 100%;
-  height: 250px;
+  height: 200px;
   object-fit: cover;
   object-position: top center;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 15px;
 }
 
 .tutor-info {
@@ -2309,13 +2259,23 @@ body, html {
 .team-member,
 .pricing-card,
 .feature {
-  background: white;
+  background: var(--card-gradient);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background: var(--card-gradient);
   border: 1px solid rgba(127, 204, 211, 0.2);
+  padding: 0 0 20px 0;
+}
+
+/* Add padding to card content */
+.process-step > *:not(img),
+.service-card > *:not(img),
+.tutor-card > *:not(img),
+.team-member > *:not(img),
+.pricing-card > *:not(img),
+.feature > *:not(img) {
+  padding: 0 20px;
 }
 
 /* Update process step styling */
@@ -2403,11 +2363,10 @@ body, html {
 /* Update form styling for consistent look */
 .contact-form,
 .application-form {
-  background: white;
+  background: var(--card-gradient);
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  background: var(--card-gradient);
   border: 1px solid rgba(127, 204, 211, 0.2);
 }
 
@@ -2415,13 +2374,12 @@ body, html {
 input, select, textarea {
   padding: 12px 15px;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(127, 204, 211, 0.3);
   font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
   width: 100%;
   margin-bottom: 15px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(127, 204, 211, 0.3);
   background-color: rgba(255, 255, 255, 0.9);
 }
 
@@ -2442,7 +2400,7 @@ input:focus, select:focus, textarea:focus {
   border-radius: 30px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   border: none;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -2461,4 +2419,86 @@ input:focus, select:focus, textarea:focus {
 /* Add smooth scrolling for the entire page */
 html {
   scroll-behavior: smooth;
+}
+
+/* Update headings on teal backgrounds */
+.section h2,
+.section h3 {
+  color: var(--text-light); /* Header/big text is white on teal backgrounds */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Update paragraph text on all backgrounds */
+.section p {
+  color: var(--text-dark); /* Small text is black on all backgrounds */
+}
+
+/* Update card headings */
+.process-step h3,
+.service-card h3,
+.tutor-card h3,
+.team-member h3,
+.pricing-card h3,
+.feature h3 {
+  color: var(--primary-dark); /* Headers in cards are teal */
+  text-shadow: none;
+}
+
+/* Update buttons to use orange consistently */
+.cta-button.primary,
+.submit-button,
+.pricing-button,
+.referral-button,
+.apply-button {
+  background-color: var(--accent);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button.primary:hover,
+.submit-button:hover,
+.pricing-button:hover,
+.referral-button:hover,
+.apply-button:hover {
+  background-color: var(--accent-dark);
+}
+
+/* Add subtle animations for better user experience */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-content-wrapper {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Add subtle hover effects to links */
+a {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+/* Ensure consistent spacing */
+.section + .section {
+  margin-top: -50px;
+}
+
+/* Add subtle background patterns for visual interest */
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 1%, transparent 1%),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 1%, transparent 1%);
+  background-size: 100px 100px;
+  opacity: 0.5;
+  pointer-events: none;
 }

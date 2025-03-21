@@ -1124,8 +1124,8 @@ const ApplyStudent = () => {
             <h4>When are you available for tutoring?</h4>
             <p>Select times that work best for your schedule</p>
             <WeeklySchedule 
-              setPreferredTimes={setPreferredTimes}
               onScheduleChange={handleScheduleChange}
+              selectedTimes={formData.preferredTimes}
             />
           </div>
           
