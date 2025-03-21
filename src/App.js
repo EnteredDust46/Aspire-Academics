@@ -1008,6 +1008,7 @@ const ApplyStudent = () => {
                 required
               >
                 <option value="">Select Grade Level</option>
+                <option value="middle">Middle School</option>
                 <option value="9th">9th Grade</option>
                 <option value="10th">10th Grade</option>
                 <option value="11th">11th Grade</option>
