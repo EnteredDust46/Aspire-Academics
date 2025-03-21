@@ -1285,6 +1285,168 @@ const HowItWorks = () => (
   </>
 );
 
+const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    inquiryType: 'general',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+    
+    // Submit to FormSubmit.co
+    fetch('https://formsubmit.co/support@aspireacademicstutoring.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        inquiryType: formData.inquiryType,
+        message: formData.message
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        setSuccess(true);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          inquiryType: 'general',
+          message: ''
+        });
+      } else {
+        throw new Error('Form submission failed');
+      }
+      setIsSubmitting(false);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      setError('There was a problem submitting your message. Please try again.');
+      setIsSubmitting(false);
+    });
+  };
+  
+  return (
+    <Section
+      title="Contact Us"
+      subtitle="We're Here to Help"
+      content={[
+        "Have questions about our tutoring services? Reach out to us and we'll get back to you as soon as possible.",
+      ]}
+      imageUrl="contact.jpg"
+    >
+      <div className="contact-container">
+        <div className="contact-info">
+          <div className="contact-method">
+            <i className="fas fa-phone"></i>
+            <h4>Phone</h4>
+            <p>(555) 123-4567</p>
+          </div>
+          <div className="contact-method">
+            <i className="fas fa-envelope"></i>
+            <h4>Email</h4>
+            <p>support@aspireacademicstutoring.com</p>
+          </div>
+          <div className="contact-method">
+            <i className="fas fa-map-marker-alt"></i>
+            <h4>Location</h4>
+            <p>San Francisco, CA</p>
+          </div>
+        </div>
+        
+        <div className="contact-form-container">
+          {success ? (
+            <div className="success-message">
+              <h3>Thank you for your message!</h3>
+              <p>We'll get back to you as soon as possible.</p>
+            </div>
+          ) : (
+            <form className="contact-form" onSubmit={handleSubmit}>
+              {error && <div className="error-message">{error}</div>}
+              
+              <div className="form-row">
+                <input 
+                  type="text" 
+                  name="name" 
+                  placeholder="Your Name" 
+                  required 
+                  value={formData.name}
+                  onChange={handleInputChange}
+                />
+                <input 
+                  type="email" 
+                  name="email" 
+                  placeholder="Email Address" 
+                  required
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+              </div>
+              
+              <div className="form-row">
+                <input 
+                  type="tel" 
+                  name="phone" 
+                  placeholder="Phone Number (Optional)" 
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                />
+                <select 
+                  name="inquiryType" 
+                  value={formData.inquiryType}
+                  onChange={handleInputChange}
+                >
+                  <option value="general">General Inquiry</option>
+                  <option value="tutoring">Tutoring Information</option>
+                  <option value="pricing">Pricing Questions</option>
+                  <option value="technical">Technical Support</option>
+                </select>
+              </div>
+              
+              <textarea 
+                name="message" 
+                placeholder="Your Message" 
+                required
+                value={formData.message}
+                onChange={handleInputChange}
+              ></textarea>
+              
+              <button 
+                type="submit" 
+                className="submit-button"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </button>
+            </form>
+          )}
+        </div>
+      </div>
+    </Section>
+  );
+};
+
 export default function App() {
   return (
     <Router>
