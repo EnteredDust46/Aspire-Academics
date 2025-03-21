@@ -25,9 +25,8 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(to bottom, var(--primary-light) 0%, #ffffff 300px);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 30%, var(--primary-light) 60%, #ffffff 100%) fixed;
   line-height: 1.6;
-  background-attachment: fixed;
   color: var(--text-dark);
 }
 
@@ -35,9 +34,6 @@ body {
 .section {
   position: relative;
   padding: 80px 20px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   text-align: center;
   color: var(--text-dark);
   overflow: hidden;
@@ -47,14 +43,14 @@ body {
   justify-content: center;
   margin-top: 0;
   padding-top: 180px; /* Account for navbar height plus spacing */
-  background: var(--main-gradient);
+  background: transparent;
   border-radius: 0;
 }
 
 /* Ensure smooth transitions between sections */
 .section + .section {
-  margin-top: -50px; /* Create overlap for smoother transitions */
-  padding-top: 230px; /* Adjust padding to compensate for overlap */
+  margin-top: 0;
+  padding-top: 180px;
   z-index: 1;
 }
 
@@ -62,7 +58,7 @@ body {
 .section:nth-of-type(2n),
 .section:nth-of-type(3n),
 .section:nth-of-type(4n) {
-  background: var(--main-gradient);
+  background: transparent;
 }
 
 .section-content-wrapper {
@@ -72,12 +68,11 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding: 30px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
+  background: white;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   color: var(--text-dark);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(127, 204, 211, 0.2);
   animation: fadeIn 0.8s ease-out;
 }
 
@@ -114,8 +109,8 @@ body {
 
 .section-content h2,
 .section-content h3 {
-  color: var(--text-light);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  color: var(--primary-dark);
+  text-shadow: none;
 }
 
 /* Typography */
@@ -461,7 +456,7 @@ textarea {
 
 .contact-form,
 .application-form {
-  background: var(--card-gradient);
+  background: white;
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
@@ -600,7 +595,7 @@ textarea {
   align-items: center;
   justify-content: space-between;
   padding: 120px 50px 50px;
-  background: var(--main-gradient);
+  background: transparent;
   overflow: hidden;
   margin-top: 0;
   border-radius: 0;
@@ -610,6 +605,11 @@ textarea {
   width: 50%;
   color: var(--text-light);
   z-index: 2;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(127, 204, 211, 0.2);
 }
 
 .hero-image-container {
@@ -633,6 +633,7 @@ h1 {
   font-weight: 700;
   line-height: 1.2;
   display: inline-block;
+  color: var(--primary-dark);
 }
 
 .hero-subtitle {
@@ -641,6 +642,7 @@ h1 {
   font-weight: 400;
   display: inline-block;
   max-width: 100%;
+  color: var(--primary-dark);
 }
 
 .hero-buttons {
@@ -1472,7 +1474,7 @@ body, html {
   margin: 0 auto;
   max-width: 1200px;
   text-align: center;
-  background: linear-gradient(165deg, var(--primary-dark) 0%, var(--primary) 40%, var(--primary-light) 70%, #ffffff 100%);
+  background: transparent;
   border-radius: 0;
 }
 
@@ -2164,7 +2166,7 @@ body, html {
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  background: var(--main-gradient);
+  background: transparent;
   margin-top: 0;
   padding-top: 120px;
   border-radius: 0;
@@ -2181,7 +2183,7 @@ body, html {
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   text-align: center;
-  background: var(--card-gradient);
+  background: white;
   border: 1px solid rgba(127, 204, 211, 0.2);
 }
 
@@ -2259,7 +2261,7 @@ body, html {
 .team-member,
 .pricing-card,
 .feature {
-  background: var(--card-gradient);
+  background: white;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
@@ -2302,19 +2304,19 @@ body, html {
 
 /* Update tutor card styling */
 .tutor-card {
-  background: var(--card-gradient);
+  background: white;
   border: 1px solid rgba(127, 204, 211, 0.2);
 }
 
 /* Update team member styling */
 .team-member {
-  background: var(--card-gradient);
+  background: white;
   border: 1px solid rgba(127, 204, 211, 0.2);
 }
 
 /* Update pricing card styling */
 .pricing-card {
-  background: var(--card-gradient);
+  background: white;
   border: 1px solid rgba(127, 204, 211, 0.2);
 }
 
@@ -2325,7 +2327,7 @@ body, html {
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  background: var(--main-gradient);
+  background: transparent;
   margin-top: 0;
   padding-top: 120px;
   border-radius: 0;
@@ -2338,7 +2340,7 @@ body, html {
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   text-align: center;
-  background: var(--card-gradient);
+  background: white;
   border: 1px solid rgba(127, 204, 211, 0.2);
 }
 
@@ -2363,7 +2365,7 @@ body, html {
 /* Update form styling for consistent look */
 .contact-form,
 .application-form {
-  background: var(--card-gradient);
+  background: white;
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
@@ -2424,13 +2426,13 @@ html {
 /* Update headings on teal backgrounds */
 .section h2,
 .section h3 {
-  color: var(--text-light); /* Header/big text is white on teal backgrounds */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  color: var(--primary-dark);
+  text-shadow: none;
 }
 
 /* Update paragraph text on all backgrounds */
 .section p {
-  color: var(--text-dark); /* Small text is black on all backgrounds */
+  color: var(--text-dark);
 }
 
 /* Update card headings */
@@ -2440,7 +2442,7 @@ html {
 .team-member h3,
 .pricing-card h3,
 .feature h3 {
-  color: var(--primary-dark); /* Headers in cards are teal */
+  color: var(--primary-dark);
   text-shadow: none;
 }
 
@@ -2484,7 +2486,7 @@ a:hover {
 
 /* Ensure consistent spacing */
 .section + .section {
-  margin-top: -50px;
+  margin-top: 0;
 }
 
 /* Add subtle background patterns for visual interest */
