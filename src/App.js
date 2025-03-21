@@ -580,9 +580,15 @@ const ApplyTutor = () => {
             ></textarea>
           </div>
           
-          <div className="form-section" style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)' }}>
-            <h4>What subjects will you tutor?</h4>
-            <div className="checkbox-group">
+          <div className="form-section" style={{ 
+            background: 'white', 
+            padding: '20px', 
+            borderRadius: '8px', 
+            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)', 
+            color: 'var(--text-dark)'
+          }}>
+            <h4 style={{ color: 'var(--primary-dark)' }}>What subjects will you tutor?</h4>
+            <div className="checkbox-group" style={{ color: 'var(--text-dark)' }}>
               <label>
                 <input 
                   type="checkbox" 
@@ -727,8 +733,9 @@ const Pricing = () => (
             <h3>Single Session</h3>
             <img src={`${process.env.PUBLIC_URL}/images/single-session.jpg`} alt="Single tutoring session" className="pricing-image" />
           </div>
-          <div className="pricing-content" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+          <div className="pricing-content">
             <div className="price">$60<span>/hour</span></div>
+            <div style={{ height: '20px' }}></div>
             <ul className="pricing-features">
               <li>One-on-one personalized tutoring</li>
               <li>Flexible scheduling</li>
@@ -736,7 +743,7 @@ const Pricing = () => (
               <li>Online or in-person options</li>
               <li>No long-term commitment</li>
             </ul>
-            <div style={{ marginTop: 'auto' }}>
+            <div className="pricing-button-container">
               <Link to="/apply-student" className="pricing-button">Get Started</Link>
             </div>
           </div>
@@ -752,7 +759,7 @@ const Pricing = () => (
             <h3>5-Session Package</h3>
             <img src={`${process.env.PUBLIC_URL}/images/five-sessions.jpg`} alt="Five tutoring sessions" className="pricing-image" />
           </div>
-          <div className="pricing-content" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+          <div className="pricing-content">
             <div className="price">$55<span>/hour</span></div>
             <div className="savings">Save $25</div>
             <ul className="pricing-features">
@@ -762,7 +769,7 @@ const Pricing = () => (
               <li>Discounted hourly rate</li>
               <li>Flexible session scheduling</li>
             </ul>
-            <div style={{ marginTop: 'auto' }}>
+            <div className="pricing-button-container">
               <Link to="/apply-student" className="pricing-button">Get Started</Link>
             </div>
           </div>
@@ -777,7 +784,7 @@ const Pricing = () => (
             <h3>10-Session Package</h3>
             <img src={`${process.env.PUBLIC_URL}/images/ten-sessions.jpg`} alt="Ten tutoring sessions" className="pricing-image" />
           </div>
-          <div className="pricing-content" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+          <div className="pricing-content">
             <div className="price">$50<span>/hour</span></div>
             <div className="savings">Save $100</div>
             <ul className="pricing-features">
@@ -787,7 +794,7 @@ const Pricing = () => (
               <li>Priority scheduling</li>
               <li>Extended session availability</li>
             </ul>
-            <div style={{ marginTop: 'auto' }}>
+            <div className="pricing-button-container">
               <Link to="/apply-student" className="pricing-button">Get Started</Link>
             </div>
           </div>
@@ -1039,8 +1046,14 @@ const ApplyStudent = () => {
               </div>
             </div>
             
-            <div className="form-section" style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)', color: 'var(--text-dark)' }}>
-              <h4>What subjects do you need help with?</h4>
+            <div className="form-section" style={{ 
+              background: 'white', 
+              padding: '20px', 
+              borderRadius: '8px', 
+              boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)', 
+              color: 'var(--text-dark)'
+            }}>
+              <h4 style={{ color: 'var(--primary-dark)' }}>What subjects do you need help with?</h4>
               <div className="checkbox-group" style={{ color: 'var(--text-dark)' }}>
                 <label>
                   <input 

@@ -83,6 +83,7 @@ body {
   backdrop-filter: blur(5px);
   border-radius: 15px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  color: var(--text-dark);
 }
 
 .section-image-container {
@@ -1122,6 +1123,7 @@ input[type="file"]::-webkit-file-upload-button:hover {
   overflow-x: hidden;
   box-sizing: border-box;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: var(--text-dark);
 }
 
 .form-section h4 {
@@ -1851,6 +1853,7 @@ body, html {
   position: relative;
   display: flex;
   flex-direction: column;
+  height: 550px;
 }
 
 .pricing-card.featured {
@@ -1882,8 +1885,11 @@ body, html {
   color: white;
   margin: 0;
   font-size: 1.8rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
   z-index: 2;
+  width: 100%;
+  text-align: center;
+  left: 0;
 }
 
 .pricing-image {
@@ -1891,7 +1897,20 @@ body, html {
   height: 200px;
   object-fit: cover;
   display: block;
-  filter: brightness(0.8);
+  filter: brightness(0.7);
+  position: relative;
+}
+
+/* Add overlay to pricing header for better text contrast */
+.pricing-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 30%, rgba(0, 0, 0, 0.7) 100%);
+  z-index: 1;
 }
 
 .pricing-content {
@@ -1900,6 +1919,7 @@ body, html {
   flex-grow: 1;
   padding: 25px;
   text-align: center;
+  justify-content: space-between;
 }
 
 .price {
@@ -1907,6 +1927,10 @@ body, html {
   font-weight: 700;
   color: var(--primary-dark);
   margin-bottom: 10px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .price span {
@@ -1922,6 +1946,7 @@ body, html {
   border-radius: 20px;
   font-weight: 600;
   margin-bottom: 20px;
+  height: 20px;
 }
 
 .pricing-features {
@@ -1929,10 +1954,11 @@ body, html {
   padding: 0;
   margin: 25px 0;
   text-align: left;
-  min-height: 180px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  gap: 10px;
 }
 
 .pricing-features li {
@@ -1947,6 +1973,13 @@ body, html {
   left: 0;
   color: var(--primary);
   font-weight: bold;
+}
+
+.pricing-button-container {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pricing-button {
