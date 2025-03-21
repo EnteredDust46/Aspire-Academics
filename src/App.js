@@ -90,7 +90,7 @@ const Navbar = () => {
 const Section = ({ title, content, imageUrl, children, subtitle, className }) => (
   <motion.section
     className={`section ${className || ''}`}
-    style={{ backgroundImage: imageUrl ? `url(${process.env.PUBLIC_URL}/images/${imageUrl})` : 'linear-gradient(135deg, var(--primary-dark), var(--primary-light))' }}
+    style={{ background: 'linear-gradient(135deg, var(--primary-dark), var(--primary-light))' }}
     variants={fadeIn}
     initial="hidden"
     animate="show"
@@ -98,6 +98,11 @@ const Section = ({ title, content, imageUrl, children, subtitle, className }) =>
     <div className="section-content-wrapper">
       <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
       {subtitle && <motion.h3>{subtitle}</motion.h3>}
+      {imageUrl && (
+        <div className="section-image-container">
+          <img src={`${process.env.PUBLIC_URL}/images/${imageUrl}`} alt={title} className="section-image" />
+        </div>
+      )}
       {Array.isArray(content) ? (
         content.map((paragraph, index) => (
           <motion.p key={index}>{paragraph}</motion.p>
@@ -150,7 +155,7 @@ const Home = () => (
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
       >
-        <img src={`${process.env.PUBLIC_URL}/images/hero-student.jpg`} alt="Student learning" className="hero-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/home-hero.jpg`} alt="Student learning" className="hero-image" />
       </motion.div>
     </motion.section>
 
@@ -271,11 +276,12 @@ const About = () => (
   <>
     <Section
       title="About Us"
-      subtitle="Our Mission & Values"
+      subtitle="Our Mission"
       content={[
-        "At Aspire Academics, we believe in helping every student strive to meet their full potential—regardless of background, experience, or learning style. Our goal is to provide personalized guidance that equips our students with all the tools they need to succeed academically and beyond."
+        "Aspire Academics was founded with a simple goal: to provide high-quality, personalized tutoring that helps students reach their full potential.",
+        "Our team of experienced tutors is passionate about education and committed to helping students build confidence and achieve academic success."
       ]}
-      imageUrl="about-us.jpg"
+      imageUrl="about-mission.jpg"
     />
     
     <motion.section 
@@ -292,7 +298,7 @@ const About = () => (
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
-          <img src={`${process.env.PUBLIC_URL}/images/team1.jpg`} alt="Adam Kamenetsky" className="team-image" />
+          <img src={`${process.env.PUBLIC_URL}/images/about-adam.jpg`} alt="Adam Kamenetsky" className="team-image" />
           <h3>Adam Kamenetsky</h3>
           <p className="team-title">Co-Founder</p>
           <p>Adam is a current freshman at the University of Florida majoring in aerospace engineering. In high school, he had a 4.41 GPA and scored a 1540 on his SATs, while also participating in Speech and Debate and DECA. In his free time, he enjoys eating sushi, going to the gym, and skiing.</p>
@@ -303,7 +309,7 @@ const About = () => (
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
-          <img src={`${process.env.PUBLIC_URL}/images/team2.jpg`} alt="Meaghan Lu" className="team-image" />
+          <img src={`${process.env.PUBLIC_URL}/images/about-meaghan.jpg`} alt="Meaghan Lu" className="team-image" />
           <h3>Meaghan Lu</h3>
           <p className="team-title">Co-Founder</p>
           <p>Meaghan is a current freshman at the University of Michigan majoring in statistics. In high school, she had a 4.39 GPA and scored 1540 on her SATs, while also being involved in DECA, cross country, and Book Club. In her free time, she enjoys baking, finding new places to eat, and watching Modern Family.</p>
@@ -316,13 +322,13 @@ const About = () => (
 const Services = () => (
   <>
     <Section
-      title="Services"
-      subtitle="OUR SERVICES"
+      title="Our Services"
+      subtitle="Personalized Learning Solutions"
       content={[
-        "Comprehensive Academic Support",
-        "No matter what you need, we've got you covered! We offer personalized tutoring within a wide range of subjects—from standardized test prep to all your high school or middle school coursework."
+        "We offer comprehensive tutoring services across a wide range of subjects and grade levels.",
+        "Whether you're looking for help with standardized test prep, specific subject tutoring, or general academic support, our experienced tutors are here to help."
       ]}
-      imageUrl="services.jpg"
+      imageUrl="services-banner.jpg"
     />
     
     <motion.section 
@@ -337,7 +343,7 @@ const Services = () => (
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <img src={`${process.env.PUBLIC_URL}/images/service1.jpg`} alt="Service" className="service-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/services-tests.jpg`} alt="Standardized Tests" className="service-image" />
         <h3>Standardized Tests</h3>
         <p>Trusted guidance for the SAT & ACT, with proven strategies from tutors who've scored in the 99% and above.</p>
       </motion.div>
@@ -347,7 +353,7 @@ const Services = () => (
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <img src={`${process.env.PUBLIC_URL}/images/service2.jpg`} alt="Service" className="service-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/services-highschool.jpg`} alt="High School Coursework" className="service-image" />
         <h3>High School Coursework</h3>
         <p>Support in math (Algebra I, Geometry, Algebra II, Precalculus, Trigonometry, Calculus), sciences (Biology, Chemistry, Physics).</p>
       </motion.div>
@@ -357,7 +363,7 @@ const Services = () => (
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <img src={`${process.env.PUBLIC_URL}/images/service3.jpg`} alt="Service" className="service-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/services-middleschool.jpg`} alt="Middle School Coursework" className="service-image" />
         <h3>Middle School Coursework</h3>
         <p>ELA, Math, Science, Social Studies</p>
       </motion.div>
@@ -369,12 +375,12 @@ const Tutors = () => (
   <>
     <Section
       title="Meet Our Tutors"
-      subtitle="Expert Guidance from Dedicated Educators"
+      subtitle="Expert Educators"
       content={[
-        "Our tutors are selected for their academic excellence, teaching ability, and passion for helping students succeed.",
-        "Our tutors are passionate, dedicated, and committed to helping you succeed. They have been carefully vetted—going through background checks and extensive training—to ensure you get the highest quality of instruction as well as mentors who truly care."
+        "Our tutors are carefully selected for their academic excellence, teaching ability, and passion for helping students succeed.",
+        "With diverse backgrounds and specialties, we match each student with the perfect tutor for their needs."
       ]}
-      imageUrl="tutors.jpg"
+      imageUrl="tutors-banner.jpg"
     />
     
     <div className="tutors-grid">
@@ -383,7 +389,7 @@ const Tutors = () => (
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <img src={`${process.env.PUBLIC_URL}/images/student1.jpg`} alt="Math & Science Tutor" className="tutor-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/tutors-math.jpg`} alt="Math & Science Tutor" className="tutor-image" />
         <div className="tutor-info">
           <h3>Dr. Sarah Johnson</h3>
           <h4>Math & Science Specialist</h4>
@@ -397,7 +403,7 @@ const Tutors = () => (
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <img src={`${process.env.PUBLIC_URL}/images/student2.jpg`} alt="English & Literature Tutor" className="tutor-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/tutors-english.jpg`} alt="English & Literature Tutor" className="tutor-image" />
         <div className="tutor-info">
           <h3>Prof. Michael Chen</h3>
           <h4>English & Literature Expert</h4>
@@ -411,7 +417,7 @@ const Tutors = () => (
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <img src={`${process.env.PUBLIC_URL}/images/student3.jpg`} alt="Test Prep Specialist" className="tutor-image" />
+        <img src={`${process.env.PUBLIC_URL}/images/tutors-test.jpg`} alt="Test Prep Specialist" className="tutor-image" />
         <div className="tutor-info">
           <h3>Ms. Amanda Torres</h3>
           <h4>Test Prep Specialist</h4>
@@ -430,7 +436,7 @@ const Apply = () => (
     content={[
       "Whether you're looking to improve your grades, prepare for standardized tests, or share your knowledge as a tutor, we're here to help you succeed."
     ]}
-    imageUrl="apply-bg.jpg"
+    imageUrl="apply-banner.jpg"
   >
     <div className="apply-buttons">
       <Link to="/apply-student" className="apply-button">Become a Student</Link>
@@ -713,7 +719,7 @@ const Pricing = () => (
       content={[
         "We offer competitive pricing with flexible packages to meet your needs. Choose the option that works best for you and start your journey to academic excellence.",
       ]}
-      imageUrl="pricing-bg.jpg"
+      imageUrl="pricing-banner.jpg"
     />
     
     <motion.section 
@@ -731,7 +737,7 @@ const Pricing = () => (
         >
           <div className="pricing-header">
             <h3>Single Session</h3>
-            <img src={`${process.env.PUBLIC_URL}/images/single-session.jpg`} alt="Single tutoring session" className="pricing-image" />
+            <img src={`${process.env.PUBLIC_URL}/images/pricing-single.jpg`} alt="Single tutoring session" className="pricing-image" />
           </div>
           <div className="pricing-content">
             <div className="price">$60<span>/hour</span></div>
@@ -757,7 +763,7 @@ const Pricing = () => (
           <div className="pricing-badge">Popular</div>
           <div className="pricing-header">
             <h3>5-Session Package</h3>
-            <img src={`${process.env.PUBLIC_URL}/images/five-sessions.jpg`} alt="Five tutoring sessions" className="pricing-image" />
+            <img src={`${process.env.PUBLIC_URL}/images/pricing-five.jpg`} alt="Five tutoring sessions" className="pricing-image" />
           </div>
           <div className="pricing-content">
             <div className="price">$55<span>/hour</span></div>
@@ -782,7 +788,7 @@ const Pricing = () => (
         >
           <div className="pricing-header">
             <h3>10-Session Package</h3>
-            <img src={`${process.env.PUBLIC_URL}/images/ten-sessions.jpg`} alt="Ten tutoring sessions" className="pricing-image" />
+            <img src={`${process.env.PUBLIC_URL}/images/pricing-ten.jpg`} alt="Ten tutoring sessions" className="pricing-image" />
           </div>
           <div className="pricing-content">
             <div className="price">$50<span>/hour</span></div>
@@ -835,7 +841,7 @@ const Pricing = () => (
           <Link to="/apply-student" className="referral-button">Start Referring</Link>
         </div>
         <div className="referral-image-container">
-          <img src={`${process.env.PUBLIC_URL}/images/referral-program.jpg`} alt="Students referring friends" className="referral-image" />
+          <img src={`${process.env.PUBLIC_URL}/images/pricing-referral.jpg`} alt="Students referring friends" className="referral-image" />
         </div>
       </motion.div>
     </motion.section>
@@ -1209,11 +1215,12 @@ const HowItWorks = () => (
   <>
     <Section
       title="How It Works"
-      subtitle="Your Path to Academic Excellence"
+      subtitle="Your Path to Academic Success"
       content={[
-        "Our streamlined process makes it easy to get started with personalized tutoring that fits your schedule and learning style.",
+        "Our tutoring process is designed to be simple, effective, and tailored to your needs.",
+        "From the initial consultation to ongoing sessions, we focus on creating a supportive learning environment that helps students thrive."
       ]}
-      imageUrl="learning.jpg"
+      imageUrl="howitworks-banner.jpg"
     />
     
     <motion.section 
@@ -1226,35 +1233,38 @@ const HowItWorks = () => (
       <div className="process-steps">
         <motion.div 
           className="process-step"
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 300 }}
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="step-number">1</div>
-          <img src={`${process.env.PUBLIC_URL}/images/student1.jpg`} alt="Initial Consultation" className="step-image" />
-          <h3>Initial Consultation</h3>
-          <p>Schedule a free consultation to discuss your academic goals and challenges. We'll learn about your learning style and match you with the perfect tutor.</p>
+          <img src={`${process.env.PUBLIC_URL}/images/howitworks-apply.jpg`} alt="Apply for tutoring" className="process-image" />
+          <h3>1. Apply</h3>
+          <p>Fill out our simple application form to tell us about your tutoring needs and schedule preferences.</p>
         </motion.div>
-
+        
         <motion.div 
           className="process-step"
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 300 }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <div className="step-number">2</div>
-          <img src={`${process.env.PUBLIC_URL}/images/student2.jpg`} alt="Personalized Plan" className="step-image" />
-          <h3>Personalized Learning Plan</h3>
-          <p>Your tutor creates a customized study plan targeting your specific needs and goals, incorporating proven teaching methods and materials.</p>
+          <img src={`${process.env.PUBLIC_URL}/images/howitworks-match.jpg`} alt="Get matched with a tutor" className="process-image" />
+          <h3>2. Get Matched</h3>
+          <p>We'll pair you with the perfect tutor based on your subject needs, learning style, and availability.</p>
         </motion.div>
-
+        
         <motion.div 
           className="process-step"
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 300 }}
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <div className="step-number">3</div>
-          <img src={`${process.env.PUBLIC_URL}/images/student3.jpg`} alt="Regular Sessions" className="step-image" />
-          <h3>Regular Sessions</h3>
-          <p>Attend regular one-on-one tutoring sessions, either online or in-person. Track your progress and adjust the plan as needed to ensure optimal results.</p>
+          <img src={`${process.env.PUBLIC_URL}/images/howitworks-learn.jpg`} alt="Start learning" className="process-image" />
+          <h3>3. Start Learning</h3>
+          <p>Begin your personalized tutoring sessions and watch your academic confidence and performance improve.</p>
         </motion.div>
       </div>
 
@@ -1368,7 +1378,7 @@ const Contact = () => {
       content={[
         "Have questions about our tutoring services? Reach out to us and we'll get back to you as soon as possible.",
       ]}
-      imageUrl="contact.jpg"
+      imageUrl="contact-banner.jpg"
     >
       <div className="contact-container">
         <div className="contact-info">

@@ -87,20 +87,23 @@ body {
 }
 
 .section-image-container {
-  flex: 1;
-  max-width: 50%;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
 }
 
 .section-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
 }
 
-.section-image:hover {
-  transform: scale(1.05);
+.section-image-container:hover .section-image {
+  transform: scale(1.02);
 }
 
 .section-content {
