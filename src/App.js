@@ -727,7 +727,7 @@ const Pricing = () => (
             <h3>Single Session</h3>
             <img src={`${process.env.PUBLIC_URL}/images/single-session.jpg`} alt="Single tutoring session" className="pricing-image" />
           </div>
-          <div className="pricing-content">
+          <div className="pricing-content" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             <div className="price">$60<span>/hour</span></div>
             <ul className="pricing-features">
               <li>One-on-one personalized tutoring</li>
@@ -736,7 +736,9 @@ const Pricing = () => (
               <li>Online or in-person options</li>
               <li>No long-term commitment</li>
             </ul>
-            <Link to="/apply-student" className="pricing-button">Get Started</Link>
+            <div style={{ marginTop: 'auto' }}>
+              <Link to="/apply-student" className="pricing-button">Get Started</Link>
+            </div>
           </div>
         </motion.div>
         
@@ -750,7 +752,7 @@ const Pricing = () => (
             <h3>5-Session Package</h3>
             <img src={`${process.env.PUBLIC_URL}/images/five-sessions.jpg`} alt="Five tutoring sessions" className="pricing-image" />
           </div>
-          <div className="pricing-content">
+          <div className="pricing-content" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             <div className="price">$55<span>/hour</span></div>
             <div className="savings">Save $25</div>
             <ul className="pricing-features">
@@ -760,7 +762,9 @@ const Pricing = () => (
               <li>Discounted hourly rate</li>
               <li>Flexible session scheduling</li>
             </ul>
-            <Link to="/apply-student" className="pricing-button">Get Started</Link>
+            <div style={{ marginTop: 'auto' }}>
+              <Link to="/apply-student" className="pricing-button">Get Started</Link>
+            </div>
           </div>
         </motion.div>
         
@@ -773,7 +777,7 @@ const Pricing = () => (
             <h3>10-Session Package</h3>
             <img src={`${process.env.PUBLIC_URL}/images/ten-sessions.jpg`} alt="Ten tutoring sessions" className="pricing-image" />
           </div>
-          <div className="pricing-content">
+          <div className="pricing-content" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             <div className="price">$50<span>/hour</span></div>
             <div className="savings">Save $100</div>
             <ul className="pricing-features">
@@ -783,7 +787,9 @@ const Pricing = () => (
               <li>Priority scheduling</li>
               <li>Extended session availability</li>
             </ul>
-            <Link to="/apply-student" className="pricing-button">Get Started</Link>
+            <div style={{ marginTop: 'auto' }}>
+              <Link to="/apply-student" className="pricing-button">Get Started</Link>
+            </div>
           </div>
         </motion.div>
       </div>
@@ -814,6 +820,10 @@ const Pricing = () => (
               <h4>Unlimited Referrals</h4>
               <p>No limit to how many friends you can refer</p>
             </div>
+          </div>
+          <div className="referral-disclaimer">
+            <p><strong>Note:</strong> You receive $15 off ($5 off per session for 3 sessions) for your first referral. 
+            For additional referrals, only the referred person receives the discount. Maximum discount is $15 per person.</p>
           </div>
           <Link to="/apply-student" className="referral-button">Start Referring</Link>
         </div>
@@ -882,14 +892,8 @@ const ApplyStudent = () => {
     setIsSubmitting(true);
     setError(null);
     
-    // Format the preferred times for better readability
-    const formattedTimes = preferredTimes.map(time => {
-      const [day, hour] = time.split('-');
-      const hourNum = parseInt(hour);
-      const period = hourNum >= 12 ? 'PM' : 'AM';
-      const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
-      return `${day} at ${displayHour}:00 ${period}`;
-    }).join(', ');
+    // Format the preferred times for better readability with condensed consecutive slots
+    const formattedTimes = condenseTimes(preferredTimes);
     
     // Generate a referral code
     const newReferralCode = generateReferralCode();
@@ -997,14 +1001,10 @@ const ApplyStudent = () => {
                 required
               >
                 <option value="">Select Grade Level</option>
-                <option value="elementary">Elementary School</option>
-                <option value="middle">Middle School</option>
-                <option value="high-9">High School - 9th Grade</option>
-                <option value="high-10">High School - 10th Grade</option>
-                <option value="high-11">High School - 11th Grade</option>
-                <option value="high-12">High School - 12th Grade</option>
-                <option value="college">College</option>
-                <option value="adult">Adult Learner</option>
+                <option value="9th">9th Grade</option>
+                <option value="10th">10th Grade</option>
+                <option value="11th">11th Grade</option>
+                <option value="12th">12th Grade</option>
               </select>
             </div>
             
@@ -1467,3 +1467,72 @@ export default function App() {
     </Router>
   );
 }
+
+// Add a helper function to condense consecutive time slots
+const condenseTimes = (timeSlots) => {
+  if (!timeSlots || timeSlots.length === 0) return '';
+  
+  // Sort the time slots by day and hour
+  const sortedSlots = [...timeSlots].sort();
+  
+  // Group by day
+  const dayGroups = {};
+  sortedSlots.forEach(slot => {
+    const [day, hour] = slot.split('-');
+    if (!dayGroups[day]) {
+      dayGroups[day] = [];
+    }
+    dayGroups[day].push(parseInt(hour));
+  });
+  
+  // Format each day's times
+  const formattedGroups = [];
+  Object.keys(dayGroups).forEach(day => {
+    const hours = dayGroups[day].sort((a, b) => a - b);
+    
+    // Find consecutive ranges
+    const ranges = [];
+    let rangeStart = hours[0];
+    let rangeEnd = hours[0];
+    
+    for (let i = 1; i < hours.length; i++) {
+      if (hours[i] === rangeEnd + 1) {
+        // Continue the current range
+        rangeEnd = hours[i];
+      } else {
+        // End the current range and start a new one
+        ranges.push([rangeStart, rangeEnd]);
+        rangeStart = hours[i];
+        rangeEnd = hours[i];
+      }
+    }
+    // Add the last range
+    ranges.push([rangeStart, rangeEnd]);
+    
+    // Format the ranges
+    const formattedRanges = ranges.map(([start, end]) => {
+      if (start === end) {
+        // Single hour
+        const period = start >= 12 ? 'PM' : 'AM';
+        const displayHour = start > 12 ? start - 12 : (start === 0 ? 12 : start);
+        return `${displayHour}:00 ${period}`;
+      } else {
+        // Range of hours
+        const startPeriod = start >= 12 ? 'PM' : 'AM';
+        const endPeriod = end >= 12 ? 'PM' : 'AM';
+        const displayStartHour = start > 12 ? start - 12 : (start === 0 ? 12 : start);
+        const displayEndHour = end > 12 ? end - 12 : (end === 0 ? 12 : end);
+        
+        if (startPeriod === endPeriod) {
+          return `${displayStartHour}:00-${displayEndHour}:00 ${endPeriod}`;
+        } else {
+          return `${displayStartHour}:00 ${startPeriod}-${displayEndHour}:00 ${endPeriod}`;
+        }
+      }
+    });
+    
+    formattedGroups.push(`${day}: ${formattedRanges.join(', ')}`);
+  });
+  
+  return formattedGroups.join('; ');
+};

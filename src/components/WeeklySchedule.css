@@ -278,6 +278,7 @@
     max-width: 100%;
     padding: 10px 0;
     overflow-x: hidden;
+    margin: 10px 0;
   }
   
   .schedule-container {
@@ -475,4 +476,36 @@
   .mobile-scroll-note {
     display: block;
   }
+}
+
+/* Add styling for the referral disclaimer */
+.referral-disclaimer {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: rgba(241, 173, 72, 0.1);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent);
+}
+
+.referral-disclaimer p {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+/* Make pricing cards equal height with aligned buttons */
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pricing-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.pricing-features {
+  flex-grow: 1;
 } 
