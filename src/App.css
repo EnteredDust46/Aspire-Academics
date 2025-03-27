@@ -2863,15 +2863,17 @@ img[src*="aspire-academics.png"],
   top: -30px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  background-color: var(--accent) !important;
+  background-color: var(--primary-dark) !important; /* Changed to darker teal */
   color: white !important;
   padding: 15px 40px !important;
   border-radius: 30px !important;
   font-size: 2.2rem !important;
   font-weight: 700 !important;
   white-space: nowrap !important;
-  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.3) !important;
+  box-shadow: 0 5px 15px rgba(81, 147, 153, 0.4) !important; /* Matching shadow */
   margin: 0 !important;
+  z-index: 5 !important;
+  border: 2px solid white !important; /* Add white border for better contrast */
 }
 
 /* Style the Referral Program description */
@@ -2893,11 +2895,13 @@ img[src*="aspire-academics.png"],
 
 .referral-benefit {
   background: white !important;
-  padding: 25px !important;
+  padding: 30px !important;
   border-radius: 12px !important;
   border: 2px solid var(--accent) !important;
   box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
   transition: transform 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
 }
 
 .referral-benefit:hover {
@@ -2950,15 +2954,37 @@ img[src*="aspire-academics.png"],
 
 /* Style the note box */
 .referral-note {
-  background: rgba(241, 173, 72, 0.1) !important;
-  padding: 20px 30px !important;
+  background: white !important;
+  padding: 25px 30px !important;
   border-radius: 12px !important;
-  border-left: 4px solid var(--accent) !important;
+  border: 1px solid rgba(241, 173, 72, 0.3) !important;
   margin: 30px auto !important;
   max-width: 800px !important;
   text-align: left !important;
   font-size: 1rem !important;
   line-height: 1.6 !important;
+  position: relative !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Add left accent to note */
+.referral-note::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 5px !important;
+  background-color: var(--accent) !important;
+  border-radius: 5px 0 0 5px !important;
+}
+
+/* Add "Note:" text with better styling */
+.referral-note strong {
+  display: inline-block !important;
+  color: var(--accent-dark) !important;
+  font-weight: 700 !important;
+  margin-right: 8px !important;
 }
 
 /* Responsive adjustments */
@@ -2986,5 +3012,125 @@ img[src*="aspire-academics.png"],
   
   .referral-program {
     padding: 60px 20px 30px !important;
+  }
+}
+
+/* ===== RESTORE LOGO CIRCULAR STYLE ===== */
+.logo-image,
+img[src*="aspire-academics.png"],
+.navbar img,
+.navbar a img {
+  height: 80px !important;
+  width: auto !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  position: relative;
+  z-index: 5;
+}
+
+/* Add circular background to logo */
+.logo-container,
+.navbar-brand,
+.logo-link {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  height: auto !important;
+  background: white !important;
+  border-radius: 50% !important;
+  padding: 10px !important;
+  margin: 10px 0 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border: none !important;
+  transform: translateY(15px) !important;
+  z-index: 10;
+}
+
+/* Logo hover effect */
+.logo-container:hover,
+.navbar-brand:hover,
+.logo-link:hover {
+  transform: translateY(12px) !important;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ===== FIX PRICING CARDS LAYOUT ===== */
+/* Make pricing cards side by side with no scroll */
+.pricing-cards,
+.pricing-container {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  gap: 30px !important;
+  margin: 60px auto !important;
+  max-width: 1200px !important;
+  padding: 0 20px !important;
+}
+
+/* Make pricing cards taller without scrollbar */
+.pricing-card {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 350px !important;
+  height: 850px !important; /* Much taller to fit all content */
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important; /* Remove scrolling */
+  background: white !important;
+  border-radius: 16px !important;
+  border: 2px solid var(--accent) !important;
+  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
+  position: relative !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Remove any overflow scrolling in pricing content */
+.pricing-content {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 25px !important;
+  overflow: visible !important; /* Remove scrollbar */
+}
+
+/* Ensure pricing card images remain fixed size */
+.pricing-card img,
+.pricing-image {
+  width: 100% !important;
+  height: 220px !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 1100px) {
+  .pricing-cards,
+  .pricing-container {
+    flex-wrap: wrap !important;
+    gap: 50px !important;
+  }
+  
+  .pricing-card {
+    width: 350px !important;
+    height: 800px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .pricing-card {
+    width: 100% !important;
+    max-width: 350px !important;
+    height: 780px !important;
   }
 }
