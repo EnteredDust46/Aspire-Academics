@@ -264,7 +264,7 @@ const About = () => (
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
     >
-      <h2>Meet Our Founders</h2>
+      <h2 style={{ color: 'var(--text-dark)' }}>Meet Our Founders</h2>
       <div className="team-grid">
         <motion.div 
           className="team-member"
@@ -272,7 +272,7 @@ const About = () => (
           transition={{ type: "spring", stiffness: 300 }}
         >
           <img src={`${process.env.PUBLIC_URL}/images/about-adam.jpg`} alt="Adam Kamenetsky" className="team-image" />
-          <h3>Adam Kamenetsky</h3>
+          <h3 style={{ color: 'var(--primary-color)' }}>Adam Kamenetsky</h3>
           <p className="team-title">Co-Founder</p>
           <p>Adam is a current freshman at the University of Florida majoring in aerospace engineering. In high school, he had a 4.41 GPA and scored a 1540 on his SATs, while also participating in Speech and Debate and DECA. In his free time, he enjoys eating sushi, going to the gym, and skiing.</p>
         </motion.div>
@@ -283,7 +283,7 @@ const About = () => (
           transition={{ type: "spring", stiffness: 300 }}
         >
           <img src={`${process.env.PUBLIC_URL}/images/about-meaghan.jpg`} alt="Meaghan Lu" className="team-image" />
-          <h3>Meaghan Lu</h3>
+          <h3 style={{ color: 'var(--primary-color)' }}>Meaghan Lu</h3>
           <p className="team-title">Co-Founder</p>
           <p>Meaghan is a current freshman at the University of Michigan majoring in statistics. In high school, she had a 4.39 GPA and scored 1540 on her SATs, while also being involved in DECA, cross country, and Book Club. In her free time, she enjoys baking, finding new places to eat, and watching Modern Family.</p>
         </motion.div>
@@ -328,7 +328,7 @@ const Services = () => (
       >
         <img src={`${process.env.PUBLIC_URL}/images/services-highschool.jpg`} alt="High School Coursework" className="service-image" />
         <h3>High School Coursework</h3>
-        <p>Support in math (Algebra I, Geometry, Algebra II, Precalculus, Trigonometry, Calculus), sciences (Biology, Chemistry, Physics).</p>
+        <p>Comprehensive instruction in mathematics (Algebra I, Geometry, Algebra II, Precalculus, Trigonometry, Calculus) and sciences (Biology, Chemistry, Physics) designed to enhance academic performance and conceptual understanding.</p>
       </motion.div>
       
       <motion.div 
@@ -338,7 +338,7 @@ const Services = () => (
       >
         <img src={`${process.env.PUBLIC_URL}/images/services-middleschool.jpg`} alt="Middle School Coursework" className="service-image" />
         <h3>Middle School Coursework</h3>
-        <p>ELA, Math, Science, Social Studies</p>
+        <p>Structured academic support in core curriculum areas including English Language Arts, Mathematics, Science, and Social Studies tailored to middle school students' developmental needs.</p>
       </motion.div>
     </motion.section>
   </>
@@ -1357,6 +1357,21 @@ export default function App() {
       background-size: cover, 100% 100%;
       background-position: center;
       background-attachment: fixed;
+    }
+    
+    /* Make headings cyan */
+    h2:not(.team-section h2), h3:not(.process-step h3) {
+      color: var(--primary-color) !important;
+    }
+    
+    /* Make the team member names cyan */
+    .team-member h3 {
+      color: var(--primary-color) !important;
+    }
+    
+    /* Keep "Meet Our Founders" black */
+    .team-section h2 {
+      color: var(--text-dark) !important;
     }
   `;
   document.head.appendChild(appStyle);
