@@ -25,9 +25,11 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 30%, var(--primary-light) 60%, #ffffff 100%) fixed;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 40%, var(--primary-light) 70%, #ffffff 100%) fixed;
   line-height: 1.6;
   color: var(--text-dark);
+  background-attachment: fixed; /* This ensures the gradient stays fixed when scrolling */
+  min-height: 100vh;
 }
 
 /* Modern Section Styling with Overlay */
@@ -42,23 +44,21 @@ body {
   flex-direction: column;
   justify-content: center;
   margin-top: 0;
-  padding-top: 180px; /* Account for navbar height plus spacing */
-  background: transparent;
+  padding-top: 180px;
+  background: transparent !important; /* Force transparent background */
   border-radius: 0;
 }
 
 /* Ensure smooth transitions between sections */
 .section + .section {
-  margin-top: 0;
-  padding-top: 180px;
-  z-index: 1;
+  margin-top: 30px; /* Add a gap between sections */
 }
 
 /* Add different gradient variations for different sections */
 .section:nth-of-type(2n),
 .section:nth-of-type(3n),
 .section:nth-of-type(4n) {
-  background: transparent;
+  background: transparent !important;
 }
 
 .section-content-wrapper {
@@ -1474,7 +1474,7 @@ body, html {
   margin: 0 auto;
   max-width: 1200px;
   text-align: center;
-  background: transparent;
+  background: transparent !important;
   border-radius: 0;
 }
 
@@ -2229,7 +2229,7 @@ body, html {
 .services-grid,
 .process-section,
 .tutors-grid {
-  background: transparent;
+  background: transparent !important;
   padding: 60px 20px;
   border-radius: 0;
   position: relative;
@@ -2491,16 +2491,5 @@ a:hover {
 
 /* Add subtle background patterns for visual interest */
 .section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 1%, transparent 1%),
-    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 1%, transparent 1%);
-  background-size: 100px 100px;
-  opacity: 0.5;
-  pointer-events: none;
+  display: none !important; /* Completely remove the pattern */
 }
