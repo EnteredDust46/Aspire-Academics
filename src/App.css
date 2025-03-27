@@ -448,21 +448,19 @@ textarea {
 }
 
 .contact-info {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 30px 20px;
   background: white;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   border: 2px solid var(--accent);
+  margin-bottom: 40px;
 }
 
 .contact-method {
-  flex: 1;
-  min-width: 250px;
-  padding: 20px;
+  padding: 15px;
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -481,6 +479,13 @@ textarea {
   color: var(--primary-dark);
   margin-bottom: 10px;
   font-size: 1.2rem;
+}
+
+.contact-method p {
+  font-size: 0.95rem;
+  word-break: break-word;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .contact-form-container {
@@ -534,14 +539,13 @@ textarea {
 }
 
 @media (max-width: 768px) {
-  .contact-form .form-row {
-    flex-direction: column;
-    gap: 15px;
+  .contact-info {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
   
-  .contact-info {
-    flex-direction: column;
-    gap: 15px;
+  .contact-method {
+    padding: 10px;
   }
 }
 
@@ -759,32 +763,45 @@ h1 {
 @media (max-width: 768px) {
   .hero-section {
     flex-direction: column;
-    padding-top: 100px;
-    height: auto;
-    min-height: 100vh;
+    padding: 30px 20px;
+    text-align: center;
   }
   
   .hero-content {
     width: 100%;
+    padding: 20px 15px;
+    align-items: center;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.2rem;
     text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  .hero-image-container {
-    width: 90%;
-    height: 50vh;
-  }
-  
-  h1 {
-    font-size: 2.5rem;
+    margin-bottom: 15px;
   }
   
   .hero-subtitle {
-    font-size: 1.2rem;
+    text-align: center;
+    font-size: 1.1rem;
+    max-width: 100%;
+  }
+  
+  .hero-image-container {
+    width: 100%;
+    max-width: 350px;
+    margin: 20px auto 0;
   }
   
   .hero-buttons {
-    justify-content: center;
+    margin-top: 25px;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .hero-buttons .cta-button {
+    width: 100%;
+    text-align: center;
   }
 }
 
@@ -1059,16 +1076,27 @@ input[type="file"]::-webkit-file-upload-button:hover {
 .service-card {
   background: white;
   border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex: 1;
-  min-width: 280px;
-  max-width: 350px;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid var(--accent) !important;
-  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+  border: 2px solid var(--accent);
+  padding: 0 0 25px 0;
+}
+
+.service-card h3 {
+  font-size: 1.5rem;
+  color: var(--primary-dark);
+  margin: 15px 0;
+  padding: 0 25px;
+}
+
+.service-card p {
+  font-size: 1rem;
+  color: var(--text-dark);
+  line-height: 1.6;
+  padding: 0 25px;
+  margin-bottom: 20px;
 }
 
 .service-image {
@@ -1077,11 +1105,6 @@ input[type="file"]::-webkit-file-upload-button:hover {
   object-fit: cover;
   object-position: center;
   border-radius: 8px 8px 0 0;
-  margin-bottom: 15px;
-}
-
-.service-card h3 {
-  color: var(--text-dark);
   margin-bottom: 15px;
 }
 
@@ -1568,34 +1591,29 @@ body, html {
   background-color: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex: 1;
-  min-width: 280px;
-  max-width: 350px;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid var(--accent) !important;
-  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+  border: 2px solid var(--accent);
+  padding: 0 0 25px 0;
 }
 
 .service-card h3 {
-  color: var(--accent-dark);
-  font-weight: 700;
-  margin-top: 15px;
+  font-size: 1.5rem;
+  color: var(--primary-dark);
+  margin: 15px 0;
+  padding: 0 25px;
+}
+
+.service-card p {
+  font-size: 1rem;
+  color: var(--text-dark);
+  line-height: 1.6;
+  padding: 0 25px;
+  margin-bottom: 20px;
 }
 
 /* Add AP coming soon note to services */
-.services-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  margin: 40px auto;
-  max-width: 1200px;
-  position: relative;
-}
-
 .services-grid::after {
   content: "* Advanced placement (AP) coming soon!";
   position: absolute;

@@ -462,62 +462,16 @@ const ApplyTutor = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError(null);
     
-    // Format the preferred times for better readability
-    const formattedTimes = preferredTimes.map(time => {
-      const [day, hour] = time.split('-');
-      const hourNum = parseInt(hour);
-      const period = hourNum >= 12 ? 'PM' : 'AM';
-      const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
-      return `${day} at ${displayHour}:00 ${period}`;
-    }).join(', ');
+    // Format the preferred times for the hidden field
+    const formattedTimes = condenseTimes(preferredTimes);
+    document.getElementById('formatted-availability').value = formattedTimes;
     
-    // Create the form data to send
-    const dataToSend = {
-      form: 'tutor-application',
-      data: {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        education: formData.educationLevel,
-        experience: formData.experience,
-        subjects: formData.subjects,
-        preferredTimes: preferredTimes,
-        availability: formattedTimes
-      }
-    };
+    // Format the subjects for the hidden field
+    document.getElementById('formatted-subjects').value = formData.subjects.join(', ');
     
-    // Send the form data
-    fetch('/.netlify/functions/submit-form', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataToSend),
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Form submission failed');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Success:', data);
-      setIsSubmitting(false);
-      // Redirect to thank you page
-      navigate('/thank-you', { 
-        state: { 
-          message: "Thank you for applying to be a tutor with Aspire Academics!",
-          details: "We've received your application and will contact you shortly to discuss the next steps."
-        } 
-      });
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      setError('There was a problem submitting your application. Please try again.');
-      setIsSubmitting(false);
-    });
+    // Submit the form directly to FormSubmit.co
+    e.target.submit();
   };
   
   return (
@@ -578,11 +532,11 @@ const ApplyTutor = () => {
               required
             >
               <option value="">Select Education Level</option>
-              <option value="high-school">High School</option>
-              <option value="bachelors">Bachelor's Degree</option>
-              <option value="masters">Master's Degree</option>
-              <option value="phd">PhD</option>
-              <option value="other">Other</option>
+              <option value="college">In College</option>
+              <option value="grade12">Grade 12</option>
+              <option value="grade11">Grade 11</option>
+              <option value="grade10">Grade 10</option>
+              <option value="grade9">Grade 9</option>
             </select>
           </div>
           
@@ -772,51 +726,16 @@ const ApplyStudent = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError('');
     
-    // Format the preferred times
+    // Format the preferred times for the hidden field
     const formattedTimes = condenseTimes(formData.preferredTimes);
+    document.getElementById('student-formatted-availability').value = formattedTimes;
     
-    // Create the form data to send
-    const dataToSend = {
-      form: 'student-application',
-      data: {
-        ...formData,
-        preferredTimes: formattedTimes,
-        subjects: formData.subjects.join(', ')
-      }
-    };
+    // Format the subjects for the hidden field
+    document.getElementById('student-formatted-subjects').value = formData.subjects.join(', ');
     
-    // Send the form data
-    fetch('/.netlify/functions/submit-form', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataToSend),
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Form submission failed');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Success:', data);
-      setIsSubmitting(false);
-      // Redirect to thank you page
-      navigate('/thank-you', { 
-        state: { 
-          message: "Thank you for applying to be a student with Aspire Academics!",
-          details: "We've received your application and will contact you shortly to discuss the next steps."
-        } 
-      });
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      setError('There was a problem submitting your application. Please try again.');
-      setIsSubmitting(false);
-    });
+    // Submit the form directly to FormSubmit.co
+    e.target.submit();
   };
   
   return (
@@ -913,6 +832,16 @@ const ApplyStudent = () => {
                   onChange={handleCheckboxChange}
                 />
                 SAT
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="subject-ms-math" 
+                  value="Middle School Math" 
+                  checked={formData.subjects.includes('Middle School Math')}
+                  onChange={handleCheckboxChange}
+                />
+                Middle School Math
               </label>
               <label>
                 <input 
@@ -1378,7 +1307,7 @@ const Contact = () => {
           <div className="contact-method">
             <i className="fas fa-phone"></i>
             <h4>Phone</h4>
-            <p>(555) 123-4567</p>
+            <p>(978) 483-1649</p>
           </div>
           <div className="contact-method">
             <i className="fas fa-envelope"></i>
@@ -1388,7 +1317,7 @@ const Contact = () => {
           <div className="contact-method">
             <i className="fas fa-map-marker-alt"></i>
             <h4>Location</h4>
-            <p>San Francisco, CA</p>
+            <p>Westford, MA</p>
           </div>
         </div>
         
@@ -1399,7 +1328,13 @@ const Contact = () => {
               <p>We'll get back to you as soon as possible.</p>
             </div>
           ) : (
-            <form className="contact-form" onSubmit={handleSubmit}>
+            <form className="contact-form" onSubmit={handleSubmit} action="https://formsubmit.co/support@aspireacademicstutoring.com" method="POST">
+              {/* Hidden fields for FormSubmit.co */}
+              <input type="hidden" name="_subject" value="New Contact Form Submission" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you" />
+              
               {error && <div className="error-message">{error}</div>}
               
               <div className="form-row">
