@@ -439,46 +439,110 @@ textarea {
 
 /* Contact Page */
 .contact-container {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+  display: flex;
+  flex-direction: column;
   gap: 30px;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1000px;
   margin: 0 auto;
-  background: var(--neutral-white);
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border: 2px solid var(--primary-light);
 }
 
 .contact-info {
   display: flex;
-  flex-direction: column;
-  gap: 25px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
   padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--accent);
 }
 
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  color: var(--text-dark);
+.contact-method {
+  flex: 1;
+  min-width: 250px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
 }
 
-.contact-item i {
-  font-size: 24px;
-  color: var(--primary);
+.contact-method:hover {
+  transform: translateY(-5px);
 }
 
-.contact-form,
-.application-form {
+.contact-method i {
+  font-size: 2rem;
+  color: var(--accent);
+  margin-bottom: 15px;
+}
+
+.contact-method h4 {
+  color: var(--primary-dark);
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.contact-form-container {
   background: white;
   padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(127, 204, 211, 0.2);
-  margin: 20px auto;
-  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--accent);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-form .form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 0;
+}
+
+.contact-form textarea {
+  height: 150px;
+  resize: vertical;
+  margin-bottom: 0;
+}
+
+.contact-form button[type="submit"] {
+  display: inline-block;
+  width: 200px;
+  background: var(--accent);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(241, 173, 72, 0.25);
+  text-decoration: none;
+  margin: 10px auto 0;
+}
+
+.contact-form button[type="submit"]:hover {
+  background: #e39635;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(241, 173, 72, 0.35);
+}
+
+@media (max-width: 768px) {
+  .contact-form .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .contact-info {
+    flex-direction: column;
+    gap: 15px;
+  }
 }
 
 /* Loading State */
@@ -2237,4 +2301,29 @@ body, html {
   border: 2px solid var(--accent);
   text-align: left;
   color: var(--text-dark);
+}
+
+/* Replace the stats-grid styling with westford-founders styling */
+.westford-founders {
+  text-align: center;
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--accent);
+}
+
+.westford-founders h3 {
+  font-size: 1.8rem;
+  color: var(--primary-dark);
+  margin: 0;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .westford-founders h3 {
+    font-size: 1.5rem;
+  }
 }

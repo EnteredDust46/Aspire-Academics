@@ -231,43 +231,15 @@ const Home = () => (
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
     >
-      <div className="stats-grid">
-        <div className="stat-item">
-          <motion.span 
-            className="stat-number"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 100 }}
-          >
-            95%
-          </motion.span>
-          <p>Student Satisfaction</p>
-        </div>
-        <div className="stat-item">
-          <motion.span 
-            className="stat-number"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
-          >
-            500+
-          </motion.span>
-          <p>Students Helped</p>
-        </div>
-        <div className="stat-item">
-          <motion.span 
-            className="stat-number"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
-          >
-            30+
-          </motion.span>
-          <p>Expert Tutors</p>
-        </div>
+      <div className="westford-founders">
+        <motion.h3
+          initial={{ scale: 0.9, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", stiffness: 100 }}
+        >
+          Started by students that went to Westford Academy!
+        </motion.h3>
       </div>
     </motion.section>
   </>
@@ -501,14 +473,51 @@ const ApplyTutor = () => {
       return `${day} at ${displayHour}:00 ${period}`;
     }).join(', ');
     
-    // Add the formatted availability to a hidden field
-    document.getElementById('formatted-availability').value = formattedTimes;
+    // Create the form data to send
+    const dataToSend = {
+      form: 'tutor-application',
+      data: {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        education: formData.educationLevel,
+        experience: formData.experience,
+        subjects: formData.subjects,
+        preferredTimes: preferredTimes,
+        availability: formattedTimes
+      }
+    };
     
-    // Add subjects as a comma-separated list to a hidden field
-    document.getElementById('formatted-subjects').value = formData.subjects.join(', ');
-    
-    // Submit the form (FormSubmit.co will handle the submission)
-    e.target.submit();
+    // Send the form data
+    fetch('/.netlify/functions/submit-form', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataToSend),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Form submission failed');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Success:', data);
+      setIsSubmitting(false);
+      // Redirect to thank you page
+      navigate('/thank-you', { 
+        state: { 
+          message: "Thank you for applying to be a tutor with Aspire Academics!",
+          details: "We've received your application and will contact you shortly to discuss the next steps."
+        } 
+      });
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      setError('There was a problem submitting your application. Please try again.');
+      setIsSubmitting(false);
+    });
   };
   
   return (
@@ -712,151 +721,13 @@ const ApplyTutor = () => {
   );
 };
 
-const Pricing = () => (
-  <div className="section pricing-section">
-    <div className="pricing-container">
-      <div className="pricing-intro">
-        <h2>Simple, Transparent Pricing</h2>
-        <p>Choose the plan that best fits your tutoring needs and academic goals.</p>
-      </div>
-      
-      <div className="pricing-cards">
-        {/* Single Session Card */}
-        <div className="pricing-card">
-          <div className="pricing-image-container">
-            <img src={`${process.env.PUBLIC_URL}/images/pricing-single.jpg`} alt="Single Session" className="pricing-image" />
-          </div>
-          
-          <div className="pricing-card-header">
-            <h3 className="pricing-title">Single Session</h3>
-            <div className="price-container">
-              <span className="currency">$</span>
-              <span className="price">60</span>
-            </div>
-            <span className="price-period">/hour</span>
-          </div>
-          
-          <div className="pricing-card-content">
-            <ul className="pricing-features">
-              <li>One-on-one personalized tutoring</li>
-              <li>Flexible scheduling</li>
-              <li>Expert tutors in your subject</li>
-              <li>Online or in-person options</li>
-              <li>Comprehensive session reports</li>
-            </ul>
-          </div>
-          
-          <div className="pricing-card-footer">
-            <button className="pricing-button">Get Started</button>
-          </div>
-        </div>
-        
-        {/* 5-Session Package Card */}
-        <div className="pricing-card featured">
-          <div className="pricing-image-container">
-            <img src={`${process.env.PUBLIC_URL}/images/pricing-five.jpg`} alt="5-Session Package" className="pricing-image" />
-          </div>
-          
-          <div className="pricing-card-header">
-            <h3 className="pricing-title">5-Session Package</h3>
-            <div className="price-container">
-              <span className="currency">$</span>
-              <span className="price">55</span>
-            </div>
-            <span className="price-period">/hour</span>
-            <div className="savings-tag">Save $25</div>
-          </div>
-          
-          <div className="pricing-card-content">
-            <ul className="pricing-features">
-              <li>One-on-one personalized tutoring</li>
-              <li>Flexible scheduling</li>
-              <li>Expert tutors in your subject</li>
-              <li>Online or in-person options</li>
-              <li>Comprehensive session reports</li>
-            </ul>
-          </div>
-          
-          <div className="pricing-card-footer">
-            <button className="pricing-button">Get Started</button>
-          </div>
-        </div>
-        
-        {/* 10-Session Package Card */}
-        <div className="pricing-card">
-          <div className="pricing-image-container">
-            <img src={`${process.env.PUBLIC_URL}/images/pricing-ten.jpg`} alt="10-Session Package" className="pricing-image" />
-          </div>
-          
-          <div className="pricing-card-header">
-            <h3 className="pricing-title">10-Session Package</h3>
-            <div className="price-container">
-              <span className="currency">$</span>
-              <span className="price">50</span>
-            </div>
-            <span className="price-period">/hour</span>
-            <div className="savings-tag">Save $100</div>
-          </div>
-          
-          <div className="pricing-card-content">
-            <ul className="pricing-features">
-              <li>One-on-one personalized tutoring</li>
-              <li>Flexible scheduling</li>
-              <li>Expert tutors in your subject</li>
-              <li>Online or in-person options</li>
-              <li>Comprehensive session reports</li>
-            </ul>
-          </div>
-          
-          <div className="pricing-card-footer">
-            <button className="pricing-button">Get Started</button>
-          </div>
-        </div>
-      </div>
-      
-      {/* Referral Program */}
-      <div className="referral-section">
-        <div className="referral-container">
-          <div className="referral-header">
-            <h2>Share the Gift of Learning</h2>
-            <p>Refer a friend to Aspire Academics and you'll both benefit.</p>
-            <p className="referral-disclaimer">
-              <strong>Note:</strong> The $5 discount applies only to your first referral. 
-              Additional referrals will benefit your friends with their discount, but will not 
-              provide additional discounts for you.
-            </p>
-          </div>
-          
-          <div className="referral-benefits">
-            <div className="referral-benefit">
-              <div className="referral-benefit-icon">💰</div>
-              <h3>$5 Off Per Session</h3>
-              <p>Get $5 off each session for 3 sessions ($15 total savings)</p>
-            </div>
-            
-            <div className="referral-benefit">
-              <div className="referral-benefit-icon">🔗</div>
-              <h3>Easy to Share</h3>
-              <p>Receive a unique referral code after signing up</p>
-            </div>
-            
-            <div className="referral-benefit">
-              <div className="referral-benefit-icon">♾️</div>
-              <h3>Unlimited Referrals</h3>
-              <p>No limit to how many friends you can refer</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
 const ApplyStudent = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
+    studentEmail: '',
+    studentPhone: '',
     grade: '',
     subjects: [],
     referralCode: '',
@@ -903,21 +774,17 @@ const ApplyStudent = () => {
     setIsSubmitting(true);
     setError('');
     
-    // Show "Please wait" message
-    const submitButton = e.target.querySelector('button[type="submit"]');
-    const originalButtonText = submitButton.textContent;
-    submitButton.textContent = 'Please wait...';
-    submitButton.disabled = true;
-    
     // Format the preferred times
     const formattedTimes = condenseTimes(formData.preferredTimes);
     
     // Create the form data to send
     const dataToSend = {
-      ...formData,
-      formType: 'student',
-      preferredTimes: formattedTimes,
-      subjects: formData.subjects.join(', ')
+      form: 'student-application',
+      data: {
+        ...formData,
+        preferredTimes: formattedTimes,
+        subjects: formData.subjects.join(', ')
+      }
     };
     
     // Send the form data
@@ -929,11 +796,10 @@ const ApplyStudent = () => {
       body: JSON.stringify(dataToSend),
     })
     .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
+      if (!response.ok) {
         throw new Error('Form submission failed');
       }
+      return response.json();
     })
     .then(data => {
       console.log('Success:', data);
@@ -950,9 +816,6 @@ const ApplyStudent = () => {
       console.error('Error:', error);
       setError('There was a problem submitting your application. Please try again.');
       setIsSubmitting(false);
-      // Reset button text
-      submitButton.textContent = originalButtonText;
-      submitButton.disabled = false;
     });
   };
   
@@ -990,6 +853,30 @@ const ApplyStudent = () => {
               value={formData.name}
               onChange={handleInputChange}
             />
+          </div>
+          
+          <div className="form-row">
+            <input 
+              type="email" 
+              name="studentEmail" 
+              placeholder="Student Email (if applicable)" 
+              value={formData.studentEmail}
+              onChange={handleInputChange}
+            />
+            <input 
+              type="tel" 
+              name="studentPhone" 
+              placeholder="Student Phone (if applicable)" 
+              value={formData.studentPhone}
+              onChange={handleInputChange}
+            />
+          </div>
+          
+          <div className="form-section">
+            <h4>Parent/Guardian Information</h4>
+          </div>
+          
+          <div className="form-row">
             <input 
               type="email" 
               name="email" 
@@ -998,29 +885,14 @@ const ApplyStudent = () => {
               value={formData.email}
               onChange={handleInputChange}
             />
-          </div>
-          
-          <div className="form-row">
             <input 
               type="tel" 
               name="phone" 
               placeholder="Parent Phone Number" 
+              required
               value={formData.phone}
               onChange={handleInputChange}
             />
-            <select 
-              name="grade" 
-              value={formData.grade}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">Select Grade Level</option>
-              <option value="middle">Middle School</option>
-              <option value="9th">9th Grade</option>
-              <option value="10th">10th Grade</option>
-              <option value="11th">11th Grade</option>
-              <option value="12th">12th Grade</option>
-            </select>
           </div>
           
           <div className="form-section" style={{ 
