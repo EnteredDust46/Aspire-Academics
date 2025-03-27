@@ -713,36 +713,24 @@ const ApplyTutor = () => {
 };
 
 const Pricing = () => (
-  <>
-    <Section
-      title="Tutoring Packages"
-      subtitle="Invest in Your Academic Success"
-      content={[
-        "We offer competitive pricing with flexible packages to meet your needs. Choose the option that works best for you and start your journey to academic excellence.",
-      ]}
-      imageUrl="pricing-banner.jpg"
-    />
-    
-    <motion.section 
-      className="pricing-section"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="pricing-container">
-        <motion.div 
-          className="pricing-card"
-          whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(0, 0, 0, 0.15)" }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <div className="pricing-header">
-            <h3>Single Session</h3>
-            <img src={`${process.env.PUBLIC_URL}/images/pricing-single.jpg`} alt="Single tutoring session" className="pricing-image" />
+  <div className="section pricing-section">
+    <div className="pricing-container">
+      <h2>Simple, Transparent Pricing</h2>
+      <p>Choose the plan that best fits your tutoring needs and academic goals.</p>
+      
+      <div className="pricing-cards">
+        {/* Single Session Card */}
+        <div className="pricing-card">
+          <div className="pricing-card-header">
+            <h3 className="pricing-title">Single Session</h3>
+            <div className="price-container">
+              <span className="currency">$</span>
+              <span className="price">60</span>
+            </div>
+            <span className="price-period">/hour</span>
           </div>
-          <div className="pricing-content">
-            <div className="price">$60<span>/hour</span></div>
-            <div className="price-spacer"></div>
+          
+          <div className="pricing-card-content">
             <ul className="pricing-features">
               <li>One-on-one personalized tutoring</li>
               <li>Flexible scheduling</li>
@@ -750,103 +738,100 @@ const Pricing = () => (
               <li>Online or in-person options</li>
               <li>No long-term commitment</li>
             </ul>
-            <div className="pricing-button-container">
-              <Link to="/apply-student" className="pricing-button">Get Started</Link>
-            </div>
           </div>
-        </motion.div>
+          
+          <div className="pricing-card-footer">
+            <button className="pricing-button">Get Started</button>
+          </div>
+        </div>
         
-        <motion.div 
-          className="pricing-card featured"
-          whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(0, 0, 0, 0.15)" }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <div className="pricing-badge">Popular</div>
-          <div className="pricing-header">
-            <h3>5-Session Package</h3>
-            <img src={`${process.env.PUBLIC_URL}/images/pricing-five.jpg`} alt="Five tutoring sessions" className="pricing-image" />
+        {/* 5-Session Package Card */}
+        <div className="pricing-card featured">
+          <span className="popular-tag">Popular</span>
+          <div className="pricing-card-header">
+            <h3 className="pricing-title">5-Session Package</h3>
+            <div className="price-container">
+              <span className="currency">$</span>
+              <span className="price">55</span>
+            </div>
+            <span className="price-period">/hour</span>
+            <div className="savings-tag">Save $25</div>
           </div>
-          <div className="pricing-content">
-            <div className="price">$55<span>/hour</span></div>
-            <div className="savings">Save $25</div>
+          
+          <div className="pricing-card-content">
             <ul className="pricing-features">
               <li>All benefits of single sessions</li>
               <li>Consistent tutor assignment</li>
               <li>Progress tracking</li>
               <li>Discounted hourly rate</li>
-              <li>Flexible session scheduling</li>
+              <li>Flexible scheduling</li>
             </ul>
-            <div className="pricing-button-container">
-              <Link to="/apply-student" className="pricing-button">Get Started</Link>
-            </div>
           </div>
-        </motion.div>
+          
+          <div className="pricing-card-footer">
+            <button className="pricing-button">Get Started</button>
+          </div>
+        </div>
         
-        <motion.div 
-          className="pricing-card"
-          whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(0, 0, 0, 0.15)" }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <div className="pricing-header">
-            <h3>10-Session Package</h3>
-            <img src={`${process.env.PUBLIC_URL}/images/pricing-ten.jpg`} alt="Ten tutoring sessions" className="pricing-image" />
+        {/* 10-Session Package Card */}
+        <div className="pricing-card">
+          <div className="pricing-card-header">
+            <h3 className="pricing-title">10-Session Package</h3>
+            <div className="price-container">
+              <span className="currency">$</span>
+              <span className="price">50</span>
+            </div>
+            <span className="price-period">/hour</span>
+            <div className="savings-tag">Save $100</div>
           </div>
-          <div className="pricing-content">
-            <div className="price">$50<span>/hour</span></div>
-            <div className="savings">Save $100</div>
+          
+          <div className="pricing-card-content">
             <ul className="pricing-features">
               <li>All benefits of 5-session package</li>
               <li>Comprehensive progress reports</li>
               <li>Best value hourly rate</li>
               <li>Priority scheduling</li>
-              <li>Extended session availability</li>
+              <li>Extended session notes</li>
             </ul>
-            <div className="pricing-button-container">
-              <Link to="/apply-student" className="pricing-button">Get Started</Link>
-            </div>
           </div>
-        </motion.div>
+          
+          <div className="pricing-card-footer">
+            <button className="pricing-button">Get Started</button>
+          </div>
+        </div>
       </div>
       
-      <motion.div 
-        className="referral-program"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3, duration: 0.8 }}
-      >
-        <div className="referral-content">
-          <h3>Referral Program</h3>
-          <p>Share the gift of learning! Refer a friend to Aspire Academics and you'll both benefit.</p>
+      {/* Referral Program */}
+      <div className="referral-section">
+        <div className="referral-container">
+          <div className="referral-header">
+            <h2>Share the Gift of Learning</h2>
+            <p>Refer a friend to Aspire Academics and you'll both benefit.</p>
+          </div>
+          
           <div className="referral-benefits">
-            <div className="benefit">
-              <i className="fas fa-gift"></i>
-              <h4>$5 Off Per Session</h4>
+            <div className="referral-benefit">
+              <div className="referral-benefit-icon">💰</div>
+              <h3>$5 Off Per Session</h3>
               <p>Get $5 off each session for 3 sessions ($15 total savings)</p>
             </div>
-            <div className="benefit">
-              <i className="fas fa-user-plus"></i>
-              <h4>Easy to Share</h4>
+            
+            <div className="referral-benefit">
+              <div className="referral-benefit-icon">🔗</div>
+              <h3>Easy to Share</h3>
               <p>Receive a unique referral code after signing up</p>
             </div>
-            <div className="benefit">
-              <i className="fas fa-infinity"></i>
-              <h4>Unlimited Referrals</h4>
+            
+            <div className="referral-benefit">
+              <div className="referral-benefit-icon">♾️</div>
+              <h3>Unlimited Referrals</h3>
               <p>No limit to how many friends you can refer</p>
             </div>
           </div>
-          <div className="referral-disclaimer">
-            <p><strong>Note:</strong> You receive $15 off ($5 off per session for 3 sessions) for your first referral. 
-            For additional referrals, only the referred person receives the discount. Maximum discount is $15 per person.</p>
-          </div>
-          <Link to="/apply-student" className="referral-button">Start Referring</Link>
         </div>
-        <div className="referral-image-container">
-          <img src={`${process.env.PUBLIC_URL}/images/pricing-referral.jpg`} alt="Students referring friends" className="referral-image" />
-        </div>
-      </motion.div>
-    </motion.section>
-  </>
+      </div>
+    </div>
+  </div>
 );
 
 const ApplyStudent = () => {

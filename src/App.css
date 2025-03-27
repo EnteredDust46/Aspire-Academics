@@ -1827,123 +1827,185 @@ body, html {
   }
 }
 
-/* COMPLETELY NEW PRICING SECTION - REPLACES ALL PREVIOUS PRICING CSS */
+/* BRAND NEW PRICING SECTION DESIGN */
 
-/* Base pricing section container */
-.pricing-section {
-  padding: 80px 0;
-  background: linear-gradient(to bottom, #f9f9f9, #f0f8f9);
-  position: relative;
+/* Remove all previous pricing styles */
+.pricing-section,
+.pricing-container,
+.pricing-cards,
+.pricing-card,
+.pricing-image-container,
+.pricing-image,
+.pricing-header,
+.pricing-title,
+.pricing-amount,
+.pricing-rate,
+.pricing-savings,
+.pricing-badge,
+.pricing-content,
+.pricing-features,
+.pricing-button-container,
+.pricing-button,
+.referral-program,
+.referral-benefits,
+.referral-benefit {
+  all: initial;
 }
 
-/* Pricing cards container */
+/* Main pricing section */
+.pricing-section {
+  background: linear-gradient(135deg, #f8fcfd 0%, #edf7f8 100%);
+  padding: 80px 0;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Container for better alignment */
 .pricing-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 20px;
 }
 
-/* Pricing cards grid */
+/* Section heading */
+.pricing-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2a6d75;
+  margin-bottom: 20px;
+}
+
+.pricing-section p {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #444;
+  max-width: 700px;
+  margin: 0 auto 50px;
+  line-height: 1.6;
+}
+
+/* Pricing cards layout */
 .pricing-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  margin: 60px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 70px;
 }
 
 /* Individual pricing card */
 .pricing-card {
   background: white;
-  height: 720px; /* Fixed height */
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+  width: 340px;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(103, 188, 196, 0.1);
 }
 
 .pricing-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
+/* Featured card styling */
 .pricing-card.featured {
-  border: 3px solid var(--accent);
+  border: none;
 }
 
-/* Card image */
-.pricing-image-container {
-  height: 200px;
-  overflow: hidden;
+.pricing-card.featured::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 3px solid transparent;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #67BCC4, #F1AD48) border-box;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) padding-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
-.pricing-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/* Popular tag */
+.popular-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #F1AD48;
+  color: white;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 5px 12px;
+  border-radius: 20px;
+  z-index: 2;
+  box-shadow: 0 3px 8px rgba(241, 173, 72, 0.3);
 }
 
 /* Card header */
-.pricing-header {
+.pricing-card-header {
   padding: 25px 30px;
   text-align: center;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .pricing-title {
-  font-size: 28px;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: var(--primary-dark);
+  color: #2a6d75;
+  margin: 0 0 15px;
+}
+
+/* Price area */
+.price-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   margin-bottom: 15px;
 }
 
-/* Price display */
-.pricing-amount {
-  font-size: 54px;
+.currency {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2a6d75;
+  margin-top: 8px;
+}
+
+.price {
+  font-size: 4rem;
   font-weight: 800;
-  color: var(--primary);
+  color: #67BCC4;
   line-height: 1;
-  display: block;
-  margin-bottom: 5px;
 }
 
-.pricing-rate {
-  font-size: 18px;
+.price-period {
+  display: block;
+  font-size: 1rem;
   color: #666;
-  display: block;
-  margin-bottom: 20px;
+  margin-top: 8px;
 }
 
-/* Savings badge */
-.pricing-savings {
-  background: #FFEDCC;
-  color: #D48806;
-  font-weight: 600;
-  padding: 6px 15px;
-  border-radius: 30px;
+/* Savings tag */
+.savings-tag {
   display: inline-block;
-  margin: 10px 0;
-  border: 1px solid #F3B15A;
-}
-
-/* Featured badge */
-.pricing-badge {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  background: var(--accent);
-  color: white;
+  background: #FFF5E6;
+  color: #D48806;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
   font-weight: 600;
-  padding: 8px 20px;
-  border-radius: 0 0 12px 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 2;
+  margin-top: 10px;
+  border: 1px solid rgba(243, 177, 90, 0.3);
 }
 
 /* Card content */
-.pricing-content {
-  padding: 15px 30px 30px;
+.pricing-card-content {
+  padding: 30px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -1958,168 +2020,155 @@ body, html {
 }
 
 .pricing-features li {
-  padding: 12px 0 12px 36px;
   position: relative;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  font-size: 16px;
-  color: #333;
+  padding: 10px 0 10px 32px;
+  color: #444;
+  font-size: 1rem;
 }
 
-.pricing-features li:last-child {
-  border-bottom: none;
-}
-
-.pricing-features li:before {
-  content: "✓";
+.pricing-features li::before {
+  content: "";
   position: absolute;
   left: 0;
-  top: 11px;
-  width: 24px;
-  height: 24px;
-  background: rgba(103, 188, 196, 0.15);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--primary);
-  font-weight: bold;
-  font-size: 14px;
+  top: 12px;
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='20' height='20'%3E%3Cpath fill='%2367BCC4' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-/* Button container */
-.pricing-button-container {
-  margin-top: auto;
-  padding: 0 0 40px;
-  text-align: center;
+/* CTA Button */
+.pricing-card-footer {
+  padding: 0 30px 30px;
 }
 
 .pricing-button {
-  display: inline-block;
-  background: var(--accent);
+  display: block;
+  width: 100%;
+  background: #F1AD48;
   color: white;
-  font-size: 18px;
-  font-weight: 600;
-  padding: 14px 10px;
-  border-radius: 50px;
-  width: 80%;
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.3s ease;
   border: none;
+  border-radius: 30px;
+  padding: 14px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(243, 177, 90, 0.3);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(241, 173, 72, 0.2);
 }
 
-.pricing-button:hover {
-  background: #E39635;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(243, 177, 90, 0.4);
+.pricing-button:hover, 
+.pricing-button:focus {
+  background: #e39635;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(241, 173, 72, 0.3);
 }
 
-/* Referral program section */
-.referral-program {
+.pricing-card.featured .pricing-button {
+  background: #67BCC4;
+  box-shadow: 0 4px 12px rgba(103, 188, 196, 0.2);
+}
+
+.pricing-card.featured .pricing-button:hover,
+.pricing-card.featured .pricing-button:focus {
+  background: #4eadb6;
+  box-shadow: 0 6px 15px rgba(103, 188, 196, 0.3);
+}
+
+/* Referral Program Section */
+.referral-section {
+  margin-top: 80px;
+  padding: 0 20px;
+}
+
+.referral-container {
+  max-width: 1000px;
+  margin: 0 auto;
   background: white;
-  border-radius: 20px;
-  padding: 50px 40px;
-  margin: 60px auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  position: relative;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-  max-width: 1100px;
+  position: relative;
 }
 
-.referral-program::before {
+.referral-container::before {
   content: "";
   position: absolute;
+  height: 6px;
+  width: 100%;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 8px;
-  background: linear-gradient(to right, var(--primary), var(--accent));
+  background: linear-gradient(to right, #67BCC4, #F1AD48);
 }
 
-.referral-program h2 {
-  color: var(--primary);
-  font-size: 36px;
-  font-weight: 800;
-  margin-bottom: 30px;
+.referral-header {
+  padding: 40px 40px 20px;
   text-align: center;
 }
 
-.referral-program p {
-  font-size: 18px;
-  line-height: 1.7;
+.referral-header h2 {
+  color: #2a6d75;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
+
+.referral-header p {
   color: #444;
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto 40px;
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
-/* Referral benefits */
 .referral-benefits {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 30px;
-  margin: 50px 0;
+  padding: 20px 40px 40px;
+  justify-content: center;
 }
 
 .referral-benefit {
   background: #f9f9f9;
-  border-radius: 15px;
-  padding: 30px 25px;
+  padding: 30px;
+  border-radius: 12px;
+  width: 270px;
   text-align: center;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
 }
 
 .referral-benefit:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
 }
 
-.referral-benefit i {
-  color: var(--accent);
-  font-size: 40px;
-  margin-bottom: 20px;
-  display: block;
+.referral-benefit-icon {
+  font-size: 2.5rem;
+  color: #F1AD48;
+  margin-bottom: 15px;
 }
 
 .referral-benefit h3 {
-  color: var(--primary-dark);
-  font-size: 22px;
+  color: #2a6d75;
+  font-size: 1.3rem;
   margin-bottom: 15px;
 }
 
 .referral-benefit p {
-  font-size: 16px;
-  margin-bottom: 0;
-  text-align: center;
+  color: #444;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
-/* Responsive styles */
-@media (max-width: 1024px) {
+/* Responsive adjustments */
+@media (max-width: 1100px) {
   .pricing-cards {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-  }
-  
-  .referral-benefits {
-    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
   
   .pricing-card {
-    height: 750px;
-  }
-}
-
-@media (max-width: 900px) {
-  .pricing-cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .referral-benefits {
-    grid-template-columns: repeat(2, 1fr);
+    width: 300px;
   }
 }
 
@@ -2128,28 +2177,26 @@ body, html {
     padding: 60px 0;
   }
   
-  .pricing-cards {
-    grid-template-columns: 1fr;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
   .pricing-card {
-    height: auto;
-    min-height: 680px;
+    width: 100%;
+    max-width: 360px;
   }
   
   .referral-benefits {
-    grid-template-columns: 1fr;
-    gap: 25px;
+    gap: 20px;
+    padding: 20px;
   }
   
-  .referral-program {
-    padding: 40px 25px;
+  .referral-benefit {
+    width: 100%;
+    max-width: 320px;
   }
   
-  .referral-program h2 {
-    font-size: 28px;
+  .referral-header {
+    padding: 30px 20px 10px;
+  }
+  
+  .referral-header h2 {
+    font-size: 1.8rem;
   }
 }
