@@ -492,7 +492,7 @@ const ApplyTutor = () => {
           <input type="hidden" name="_subject" value="New Tutor Application" />
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you" />
+          <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you.html" />
           
           {/* Hidden fields for formatted data */}
           <input type="hidden" id="formatted-availability" name="availability" />
@@ -756,7 +756,7 @@ const ApplyStudent = () => {
           <input type="hidden" name="_subject" value="New Student Application" />
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you" />
+          <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you.html" />
           
           {/* Hidden fields for formatted data */}
           <input type="hidden" id="student-formatted-availability" name="availability" />
@@ -1312,7 +1312,7 @@ const Contact = () => {
           <div className="contact-method">
             <i className="fas fa-envelope"></i>
             <h4>Email</h4>
-            <p>support@aspireacademicstutoring.com</p>
+            <p>admin@aspireacademicstutoring.com</p>
           </div>
           <div className="contact-method">
             <i className="fas fa-map-marker-alt"></i>
@@ -1328,12 +1328,12 @@ const Contact = () => {
               <p>We'll get back to you as soon as possible.</p>
             </div>
           ) : (
-            <form className="contact-form" onSubmit={handleSubmit} action="https://formsubmit.co/support@aspireacademicstutoring.com" method="POST">
+            <form className="contact-form" onSubmit={handleSubmit} action="https://formsubmit.co/admin@aspireacademicstutoring.com" method="POST">
               {/* Hidden fields for FormSubmit.co */}
               <input type="hidden" name="_subject" value="New Contact Form Submission" />
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you" />
+              <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you.html" />
               
               {error && <div className="error-message">{error}</div>}
               
