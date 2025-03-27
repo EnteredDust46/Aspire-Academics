@@ -16,6 +16,7 @@ import './App.css';
 import logo from './assets/aspire-academics.png';
 import WeeklySchedule from './components/WeeklySchedule';
 import { getImagePath } from './imageConfig';
+import coolBackground from './assets/cool-background.png';
 
 // Initialize FontAwesome
 library.add(
@@ -1449,6 +1450,19 @@ const Contact = () => {
 };
 
 export default function App() {
+  const appStyle = document.createElement('style');
+  appStyle.textContent = `
+    body {
+      background-image: url('${coolBackground}'), 
+        linear-gradient(135deg, #519399 0%, #67bcc4 50%, #ffffff 100%) !important;
+      background-blend-mode: overlay;
+      background-size: cover, 100% 100%;
+      background-position: center;
+      background-attachment: fixed;
+    }
+  `;
+  document.head.appendChild(appStyle);
+
   return (
     <Router>
       <Navbar />

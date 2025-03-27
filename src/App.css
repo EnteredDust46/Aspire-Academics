@@ -25,14 +25,8 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background-color: var(--primary); /* Fallback */
-  background-image: 
-    url('./images/cool-background.png'), /* Fixed path */
-    linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, #ffffff 100%);
-  background-blend-mode: overlay;
-  background-size: cover, 100% 100%;
-  background-position: center;
-  background-attachment: fixed;
+  background-color: var(--primary); /* Fallback if JS doesn't load */
+  /* The background image is now set via JavaScript in App.js */
   line-height: 1.6;
   color: var(--text-dark);
   min-height: 100vh;
