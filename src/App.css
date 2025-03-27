@@ -1843,23 +1843,31 @@ body, html {
   align-items: stretch;
 }
 
-/* Fix pricing card sizing and layout */
+/* Fix for pricing card - increase height and fix button positioning */
 .pricing-card {
   display: flex;
   flex-direction: column;
-  min-height: 600px; /* Increase minimum height to accommodate content */
+  min-height: 650px;
   position: relative;
+  padding-bottom: 80px;
+  margin-bottom: 30px;
   overflow: hidden;
-  padding-bottom: 100px; /* Increase padding at bottom for button */
-  box-sizing: border-box;
-  margin: 0 20px 40px;
-  padding: 0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
   background: white;
-  border-radius: 16px;
-  border: 2px solid var(--accent) !important;
-  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
-  transition: transform 0.3s ease;
-  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Position buttons at bottom with proper spacing */
+.pricing-button-container {
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
 }
 
 .pricing-card.featured {
@@ -1975,15 +1983,13 @@ body, html {
 
 .pricing-button-container {
   position: absolute;
-  bottom: 30px; /* Position further from bottom */
+  bottom: 25px;
   left: 0;
-  right: 0;
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-  margin-top: auto;
 }
 
 .pricing-button {
@@ -2026,27 +2032,22 @@ body, html {
 
 /* Completely redesign the referral program section */
 .referral-program {
-  background: #f8f8f8; /* Slight background color for better contrast */
+  background: #f8f8f8;
   border-radius: 10px;
   padding: 40px 30px;
   margin: 40px auto;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  position: relative;
 }
 
 /* Add a prominent header for referral program */
 .referral-program h2 {
-  color: var(--primary); /* Use primary cyan color for better visibility */
+  color: #67BCC4; /* Explicitly using cyan color instead of variable */
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 30px;
   position: relative;
   text-align: center;
   padding-bottom: 15px;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8); /* Add subtle text shadow for legibility */
-  z-index: 5;
-  border: 2px solid white;
-  max-width: none;
 }
 
 .referral-program h2:after {
