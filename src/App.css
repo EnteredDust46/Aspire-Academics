@@ -1829,183 +1829,149 @@ body, html {
 
 /* BRAND NEW PRICING SECTION DESIGN */
 
-/* Remove all previous pricing styles */
-.pricing-section,
-.pricing-container,
-.pricing-cards,
-.pricing-card,
-.pricing-image-container,
-.pricing-image,
-.pricing-header,
-.pricing-title,
-.pricing-amount,
-.pricing-rate,
-.pricing-savings,
-.pricing-badge,
-.pricing-content,
-.pricing-features,
-.pricing-button-container,
-.pricing-button,
-.referral-program,
-.referral-benefits,
-.referral-benefit {
-  all: initial;
-}
-
-/* Main pricing section */
+/* Reset and update pricing section styling */
 .pricing-section {
-  background: linear-gradient(135deg, #f8fcfd 0%, #edf7f8 100%);
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
   padding: 80px 0;
   position: relative;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-/* Container for better alignment */
 .pricing-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* Section heading */
-.pricing-section h2 {
+/* Styled intro text box */
+.pricing-intro {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 25px 35px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
-  font-size: 2.5rem;
-  color: #2a6d75;
-  margin-bottom: 20px;
-}
-
-.pricing-section p {
-  text-align: center;
-  font-size: 1.1rem;
-  color: #444;
-  max-width: 700px;
   margin: 0 auto 50px;
-  line-height: 1.6;
+  max-width: 800px;
 }
 
-/* Pricing cards layout */
+.pricing-intro h2 {
+  color: var(--primary-dark);
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.pricing-intro p {
+  color: var(--text-dark);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Card layout */
 .pricing-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
-  margin-bottom: 70px;
+  margin: 0 auto 60px;
 }
 
-/* Individual pricing card */
 .pricing-card {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   width: 340px;
+  min-height: 650px;
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(103, 188, 196, 0.1);
 }
 
 .pricing-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-/* Featured card styling */
 .pricing-card.featured {
-  border: none;
-}
-
-.pricing-card.featured::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 3px solid transparent;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #67BCC4, #F1AD48) border-box;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) padding-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* Popular tag */
-.popular-tag {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: #F1AD48;
-  color: white;
-  font-weight: 600;
-  font-size: 0.85rem;
-  padding: 5px 12px;
-  border-radius: 20px;
-  z-index: 2;
-  box-shadow: 0 3px 8px rgba(241, 173, 72, 0.3);
+  border: 3px solid var(--accent);
 }
 
 /* Card header */
 .pricing-card-header {
-  padding: 25px 30px;
+  padding: 30px 25px 20px;
   text-align: center;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .pricing-title {
+  color: var(--primary-dark);
   font-size: 1.6rem;
   font-weight: 700;
-  color: #2a6d75;
-  margin: 0 0 15px;
+  margin-bottom: 15px;
 }
 
-/* Price area */
+/* Price display */
 .price-container {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .currency {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #2a6d75;
+  color: var(--primary-dark);
   margin-top: 8px;
 }
 
 .price {
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-weight: 800;
-  color: #67BCC4;
+  color: var(--primary);
   line-height: 1;
 }
 
 .price-period {
   display: block;
   font-size: 1rem;
-  color: #666;
-  margin-top: 8px;
+  color: var(--text-light);
+  margin-top: 5px;
 }
 
 /* Savings tag */
 .savings-tag {
   display: inline-block;
-  background: #FFF5E6;
-  color: #D48806;
+  background: rgba(241, 173, 72, 0.15);
+  color: var(--accent-dark);
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 600;
   margin-top: 10px;
-  border: 1px solid rgba(243, 177, 90, 0.3);
+  border: 1px solid rgba(241, 173, 72, 0.3);
+}
+
+/* Popular tag */
+.popular-tag {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 5px 15px;
+  border-radius: 20px;
+  z-index: 1;
+  box-shadow: 0 3px 8px rgba(241, 173, 72, 0.3);
 }
 
 /* Card content */
 .pricing-card-content {
-  padding: 30px;
+  padding: 25px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -2022,121 +1988,107 @@ body, html {
 .pricing-features li {
   position: relative;
   padding: 10px 0 10px 32px;
-  color: #444;
+  color: var(--text-dark);
   font-size: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.pricing-features li:last-child {
+  border-bottom: none;
 }
 
 .pricing-features li::before {
-  content: "";
+  content: "✓";
   position: absolute;
   left: 0;
-  top: 12px;
-  width: 20px;
-  height: 20px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='20' height='20'%3E%3Cpath fill='%2367BCC4' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
+  top: 10px;
+  color: var(--accent);
+  font-weight: bold;
 }
 
-/* CTA Button */
+/* Button container - centered at bottom */
 .pricing-card-footer {
-  padding: 0 30px 30px;
+  padding: 0 25px 30px;
+  text-align: center;
+  margin-top: auto;
 }
 
+/* Make all buttons orange and centered */
 .pricing-button {
-  display: block;
-  width: 100%;
-  background: #F1AD48;
+  display: inline-block;
+  width: 85%;
+  background: var(--accent);
   color: white;
-  border: none;
-  border-radius: 30px;
-  padding: 14px 20px;
   font-size: 1rem;
   font-weight: 600;
   text-align: center;
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(241, 173, 72, 0.2);
+  box-shadow: 0 4px 10px rgba(241, 173, 72, 0.25);
+  text-decoration: none;
+  margin: 0 auto;
 }
 
-.pricing-button:hover, 
-.pricing-button:focus {
-  background: #e39635;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(241, 173, 72, 0.3);
+.pricing-button:hover {
+  background: #e39635; /* Darker orange */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(241, 173, 72, 0.35);
 }
 
-.pricing-card.featured .pricing-button {
-  background: #67BCC4;
-  box-shadow: 0 4px 12px rgba(103, 188, 196, 0.2);
-}
-
-.pricing-card.featured .pricing-button:hover,
-.pricing-card.featured .pricing-button:focus {
-  background: #4eadb6;
-  box-shadow: 0 6px 15px rgba(103, 188, 196, 0.3);
-}
-
-/* Referral Program Section */
+/* Referral section */
 .referral-section {
-  margin-top: 80px;
-  padding: 0 20px;
+  margin-top: 60px;
 }
 
 .referral-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   max-width: 1000px;
   margin: 0 auto;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
   position: relative;
 }
 
-.referral-container::before {
-  content: "";
-  position: absolute;
-  height: 6px;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background: linear-gradient(to right, #67BCC4, #F1AD48);
-}
-
 .referral-header {
-  padding: 40px 40px 20px;
+  padding: 40px 30px 20px;
   text-align: center;
 }
 
 .referral-header h2 {
-  color: #2a6d75;
-  font-size: 2.2rem;
-  margin-bottom: 20px;
+  color: var(--primary);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
 }
 
 .referral-header p {
-  color: #444;
+  color: var(--text-dark);
   font-size: 1.1rem;
   max-width: 700px;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   line-height: 1.6;
 }
 
 .referral-benefits {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
-  padding: 20px 40px 40px;
+  gap: 25px;
+  padding: 20px 30px 40px;
   justify-content: center;
 }
 
 .referral-benefit {
   background: #f9f9f9;
-  padding: 30px;
-  border-radius: 12px;
-  width: 270px;
+  padding: 25px 20px;
+  border-radius: 10px;
+  width: 280px;
   text-align: center;
   transition: transform 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .referral-benefit:hover {
@@ -2144,19 +2096,19 @@ body, html {
 }
 
 .referral-benefit-icon {
-  font-size: 2.5rem;
-  color: #F1AD48;
+  font-size: 2rem;
+  color: var(--accent);
   margin-bottom: 15px;
 }
 
 .referral-benefit h3 {
-  color: #2a6d75;
+  color: var(--primary-dark);
   font-size: 1.3rem;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .referral-benefit p {
-  color: #444;
+  color: var(--text-dark);
   font-size: 1rem;
   line-height: 1.5;
 }
@@ -2165,10 +2117,6 @@ body, html {
 @media (max-width: 1100px) {
   .pricing-cards {
     gap: 20px;
-  }
-  
-  .pricing-card {
-    width: 300px;
   }
 }
 
@@ -2182,21 +2130,11 @@ body, html {
     max-width: 360px;
   }
   
-  .referral-benefits {
-    gap: 20px;
+  .pricing-intro {
     padding: 20px;
   }
   
-  .referral-benefit {
-    width: 100%;
-    max-width: 320px;
-  }
-  
-  .referral-header {
-    padding: 30px 20px 10px;
-  }
-  
-  .referral-header h2 {
+  .pricing-intro h2 {
     font-size: 1.8rem;
   }
 }

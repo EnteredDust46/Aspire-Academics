@@ -715,8 +715,10 @@ const ApplyTutor = () => {
 const Pricing = () => (
   <div className="section pricing-section">
     <div className="pricing-container">
-      <h2>Simple, Transparent Pricing</h2>
-      <p>Choose the plan that best fits your tutoring needs and academic goals.</p>
+      <div className="pricing-intro">
+        <h2>Simple, Transparent Pricing</h2>
+        <p>Choose the plan that best fits your tutoring needs and academic goals.</p>
+      </div>
       
       <div className="pricing-cards">
         {/* Single Session Card */}
