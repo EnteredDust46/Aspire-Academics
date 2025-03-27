@@ -2138,3 +2138,20 @@ body, html {
     font-size: 1.8rem;
   }
 }
+
+/* Add styling for the referral disclaimer */
+.referral-disclaimer {
+  background: rgba(241, 173, 72, 0.1);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin: 15px auto 5px;
+  max-width: 90%;
+  border-left: 3px solid var(--accent);
+  text-align: left;
+  color: var(--text-dark);
+}
+
+.referral-disclaimer strong {
+  color: var(--accent-dark);
+}

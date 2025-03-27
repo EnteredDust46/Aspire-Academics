@@ -738,7 +738,7 @@ const Pricing = () => (
               <li>Flexible scheduling</li>
               <li>Expert tutors in your subject</li>
               <li>Online or in-person options</li>
-              <li>No long-term commitment</li>
+              <li>Comprehensive session reports</li>
             </ul>
           </div>
           
@@ -747,9 +747,8 @@ const Pricing = () => (
           </div>
         </div>
         
-        {/* 5-Session Package Card */}
+        {/* 5-Session Package Card - Popular tag removed */}
         <div className="pricing-card featured">
-          <span className="popular-tag">Popular</span>
           <div className="pricing-card-header">
             <h3 className="pricing-title">5-Session Package</h3>
             <div className="price-container">
@@ -762,11 +761,11 @@ const Pricing = () => (
           
           <div className="pricing-card-content">
             <ul className="pricing-features">
-              <li>All benefits of single sessions</li>
-              <li>Consistent tutor assignment</li>
-              <li>Progress tracking</li>
-              <li>Discounted hourly rate</li>
+              <li>One-on-one personalized tutoring</li>
               <li>Flexible scheduling</li>
+              <li>Expert tutors in your subject</li>
+              <li>Online or in-person options</li>
+              <li>Comprehensive session reports</li>
             </ul>
           </div>
           
@@ -789,11 +788,11 @@ const Pricing = () => (
           
           <div className="pricing-card-content">
             <ul className="pricing-features">
-              <li>All benefits of 5-session package</li>
-              <li>Comprehensive progress reports</li>
-              <li>Best value hourly rate</li>
-              <li>Priority scheduling</li>
-              <li>Extended session notes</li>
+              <li>One-on-one personalized tutoring</li>
+              <li>Flexible scheduling</li>
+              <li>Expert tutors in your subject</li>
+              <li>Online or in-person options</li>
+              <li>Comprehensive session reports</li>
             </ul>
           </div>
           
@@ -809,6 +808,11 @@ const Pricing = () => (
           <div className="referral-header">
             <h2>Share the Gift of Learning</h2>
             <p>Refer a friend to Aspire Academics and you'll both benefit.</p>
+            <p className="referral-disclaimer">
+              <strong>Note:</strong> The $5 discount applies only to your first referral. 
+              Additional referrals will benefit your friends with their discount, but will not 
+              provide additional discounts for you.
+            </p>
           </div>
           
           <div className="referral-benefits">
