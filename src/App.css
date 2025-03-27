@@ -27,7 +27,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   background-color: var(--primary); /* Fallback */
   background-image: 
-    url('/images/cool-background.png'), 
+    url('./images/cool-background.png'), /* Fixed path */
     linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, #ffffff 100%);
   background-blend-mode: overlay;
   background-size: cover, 100% 100%;
