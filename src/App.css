@@ -2863,17 +2863,18 @@ img[src*="aspire-academics.png"],
   top: -30px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  background-color: var(--primary-dark) !important; /* Changed to darker teal */
+  background-color: var(--secondary) !important; /* Red background */
   color: white !important;
   padding: 15px 40px !important;
   border-radius: 30px !important;
   font-size: 2.2rem !important;
   font-weight: 700 !important;
   white-space: nowrap !important;
-  box-shadow: 0 5px 15px rgba(81, 147, 153, 0.4) !important; /* Matching shadow */
+  box-shadow: 0 5px 15px rgba(203, 82, 61, 0.4) !important;
   margin: 0 !important;
   z-index: 5 !important;
-  border: 2px solid white !important; /* Add white border for better contrast */
+  border: 2px solid white !important;
+  max-width: none !important;
 }
 
 /* Style the Referral Program description */
@@ -2901,7 +2902,11 @@ img[src*="aspire-academics.png"],
   box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
   transition: transform 0.3s ease !important;
   position: relative !important;
-  overflow: hidden !important;
+  height: 250px !important; /* Fixed height */
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .referral-benefit:hover {
@@ -3038,8 +3043,8 @@ img[src*="aspire-academics.png"],
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: auto !important;
-  height: auto !important;
+  width: 100px !important; /* Fixed width */
+  height: 100px !important; /* Same as width for perfect circle */
   background: white !important;
   border-radius: 50% !important;
   padding: 10px !important;
@@ -3048,6 +3053,7 @@ img[src*="aspire-academics.png"],
   border: none !important;
   transform: translateY(15px) !important;
   z-index: 10;
+  aspect-ratio: 1/1 !important; /* Enforce perfect circle */
 }
 
 /* Logo hover effect */
