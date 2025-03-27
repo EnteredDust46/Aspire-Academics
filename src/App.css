@@ -25,11 +25,32 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, #ffffff 100%) fixed;
+  background-color: var(--primary); /* Fallback */
+  background-image: 
+    url('/images/cool-background.png'), 
+    linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, #ffffff 100%);
+  background-blend-mode: overlay;
+  background-size: cover, 100% 100%;
+  background-position: center;
+  background-attachment: fixed;
   line-height: 1.6;
   color: var(--text-dark);
-  background-attachment: fixed;
   min-height: 100vh;
+  position: relative;
+}
+
+/* Add opacity overlay to make the pattern very subtle */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--primary);
+  opacity: 0.85; /* High opacity to make pattern barely visible */
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* Modern Section Styling with Overlay */
@@ -1831,9 +1852,8 @@ body, html {
 .pricing-card {
   display: flex;
   flex-direction: column;
-  height: 620px;
-  width: 100%;
-  max-width: 350px;
+  height: 650px !important; /* Force the same exact height */
+  width: 350px !important; /* Force the same exact width */
   margin: 0 auto;
   padding: 0;
   background: white;
@@ -1864,28 +1884,35 @@ body, html {
 }
 
 .pricing-header {
-  padding: 20px;
+  padding: 30px 20px 15px;
   text-align: center;
 }
 
 .pricing-title {
   color: var(--primary-dark);
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-  font-weight: 600;
+  font-size: 2rem;
+  margin: 0 0 15px 0;
+  font-weight: 700;
+  text-align: center;
 }
 
 .pricing-amount {
   color: var(--primary-dark);
-  font-size: 3rem;
+  font-size: 4rem !important; /* Larger font */
   font-weight: 700;
-  margin-bottom: 5px;
+  margin: 0 0 5px 0;
+  text-align: center;
+  display: block;
+  line-height: 1;
 }
 
 .pricing-rate {
   color: var(--text-dark);
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   opacity: 0.8;
+  text-align: center;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .pricing-savings {
@@ -1893,9 +1920,11 @@ body, html {
   color: var(--accent-dark);
   padding: 8px 15px;
   border-radius: 20px;
-  display: inline-block;
-  margin: 10px 0;
+  display: block;
+  width: 120px;
+  margin: 15px auto;
   font-weight: 600;
+  text-align: center;
 }
 
 .pricing-image-container {
@@ -1916,14 +1945,14 @@ body, html {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  padding: 0 25px;
   overflow-y: auto;
 }
 
 .pricing-features {
   list-style-type: none;
   padding: 0;
-  margin: 0 0 20px 0;
+  margin: 10px 0 20px 0;
   text-align: left;
 }
 
@@ -1945,7 +1974,7 @@ body, html {
 
 .pricing-button-container {
   margin-top: auto;
-  padding: 0 20px 20px;
+  padding: 0 20px 25px;
   text-align: center;
 }
 
@@ -1994,12 +2023,28 @@ body, html {
   padding: 40px;
   margin: 60px auto;
   max-width: 1200px;
+  text-align: center;
 }
 
 .referral-program h2 {
   color: var(--primary-dark);
   margin-bottom: 30px;
-  font-size: 2.5rem;
+  font-size: 2.8rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.referral-program h2:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--accent);
+  border-radius: 3px;
 }
 
 .referral-description {
@@ -2007,42 +2052,55 @@ body, html {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  font-size: 1.2rem;
+  line-height: 1.6;
 }
 
 .referral-benefits {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   margin-bottom: 40px;
+  text-align: center;
 }
 
 .referral-benefit {
   background: rgba(103, 188, 196, 0.1);
   padding: 25px;
   border-radius: 12px;
-  text-align: left;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.referral-benefit:hover {
+  transform: translateY(-5px);
 }
 
 .referral-benefit h3 {
   color: var(--primary-dark);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  font-size: 1.3rem;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  display: block;
+  text-align: center;
 }
 
-.referral-benefit h3 i {
-  margin-right: 10px;
+.referral-benefit i {
+  display: block;
+  font-size: 2.5rem;
   color: var(--accent);
+  margin-bottom: 15px;
 }
 
 .referral-note {
   background: rgba(241, 173, 72, 0.1);
-  padding: 15px 25px;
+  padding: 20px 25px;
   border-radius: 12px;
   margin: 20px auto 30px;
   max-width: 800px;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+  border-left: 3px solid var(--accent);
 }
 
 .referral-button {
@@ -2052,10 +2110,11 @@ body, html {
   color: white !important;
   border-radius: 30px;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   text-decoration: none;
   transition: background-color 0.3s ease, transform 0.3s ease;
   box-shadow: 0 4px 10px rgba(241, 173, 72, 0.3);
+  margin-bottom: 40px;
 }
 
 .referral-button:hover {
@@ -2063,48 +2122,66 @@ body, html {
   transform: translateY(-3px);
 }
 
-.referral-image {
-  max-width: 100%;
-  height: auto;
+.referral-image-container {
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+  overflow: hidden;
   border-radius: 16px;
-  margin-top: 40px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   border: 2px solid var(--accent) !important;
+}
+
+.referral-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 /* Pricing grid layout */
 .pricing-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 30px;
   margin: 40px auto;
   max-width: 1200px;
 }
 
 /* Responsive adjustments */
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .pricing-cards {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     padding: 0 20px;
   }
   
   .referral-program {
     margin: 60px 20px;
   }
+  
+  .referral-benefits {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
   .pricing-card {
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
     min-height: 600px;
   }
   
-  .referral-benefits {
-    grid-template-columns: 1fr;
+  .pricing-amount {
+    font-size: 3.5rem !important;
   }
   
   .referral-program {
     padding: 30px 20px;
+  }
+  
+  .referral-image-container {
+    height: 250px;
   }
 }
 
@@ -2361,6 +2438,189 @@ input:focus, select:focus, textarea:focus {
 /* Add smooth scrolling for the entire page */
 html {
   scroll-behavior: smooth;
+}
+
+/* Update headings on teal backgrounds */
+.section h2,
+.section h3 {
+  color: var(--primary-dark);
+  text-shadow: none;
+}
+
+/* Update paragraph text on all backgrounds */
+.section p {
+  color: var(--text-dark);
+}
+
+/* Update card headings */
+.process-step h3,
+.service-card h3,
+.tutor-card h3,
+.team-member h3,
+.pricing-card h3,
+.feature h3 {
+  color: var(--primary-dark);
+  text-shadow: none;
+}
+
+/* Update buttons to use orange consistently */
+.cta-button.primary,
+.submit-button,
+.pricing-button,
+.referral-button,
+.apply-button {
+  background-color: var(--accent);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button.primary:hover,
+.submit-button:hover,
+.pricing-button:hover,
+.referral-button:hover,
+.apply-button:hover {
+  background-color: var(--accent-dark);
+}
+
+/* Add subtle animations for better user experience */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-content-wrapper {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Add subtle hover effects to links */
+a {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+/* Ensure consistent spacing */
+.section + .section {
+  margin-top: 0;
+}
+
+/* Add subtle background patterns for visual interest */
+.section::before {
+  display: none !important; /* Completely remove the pattern */
+}
+
+/* Ensure ALL images have orange outline */
+.section-image,
+.hero-image,
+.logo-image,
+.tutor-image,
+.team-image,
+.service-image,
+.process-image,
+.feature-image,
+.pricing-image,
+.testimonial-image,
+.referral-image,
+img:not(.logo-image) {
+  border: 2px solid var(--accent) !important;
+  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Fix image containers to handle the new borders */
+.section-image-container,
+.hero-image-container,
+.tutor-image-container,
+.team-image-container,
+.service-image-container,
+.process-image-container,
+.feature-image-container,
+.pricing-image-container,
+.testimonial-image-container,
+.referral-image-container {
+  padding: 3px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Ensure ALL boxes have consistent styling */
+.section-content-wrapper,
+.hero-content,
+.process-step,
+.service-card,
+.tutor-card,
+.team-member,
+.pricing-card,
+.feature,
+.thank-you-content,
+.contact-form,
+.application-form {
+  border: 2px solid var(--accent) !important;
+  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
+  background: white !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Add hover effect to interactive boxes */
+.process-step:hover,
+.service-card:hover,
+.tutor-card:hover,
+.team-member:hover,
+.pricing-card:hover,
+.feature:hover,
+.testimonial-card:hover,
+.faq-item:hover,
+.referral-benefit:hover,
+div[class$="-card"]:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Consistent button styling across the site */
+button,
+.button,
+.cta-button,
+.submit-button,
+.pricing-button,
+.referral-button,
+.return-home-button {
+  background-color: var(--accent) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 30px !important;
+  padding: 12px 30px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease, transform 0.3s ease !important;
+  box-shadow: 0 4px 10px rgba(241, 173, 72, 0.3) !important;
+  text-align: center !important;
+  text-decoration: none !important;
+}
+
+/* Button hover effects */
+button:hover,
+.button:hover,
+.cta-button:hover,
+.submit-button:hover,
+.pricing-button:hover,
+.referral-button:hover,
+.return-home-button:hover {
+  background-color: var(--accent-dark) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Special treatment for circular profile images */
+.team-image,
+.profile-image,
+img.profile,
+img.avatar {
+  border-radius: 50% !important;
+  border-width: 3px !important;
 }
 
 /* Update headings on teal backgrounds */
