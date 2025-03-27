@@ -1843,11 +1843,12 @@ body, html {
   align-items: stretch;
 }
 
+/* Fix pricing card sizing and layout */
 .pricing-card {
   display: flex;
   flex-direction: column;
-  height: 650px !important; /* Force the same exact height */
-  width: 350px !important; /* Force the same exact width */
+  height: 700px !important; /* Increase height to fit content */
+  width: 350px !important;
   margin: 0 auto;
   padding: 0;
   background: white;
@@ -1877,22 +1878,40 @@ body, html {
   z-index: 2;
 }
 
+/* Fix pricing card image size and positioning */
+.pricing-image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pricing-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Improve pricing header spacing */
 .pricing-header {
   padding: 30px 20px 15px;
   text-align: center;
 }
 
+/* Make pricing title stand out */
 .pricing-title {
   color: var(--primary-dark);
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin: 0 0 15px 0;
   font-weight: 700;
   text-align: center;
 }
 
+/* Make pricing amount larger and more prominent */
 .pricing-amount {
   color: var(--primary-dark);
-  font-size: 4rem !important; /* Larger font */
+  font-size: 4.5rem !important;
   font-weight: 700;
   margin: 0 0 5px 0;
   text-align: center;
@@ -1919,20 +1938,6 @@ body, html {
   margin: 15px auto;
   font-weight: 600;
   text-align: center;
-}
-
-.pricing-image-container {
-  width: 100%;
-  height: 180px;
-  overflow: hidden;
-  position: relative;
-}
-
-.pricing-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
 }
 
 .pricing-content {
@@ -1997,36 +2002,38 @@ body, html {
 /* Style the popular tag */
 .popular-tag {
   position: absolute;
-  top: 20px;
-  right: -35px;
+  top: 30px;
+  right: -40px;
   background: var(--accent);
   color: white;
-  padding: 8px 40px;
+  padding: 8px 50px;
   transform: rotate(45deg);
   font-weight: 600;
   z-index: 10;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Fix the referral program section */
+/* Completely redesign the referral program section */
 .referral-program {
   background: white;
   border-radius: 16px;
   border: 2px solid var(--accent) !important;
   box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
-  padding: 40px;
-  margin: 60px auto;
+  padding: 50px;
+  margin: 80px auto;
   max-width: 1200px;
   text-align: center;
 }
 
+/* Add a prominent header for referral program */
 .referral-program h2 {
   color: var(--primary-dark);
-  margin-bottom: 30px;
-  font-size: 2.8rem;
+  margin: 0 0 30px 0;
+  font-size: 3.2rem;
   text-align: center;
   position: relative;
   padding-bottom: 15px;
+  font-weight: 700;
 }
 
 .referral-program h2:after {
@@ -2035,68 +2042,64 @@ body, html {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
+  width: 100px;
+  height: 4px;
   background-color: var(--accent);
   border-radius: 3px;
 }
 
-.referral-description {
-  margin-bottom: 40px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 1.2rem;
-  line-height: 1.6;
-}
-
+/* Improve referral benefits grid */
 .referral-benefits {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  margin-bottom: 40px;
+  gap: 40px;
+  margin: 50px 0;
   text-align: center;
 }
 
 .referral-benefit {
-  background: rgba(103, 188, 196, 0.1);
-  padding: 25px;
-  border-radius: 12px;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
   text-align: center;
   transition: transform 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border: 2px solid var(--accent) !important;
 }
 
 .referral-benefit:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
 }
 
 .referral-benefit h3 {
   color: var(--primary-dark);
-  margin-bottom: 15px;
-  font-size: 1.5rem;
-  display: block;
-  text-align: center;
+  margin: 20px 0;
+  font-size: 1.6rem;
+  font-weight: 600;
 }
 
 .referral-benefit i {
-  display: block;
-  font-size: 2.5rem;
+  font-size: 3rem;
   color: var(--accent);
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
+/* Fix the referral note style */
 .referral-note {
   background: rgba(241, 173, 72, 0.1);
-  padding: 20px 25px;
+  padding: 20px 30px;
   border-radius: 12px;
-  margin: 20px auto 30px;
+  margin: 20px auto 40px;
   max-width: 800px;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   text-align: left;
-  border-left: 3px solid var(--accent);
+  border-left: 4px solid var(--accent);
+  color: var(--text-dark);
 }
 
+/* Make the start referring button more prominent */
 .referral-button {
   display: inline-block;
   padding: 15px 40px;
@@ -2106,16 +2109,10 @@ body, html {
   font-weight: 600;
   font-size: 1.2rem;
   text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 4px 10px rgba(241, 173, 72, 0.3);
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
-.referral-button:hover {
-  background-color: var(--accent-dark) !important;
-  transform: translateY(-3px);
-}
-
+/* Fix the referral image container */
 .referral-image-container {
   width: 100%;
   max-width: 800px;
@@ -2127,56 +2124,54 @@ body, html {
   border: 2px solid var(--accent) !important;
 }
 
-.referral-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+/* Add hover effects to all interactive elements */
+.section-content-wrapper:hover,
+.process-step:hover,
+.service-card:hover,
+.tutor-card:hover,
+.team-member:hover,
+.pricing-card:hover,
+.feature:hover,
+.testimonial-card:hover,
+.faq-item:hover,
+.referral-benefit:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(241, 173, 72, 0.2) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Pricing grid layout */
-.pricing-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  margin: 40px auto;
-  max-width: 1200px;
+/* Add orange outlines to expert tutors, personalized learning, and proven results boxes */
+.expert-tutors-box,
+.personalized-learning-box,
+.proven-results-box,
+.feature {
+  border: 2px solid var(--accent) !important;
+  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-  .pricing-cards {
-    padding: 0 20px;
-  }
-  
-  .referral-program {
-    margin: 60px 20px;
-  }
-  
-  .referral-benefits {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
+/* RESTORE LOGO TO ORIGINAL STATE - No orange outline */
+.logo-image {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  height: 100px;
+  width: auto;
+  transition: transform 0.3s ease;
 }
 
-@media (max-width: 768px) {
-  .pricing-card {
-    width: 100% !important;
-    height: auto !important;
-    min-height: 600px;
-  }
-  
-  .pricing-amount {
-    font-size: 3.5rem !important;
-  }
-  
-  .referral-program {
-    padding: 30px 20px;
-  }
-  
-  .referral-image-container {
-    height: 250px;
-  }
+.logo-container {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Fix navigation bar */
+.navbar {
+  border-bottom: 1px solid rgba(103, 188, 196, 0.2) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Add styling for the thank you page */
