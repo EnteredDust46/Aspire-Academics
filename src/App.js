@@ -723,6 +723,10 @@ const Pricing = () => (
       <div className="pricing-cards">
         {/* Single Session Card */}
         <div className="pricing-card">
+          <div className="pricing-image-container">
+            <img src={`${process.env.PUBLIC_URL}/images/pricing-single.jpg`} alt="Single Session" className="pricing-image" />
+          </div>
+          
           <div className="pricing-card-header">
             <h3 className="pricing-title">Single Session</h3>
             <div className="price-container">
@@ -747,8 +751,12 @@ const Pricing = () => (
           </div>
         </div>
         
-        {/* 5-Session Package Card - Popular tag removed */}
+        {/* 5-Session Package Card */}
         <div className="pricing-card featured">
+          <div className="pricing-image-container">
+            <img src={`${process.env.PUBLIC_URL}/images/pricing-five.jpg`} alt="5-Session Package" className="pricing-image" />
+          </div>
+          
           <div className="pricing-card-header">
             <h3 className="pricing-title">5-Session Package</h3>
             <div className="price-container">
@@ -776,6 +784,10 @@ const Pricing = () => (
         
         {/* 10-Session Package Card */}
         <div className="pricing-card">
+          <div className="pricing-image-container">
+            <img src={`${process.env.PUBLIC_URL}/images/pricing-ten.jpg`} alt="10-Session Package" className="pricing-image" />
+          </div>
+          
           <div className="pricing-card-header">
             <h3 className="pricing-title">10-Session Package</h3>
             <div className="price-container">
