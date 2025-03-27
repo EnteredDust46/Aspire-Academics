@@ -1847,10 +1847,11 @@ body, html {
 .pricing-card {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 600px; /* Increase minimum height to accommodate content */
   position: relative;
-  padding-bottom: 80px; /* Make room for the button */
-  overflow: hidden; /* Prevent content from spilling out */
+  overflow: hidden;
+  padding-bottom: 100px; /* Increase padding at bottom for button */
+  box-sizing: border-box;
   margin: 0 20px 40px;
   padding: 0;
   background: white;
@@ -1974,7 +1975,7 @@ body, html {
 
 .pricing-button-container {
   position: absolute;
-  bottom: 20px;
+  bottom: 30px; /* Position further from bottom */
   left: 0;
   right: 0;
   width: 100%;
@@ -2035,7 +2036,7 @@ body, html {
 
 /* Add a prominent header for referral program */
 .referral-program h2 {
-  color: var(--primary-dark); /* Darker color for better contrast */
+  color: var(--primary); /* Use primary cyan color for better visibility */
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 30px;
