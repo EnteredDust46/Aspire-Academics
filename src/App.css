@@ -1827,160 +1827,163 @@ body, html {
   }
 }
 
-/* Pricing Section Styles */
+/* Complete redesign of pricing section */
 .pricing-section {
-  padding: 40px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  background-color: rgba(103, 188, 196, 0.1);
+  padding: 80px 0;
+  position: relative;
 }
 
 .pricing-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  margin-bottom: 60px;
-  align-items: stretch;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-/* Fix for pricing card - increase height and fix button positioning */
+/* Pricing cards grid */
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+/* Individual pricing card */
 .pricing-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 650px;
+  min-height: 650px; /* Fixed height to prevent overlap */
   position: relative;
-  padding-bottom: 80px;
-  margin-bottom: 30px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-  background: white;
+  padding-bottom: 100px; /* Space for button */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Position buttons at bottom with proper spacing */
-.pricing-button-container {
-  position: absolute;
-  bottom: 25px;
-  left: 0;
-  width: 100%;
-  padding: 0 20px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
+.pricing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .pricing-card.featured {
-  transform: scale(1.05);
   border: 2px solid var(--accent);
+  position: relative;
 }
 
+/* Featured badge */
 .pricing-badge {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  background-color: var(--accent);
+  top: 0;
+  right: 20px;
+  background: var(--accent);
   color: white;
   padding: 5px 15px;
-  border-radius: 20px;
-  font-weight: 600;
   font-size: 0.9rem;
-  z-index: 2;
+  font-weight: bold;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
 }
 
-/* Fix pricing card image size and positioning */
+/* Image container */
 .pricing-image-container {
   width: 100%;
-  height: 200px;
+  height: 180px;
   overflow: hidden;
-  position: relative;
+  margin-bottom: 20px;
 }
 
 .pricing-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  transition: transform 0.5s ease;
 }
 
-/* Improve pricing header spacing */
+/* Card header section */
 .pricing-header {
-  padding: 30px 20px 15px;
   text-align: center;
+  padding: 20px;
+  position: relative;
 }
 
-/* Make pricing title stand out */
 .pricing-title {
   color: var(--primary-dark);
-  font-size: 2.2rem;
-  margin: 0 0 15px 0;
+  font-size: 1.6rem;
   font-weight: 700;
+  margin-bottom: 15px;
   text-align: center;
 }
 
-/* Make pricing amount larger and more prominent */
+/* Price display */
 .pricing-amount {
-  color: var(--primary-dark);
-  font-size: 4.5rem !important;
+  color: var(--primary);
+  font-size: 3.5rem;
   font-weight: 700;
-  margin: 0 0 5px 0;
-  text-align: center;
-  display: block;
   line-height: 1;
+  margin-bottom: 10px;
+  position: relative;
+  display: inline-block;
 }
 
 .pricing-rate {
-  color: var(--text-dark);
-  font-size: 1.3rem;
-  opacity: 0.8;
-  text-align: center;
+  color: var(--text-light);
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-top: 5px;
   display: block;
-  margin-bottom: 10px;
 }
 
+/* Savings tag */
 .pricing-savings {
-  background: rgba(241, 173, 72, 0.15);
+  background: var(--accent-light);
   color: var(--accent-dark);
-  padding: 8px 15px;
+  padding: 5px 10px;
   border-radius: 20px;
-  display: block;
-  width: 120px;
-  margin: 15px auto;
+  font-size: 0.9rem;
   font-weight: 600;
-  text-align: center;
+  display: inline-block;
+  margin: 10px 0;
+  border: 1px solid var(--accent);
 }
 
+/* Card content */
 .pricing-content {
+  padding: 0 20px 20px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  padding: 0 25px;
-  overflow-y: auto;
 }
 
+/* Features list */
 .pricing-features {
   list-style-type: none;
   padding: 0;
-  margin: 10px 0 20px 0;
-  text-align: left;
+  margin: 0 0 30px;
+  flex-grow: 1;
 }
 
 .pricing-features li {
-  margin-bottom: 12px;
-  padding-left: 28px;
+  padding: 8px 0 8px 30px;
   position: relative;
-  line-height: 1.4;
+  margin-bottom: 5px;
+  font-size: 1rem;
 }
 
 .pricing-features li:before {
   content: "✓";
   position: absolute;
   left: 0;
-  color: var(--primary);
+  top: 7px;
+  color: var(--accent);
   font-weight: bold;
   font-size: 1.1rem;
 }
 
+/* Button container positioned at bottom */
 .pricing-button-container {
   position: absolute;
   bottom: 25px;
@@ -1988,60 +1991,44 @@ body, html {
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
-  display: flex;
-  justify-content: center;
 }
 
 .pricing-button {
-  width: 100%;
-  max-width: 200px;
-  margin: 0 auto;
   display: inline-block;
-  padding: 15px;
-  background-color: var(--accent) !important;
-  color: white !important;
-  border: none;
+  background: var(--accent);
+  color: white;
+  padding: 12px 25px;
   border-radius: 30px;
   font-weight: 600;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 4px 10px rgba(241, 173, 72, 0.3);
-  text-align: center;
   text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .pricing-button:hover {
-  background-color: var(--accent-dark) !important;
+  background: var(--accent-dark);
   transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Style the popular tag */
-.popular-tag {
-  position: absolute;
-  top: 30px;
-  right: -40px;
-  background: var(--accent);
-  color: white;
-  padding: 8px 50px;
-  transform: rotate(45deg);
-  font-weight: 600;
-  z-index: 10;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-/* Completely redesign the referral program section */
+/* Referral program section */
 .referral-program {
   background: #f8f8f8;
   border-radius: 10px;
   padding: 40px 30px;
   margin: 40px auto;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  max-width: 1000px;
 }
 
-/* Add a prominent header for referral program */
 .referral-program h2 {
-  color: #67BCC4; /* Explicitly using cyan color instead of variable */
+  color: #67BCC4; /* Cyan theme color */
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 30px;
@@ -2058,1100 +2045,101 @@ body, html {
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: var(--accent); /* Make the underline more visible */
+  background: var(--accent);
   border-radius: 2px;
-  z-index: 5;
 }
 
-/* Improve referral benefits grid */
+.referral-program p {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  text-align: center;
+}
+
+/* Referral benefits */
 .referral-benefits {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  margin: 50px 0;
-  text-align: center;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin: 40px 0;
 }
 
 .referral-benefit {
   background: white;
-  padding: 30px;
-  border-radius: 16px;
+  padding: 25px 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   text-align: center;
   transition: transform 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  border: 2px solid var(--accent) !important;
 }
 
 .referral-benefit:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
 }
 
 .referral-benefit h3 {
   color: var(--primary-dark);
-  margin: 20px 0;
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  margin-bottom: 15px;
 }
 
 .referral-benefit i {
-  font-size: 3rem;
   color: var(--accent);
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
 }
 
-/* Fix the referral note style */
+/* Referral note */
 .referral-note {
   background: rgba(241, 173, 72, 0.1);
-  padding: 20px 30px;
-  border-radius: 12px;
-  margin: 20px auto 40px;
-  max-width: 800px;
-  font-size: 1rem;
-  line-height: 1.6;
-  text-align: left;
   border-left: 4px solid var(--accent);
-  color: var(--text-dark);
-}
-
-/* Make the start referring button more prominent */
-.referral-button {
-  display: inline-block;
-  padding: 15px 40px;
-  background-color: var(--accent) !important;
-  color: white !important;
-  border-radius: 30px;
-  font-weight: 600;
-  font-size: 1.2rem;
-  text-decoration: none;
-  margin-bottom: 50px;
-}
-
-/* Fix the referral image container */
-.referral-image-container {
-  width: 100%;
-  max-width: 800px;
-  height: 400px;
-  overflow: hidden;
-  border-radius: 16px;
-  margin: 0 auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  border: 2px solid var(--accent) !important;
-}
-
-/* Add hover effects to all interactive elements */
-.section-content-wrapper:hover,
-.process-step:hover,
-.service-card:hover,
-.tutor-card:hover,
-.team-member:hover,
-.pricing-card:hover,
-.feature:hover,
-.testimonial-card:hover,
-.faq-item:hover,
-.referral-benefit:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(241, 173, 72, 0.2) !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Add orange outlines to expert tutors, personalized learning, and proven results boxes */
-.expert-tutors-box,
-.personalized-learning-box,
-.proven-results-box,
-.feature {
-  border: 2px solid var(--accent) !important;
-  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
-}
-
-/* RESTORE LOGO TO ORIGINAL STATE - No orange outline */
-.logo-image {
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  height: 100px;
-  width: auto;
-  transition: transform 0.3s ease;
-}
-
-.logo-container {
-  border: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-}
-
-/* Fix navigation bar */
-.navbar {
-  border-bottom: 1px solid rgba(103, 188, 196, 0.2) !important;
-  border-top: none !important;
-  border-left: none !important;
-  border-right: none !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
-}
-
-/* Add styling for the thank you page */
-.thank-you-section {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-  background: transparent;
-  margin-top: 0;
-  padding-top: 120px;
-  border-radius: 0;
-}
-
-.thank-you-container {
-  max-width: 600px;
-  width: 100%;
-}
-
-.thank-you-content {
-  background: white;
-  padding: 50px 30px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  background: white;
-  border: 1px solid rgba(127, 204, 211, 0.2);
-}
-
-.thank-you-content i {
-  font-size: 5rem;
-  color: var(--accent);
-  margin-bottom: 20px;
-}
-
-.thank-you-content h2 {
-  color: var(--primary-dark);
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-}
-
-.thank-you-content p {
-  color: var(--text-dark);
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-}
-
-.return-home-button {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.return-home-button:hover {
-  background-color: var(--primary-dark);
-}
-
-/* Update welcome section for smooth blending */
-.welcome-section,
-.features-section,
-.stats-section,
-.team-section,
-.services-grid,
-.process-section,
-.tutors-grid {
-  background: transparent !important;
-  padding: 60px 20px;
-  border-radius: 0;
+  padding: 15px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 30px 0;
+  text-align: left;
   position: relative;
-  z-index: 1;
 }
 
-/* Add smooth transition between sections */
-.welcome-section::before,
-.features-section::before,
-.stats-section::before,
-.team-section::before,
-.services-grid::before,
-.process-section::before,
-.tutors-grid::before {
-  display: none !important;
-}
-
-/* Update card styling for consistent look */
-.process-step,
-.service-card,
-.tutor-card,
-.team-member,
-.pricing-card,
-.feature,
-.thank-you-content,
-.contact-form,
-.application-form {
-  background: white !important;
-  border: 1px solid rgba(127, 204, 211, 0.2);
-}
-
-/* Add padding to card content */
-.process-step > *:not(img),
-.service-card > *:not(img),
-.tutor-card > *:not(img),
-.team-member > *:not(img),
-.pricing-card > *:not(img),
-.feature > *:not(img) {
-  padding: 0 20px;
-}
-
-/* Update process step styling */
-.process-step {
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex: 1;
-  min-width: 280px;
-  max-width: 350px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Update service card styling */
-.service-card {
-  padding-bottom: 20px;
-}
-
-/* Update tutor card styling */
-.tutor-card {
-  background: white;
-  border: 1px solid rgba(127, 204, 211, 0.2);
-}
-
-/* Update team member styling */
-.team-member {
-  background: white;
-  border: 1px solid rgba(127, 204, 211, 0.2);
-}
-
-/* Update pricing card styling */
-.pricing-card {
-  background: white;
-  border: 1px solid rgba(127, 204, 211, 0.2);
-}
-
-/* Update thank you section for smooth blending */
-.thank-you-section {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-  background: transparent;
-  margin-top: 0;
-  padding-top: 120px;
-  border-radius: 0;
-}
-
-/* Update thank you content for consistent styling */
-.thank-you-content {
-  background: white;
-  padding: 50px 30px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  background: white;
-  border: 1px solid rgba(127, 204, 211, 0.2);
-}
-
-/* Update navbar for better blending */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 50px;
-  background-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(127, 204, 211, 0.2);
-}
-
-/* Update form styling for consistent look */
-.contact-form,
-.application-form {
-  background: white;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(127, 204, 211, 0.2);
-}
-
-/* Update form inputs for consistent styling */
-input, select, textarea {
-  padding: 12px 15px;
-  border-radius: 8px;
-  border: 1px solid rgba(127, 204, 211, 0.3);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  width: 100%;
-  margin-bottom: 15px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.9);
-}
-
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(103, 188, 196, 0.2);
-}
-
-/* Update buttons for consistent styling */
-.cta-button,
-.submit-button,
-.pricing-button,
-.referral-button,
-.return-home-button {
-  display: inline-block;
-  padding: 12px 30px;
-  border-radius: 30px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  border: none;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Update hover effects for all interactive elements */
-.process-step:hover,
-.service-card:hover,
-.tutor-card:hover,
-.team-member:hover,
-.pricing-card:hover,
-.feature:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-}
-
-/* Add smooth scrolling for the entire page */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Update headings on teal backgrounds */
-.section h2,
-.section h3 {
-  color: var(--primary-dark);
-  text-shadow: none;
-}
-
-/* Update paragraph text on all backgrounds */
-.section p {
-  color: var(--text-dark);
-}
-
-/* Update card headings */
-.process-step h3,
-.service-card h3,
-.tutor-card h3,
-.team-member h3,
-.pricing-card h3,
-.feature h3 {
-  color: var(--primary-dark);
-  text-shadow: none;
-}
-
-/* Update buttons to use orange consistently */
-.cta-button.primary,
-.submit-button,
-.pricing-button,
-.referral-button,
-.apply-button {
-  background-color: var(--accent);
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.cta-button.primary:hover,
-.submit-button:hover,
-.pricing-button:hover,
-.referral-button:hover,
-.apply-button:hover {
-  background-color: var(--accent-dark);
-}
-
-/* Add subtle animations for better user experience */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.section-content-wrapper {
-  animation: fadeIn 0.8s ease-out;
-}
-
-/* Add subtle hover effects to links */
-a {
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-a:hover {
-  color: var(--accent);
-}
-
-/* Ensure consistent spacing */
-.section + .section {
-  margin-top: 0;
-}
-
-/* Add subtle background patterns for visual interest */
-.section::before {
-  display: none !important; /* Completely remove the pattern */
-}
-
-/* Ensure ALL images have orange outline */
-.section-image,
-.hero-image,
-.logo-image,
-.tutor-image,
-.team-image,
-.service-image,
-.process-image,
-.feature-image,
-.pricing-image,
-.testimonial-image,
-.referral-image,
-img:not(.logo-image) {
-  border: 2px solid var(--accent) !important;
-  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-/* Fix image containers to handle the new borders */
-.section-image-container,
-.hero-image-container,
-.tutor-image-container,
-.team-image-container,
-.service-image-container,
-.process-image-container,
-.feature-image-container,
-.pricing-image-container,
-.testimonial-image-container,
-.referral-image-container {
-  padding: 3px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-/* Ensure ALL boxes have consistent styling */
-.section-content-wrapper,
-.hero-content,
-.process-step,
-.service-card,
-.tutor-card,
-.team-member,
-.pricing-card,
-.feature,
-.thank-you-content,
-.contact-form,
-.application-form {
-  border: 2px solid var(--accent) !important;
-  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
-  background: white !important;
-  border-radius: 16px !important;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Add hover effect to interactive boxes */
-.process-step:hover,
-.service-card:hover,
-.tutor-card:hover,
-.team-member:hover,
-.pricing-card:hover,
-.feature:hover,
-.testimonial-card:hover,
-.faq-item:hover,
-.referral-benefit:hover,
-div[class$="-card"]:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
-}
-
-/* Consistent button styling across the site */
-button,
-.button,
-.cta-button,
-.submit-button,
-.pricing-button,
-.referral-button,
-.return-home-button {
-  background-color: var(--accent) !important;
-  color: white !important;
-  border: none !important;
-  border-radius: 30px !important;
-  padding: 12px 30px !important;
-  font-weight: 600 !important;
-  cursor: pointer !important;
-  transition: background-color 0.3s ease, transform 0.3s ease !important;
-  box-shadow: 0 4px 10px rgba(241, 173, 72, 0.3) !important;
-  text-align: center !important;
-  text-decoration: none !important;
-}
-
-/* Button hover effects */
-button:hover,
-.button:hover,
-.cta-button:hover,
-.submit-button:hover,
-.pricing-button:hover,
-.referral-button:hover,
-.return-home-button:hover {
-  background-color: var(--accent-dark) !important;
-  transform: translateY(-2px) !important;
-}
-
-/* Special treatment for circular profile images */
-.team-image,
-.profile-image,
-img.profile,
-img.avatar {
-  border-radius: 50% !important;
-  border-width: 3px !important;
-}
-
-/* Update headings on teal backgrounds */
-.section h2,
-.section h3 {
-  color: var(--primary-dark);
-  text-shadow: none;
-}
-
-/* Update paragraph text on all backgrounds */
-.section p {
-  color: var(--text-dark);
-}
-
-/* Update card headings */
-.process-step h3,
-.service-card h3,
-.tutor-card h3,
-.team-member h3,
-.pricing-card h3,
-.feature h3 {
-  color: var(--primary-dark);
-  text-shadow: none;
-}
-
-/* Update buttons to use orange consistently */
-.cta-button.primary,
-.submit-button,
-.pricing-button,
-.referral-button,
-.apply-button {
-  background-color: var(--accent);
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.cta-button.primary:hover,
-.submit-button:hover,
-.pricing-button:hover,
-.referral-button:hover,
-.apply-button:hover {
-  background-color: var(--accent-dark);
-}
-
-/* Add subtle animations for better user experience */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.section-content-wrapper {
-  animation: fadeIn 0.8s ease-out;
-}
-
-/* Add subtle hover effects to links */
-a {
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-a:hover {
-  color: var(--accent);
-}
-
-/* Ensure consistent spacing */
-.section + .section {
-  margin-top: 0;
-}
-
-/* Add subtle background patterns for visual interest */
-.section::before {
-  display: none !important; /* Completely remove the pattern */
-}
-
-/* ===== LOGO FIX ===== */
-/* Completely remove ALL styling from logo */
-.logo-image,
-img[src*="aspire-academics.png"],
-.navbar img,
-.navbar a img {
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  height: 80px !important;
-  width: auto !important;
-}
-
-.logo-container,
-.navbar-brand,
-.logo-link {
-  border: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-  padding: 5px 0 !important;
-  margin: 0 !important;
-  border-radius: 0 !important;
-}
-
-/* ===== PRICING CARD FIXES ===== */
-/* Force equal sizing and spacing */
-.pricing-card {
-  display: flex !important;
-  flex-direction: column !important;
-  width: 350px !important;
-  height: 750px !important; /* Taller to fit all content */
-  margin: 0 20px 40px !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  background: white !important;
-  border-radius: 16px !important;
-  border: 2px solid var(--accent) !important;
-  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
-  position: relative !important;
-}
-
-/* Fix pricing card headers */
-.pricing-card h3,
-.pricing-title {
-  font-size: 2.2rem !important;
-  color: var(--primary-dark) !important;
-  margin: 15px 0 !important;
-  text-align: center !important;
-  font-weight: 700 !important;
-  padding: 0 15px !important;
-}
-
-/* Price styling */
-.pricing-card .price,
-.pricing-amount {
-  font-size: 4.5rem !important;
-  color: var(--primary-dark) !important;
-  font-weight: 700 !important;
-  line-height: 1 !important;
-  margin: 10px 0 5px !important;
-  text-align: center !important;
-  display: block !important;
-}
-
-/* Per hour rate */
-.pricing-card .price span,
-.pricing-rate {
-  font-size: 1.5rem !important;
-  color: var(--text-dark) !important;
-  opacity: 0.8 !important;
-  display: block !important;
-  text-align: center !important;
-  margin-bottom: 15px !important;
-}
-
-/* Fix pricing card images */
-.pricing-card img,
-.pricing-image {
-  width: 100% !important;
-  height: 200px !important;
-  object-fit: cover !important;
-  object-position: center top !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-}
-
-/* Popular tag fix */
-.popular-tag {
-  position: absolute !important;
-  top: 30px !important;
-  right: -45px !important;
-  background: var(--accent) !important;
-  color: white !important;
-  padding: 8px 50px !important;
-  transform: rotate(45deg) !important;
-  font-weight: 600 !important;
-  z-index: 10 !important;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
-}
-
-/* Fix savings display */
-.pricing-savings,
-.savings {
-  background: rgba(241, 173, 72, 0.15) !important;
-  color: var(--accent-dark) !important;
-  padding: 8px 15px !important;
-  border-radius: 20px !important;
-  font-weight: 600 !important;
-  text-align: center !important;
-  margin: 10px auto 20px !important;
-  display: inline-block !important;
-  width: auto !important;
-}
-
-/* Fix feature list */
-.pricing-features {
-  list-style-type: none !important;
-  padding: 0 25px !important;
-  margin: 0 0 20px 0 !important;
-  text-align: left !important;
-}
-
-.pricing-features li,
-.pricing-features div {
-  margin-bottom: 12px !important;
-  padding-left: 28px !important;
-  position: relative !important;
-  line-height: 1.4 !important;
-}
-
-.pricing-features li:before,
-.pricing-features svg {
-  content: "✓" !important;
-  position: absolute !important;
-  left: 0 !important;
-  color: var(--primary) !important;
-  font-weight: bold !important;
-}
-
-/* Fix button container */
-.pricing-button-container {
-  margin-top: auto !important;
-  padding: 0 20px 25px !important;
-  text-align: center !important;
-}
-
-/* Fix pricing cards grid/layout */
-.pricing-cards,
-.pricing-container {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  justify-content: center !important;
-  gap: 0 !important;
-  margin: 40px auto !important;
-  max-width: 1200px !important;
-}
-
-/* ===== REFERRAL PROGRAM SECTION FIX ===== */
-/* Add a prominent header for the Referral Program section */
-.referral-program {
-  position: relative !important;
-  background: white !important;
-  border-radius: 16px !important;
-  border: 2px solid var(--accent) !important;
-  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
-  padding: 60px 40px 40px !important;
-  margin: 100px auto 60px !important;
-  max-width: 1200px !important;
-  text-align: center !important;
-}
-
-.referral-program h2 {
-  position: absolute !important;
-  top: -30px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  background-color: var(--secondary) !important; /* Red background */
-  color: white !important;
-  padding: 15px 40px !important;
-  border-radius: 30px !important;
-  font-size: 2.2rem !important;
-  font-weight: 700 !important;
-  white-space: nowrap !important;
-  box-shadow: 0 5px 15px rgba(203, 82, 61, 0.4) !important;
-  margin: 0 !important;
-  z-index: 5 !important;
-  border: 2px solid white !important;
-  max-width: none !important;
-}
-
-/* Style the Referral Program description */
-.referral-program p {
-  margin: 30px auto !important;
-  max-width: 800px !important;
-  font-size: 1.2rem !important;
-  line-height: 1.6 !important;
-  color: var(--text-dark) !important;
-}
-
-/* Style the benefits grid */
-.referral-benefits {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 30px !important;
-  margin: 40px 0 !important;
-}
-
-.referral-benefit {
-  background: white !important;
-  padding: 30px !important;
-  border-radius: 12px !important;
-  border: 2px solid var(--accent) !important;
-  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
-  transition: transform 0.3s ease !important;
-  position: relative !important;
-  height: 250px !important; /* Fixed height */
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-.referral-benefit:hover {
-  transform: translateY(-8px) !important;
-  box-shadow: 0 15px 30px rgba(241, 173, 72, 0.2) !important;
-}
-
-.referral-benefit h3 {
-  color: var(--primary-dark) !important;
-  margin: 15px 0 !important;
-  font-size: 1.5rem !important;
-  font-weight: 600 !important;
-}
-
-/* Style the referral image */
-.referral-image-container {
-  margin: 30px auto 0 !important;
-  max-width: 800px !important;
-  height: 400px !important;
-  overflow: hidden !important;
-  border-radius: 16px !important;
-  border: 2px solid var(--accent) !important;
-}
-
-.referral-image {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center !important;
-}
-
-/* Make referral button stand out */
-.referral-button {
-  display: inline-block !important;
-  padding: 15px 40px !important;
-  background-color: var(--accent) !important;
-  color: white !important;
-  border-radius: 30px !important;
-  font-weight: 600 !important;
-  font-size: 1.2rem !important;
-  margin: 30px 0 !important;
-  text-decoration: none !important;
-  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.3) !important;
-}
-
-.referral-button:hover {
-  background-color: var(--accent-dark) !important;
-  transform: translateY(-3px) !important;
-}
-
-/* Style the note box */
-.referral-note {
-  background: white !important;
-  padding: 25px 30px !important;
-  border-radius: 12px !important;
-  border: 1px solid rgba(241, 173, 72, 0.3) !important;
-  margin: 30px auto !important;
-  max-width: 800px !important;
-  text-align: left !important;
-  font-size: 1rem !important;
-  line-height: 1.6 !important;
-  position: relative !important;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05) !important;
-}
-
-/* Add left accent to note */
 .referral-note::before {
-  content: "" !important;
-  position: absolute !important;
-  left: 0 !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  width: 5px !important;
-  background-color: var(--accent) !important;
-  border-radius: 5px 0 0 5px !important;
+  content: "📝";
+  font-size: 1.5rem;
+  position: absolute;
+  left: 15px;
+  top: 15px;
 }
 
-/* Add "Note:" text with better styling */
 .referral-note strong {
-  display: inline-block !important;
-  color: var(--accent-dark) !important;
-  font-weight: 700 !important;
-  margin-right: 8px !important;
+  color: var(--primary-dark);
+  display: block;
+  margin-bottom: 5px;
+  padding-left: 30px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 1100px) {
   .referral-benefits {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
   
   .pricing-card {
-    margin: 0 10px 30px !important;
+    min-height: 680px;
   }
 }
 
 @media (max-width: 768px) {
   .pricing-card {
-    width: 90% !important;
-    max-width: 350px !important;
+    min-height: 600px;
+    margin-bottom: 30px;
   }
   
   .referral-program h2 {
-    font-size: 1.8rem !important;
-    white-space: normal !important;
-    width: 80% !important;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
   }
   
   .referral-program {
-    padding: 60px 20px 30px !important;
-  }
-}
-
-/* ===== RESTORE LOGO CIRCULAR STYLE ===== */
-.logo-image,
-img[src*="aspire-academics.png"],
-.navbar img,
-.navbar a img {
-  height: 80px !important;
-  width: auto !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  position: relative;
-  z-index: 5;
-}
-
-/* Add circular background to logo */
-.logo-container,
-.navbar-brand,
-.logo-link {
-  position: relative !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 100px !important; /* Fixed width */
-  height: 100px !important; /* Same as width for perfect circle */
-  background: white !important;
-  border-radius: 50% !important;
-  padding: 10px !important;
-  margin: 10px 0 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-  border: none !important;
-  transform: translateY(15px) !important;
-  z-index: 10;
-  aspect-ratio: 1/1 !important; /* Enforce perfect circle */
-}
-
-/* Logo hover effect */
-.logo-container:hover,
-.navbar-brand:hover,
-.logo-link:hover {
-  transform: translateY(12px) !important;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15) !important;
-}
-
-/* ===== FIX PRICING CARDS LAYOUT ===== */
-/* Make pricing cards side by side with no scroll */
-.pricing-cards,
-.pricing-container {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  justify-content: center !important;
-  align-items: stretch !important;
-  gap: 30px !important;
-  margin: 60px auto !important;
-  max-width: 1200px !important;
-  padding: 0 20px !important;
-}
-
-/* Make pricing cards taller without scrollbar */
-.pricing-card {
-  display: flex !important;
-  flex-direction: column !important;
-  width: 350px !important;
-  height: 850px !important; /* Much taller to fit all content */
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: visible !important; /* Remove scrolling */
-  background: white !important;
-  border-radius: 16px !important;
-  border: 2px solid var(--accent) !important;
-  box-shadow: 0 5px 15px rgba(241, 173, 72, 0.15) !important;
-  position: relative !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-}
-
-/* Remove any overflow scrolling in pricing content */
-.pricing-content {
-  flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  padding: 0 25px !important;
-  overflow: visible !important; /* Remove scrollbar */
-}
-
-/* Ensure pricing card images remain fixed size */
-.pricing-card img,
-.pricing-image {
-  width: 100% !important;
-  height: 220px !important;
-  object-fit: cover !important;
-  object-position: center top !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-}
-
-/* Responsive adjustment for smaller screens */
-@media (max-width: 1100px) {
-  .pricing-cards,
-  .pricing-container {
-    flex-wrap: wrap !important;
-    gap: 50px !important;
-  }
-  
-  .pricing-card {
-    width: 350px !important;
-    height: 800px !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .pricing-card {
-    width: 100% !important;
-    max-width: 350px !important;
-    height: 780px !important;
+    padding: 30px 20px;
   }
 }
