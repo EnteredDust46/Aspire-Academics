@@ -643,14 +643,13 @@ const ApplyTutor = () => {
           </div>
           
           <div className="form-section">
-            <h4>Upload your resume</h4>
+            <h4>Upload your resume (Optional)</h4>
             <input 
               type="file" 
               name="resume" 
               accept=".pdf,.doc,.docx"
-              required
             />
-            <p className="form-help">Please upload your resume in PDF, DOC, or DOCX format.</p>
+            <p className="form-help">If available, please upload your resume in PDF, DOC, or DOCX format. This is optional but helps us better understand your background.</p>
           </div>
           
           <div className="form-section">
@@ -1232,8 +1231,6 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
-  const navigate = useNavigate();
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -1244,53 +1241,11 @@ const Contact = () => {
   };
   
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // Let the form submit directly to FormSubmit.co without preventing default
     setIsSubmitting(true);
-    setError('');
     
-    // Show "Please wait" message
-    const submitButton = e.target.querySelector('button[type="submit"]');
-    const originalButtonText = submitButton.textContent;
-    submitButton.textContent = 'Please wait...';
-    submitButton.disabled = true;
-    
-    // Send the form data
-    fetch('/.netlify/functions/submit-form', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...formData,
-        formType: 'contact'
-      }),
-    })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Form submission failed');
-      }
-    })
-    .then(data => {
-      console.log('Success:', data);
-      setIsSubmitting(false);
-      // Redirect to thank you page
-      navigate('/thank-you', { 
-        state: { 
-          message: "Thank you for contacting Aspire Academics!",
-          details: "We've received your message and will get back to you as soon as possible."
-        } 
-      });
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      setError('There was a problem submitting your message. Please try again.');
-      setIsSubmitting(false);
-      // Reset button text
-      submitButton.textContent = originalButtonText;
-      submitButton.disabled = false;
-    });
+    // No need to prevent default or use fetch API - let the form submit naturally
+    // The form will be redirected to the thank-you page by FormSubmit.co
   };
   
   return (
@@ -1322,77 +1277,70 @@ const Contact = () => {
         </div>
         
         <div className="contact-form-container">
-          {success ? (
-            <div className="success-message">
-              <h3>Thank you for your message!</h3>
-              <p>We'll get back to you as soon as possible.</p>
-            </div>
-          ) : (
-            <form className="contact-form" onSubmit={handleSubmit} action="https://formsubmit.co/admin@aspireacademicstutoring.com" method="POST">
-              {/* Hidden fields for FormSubmit.co */}
-              <input type="hidden" name="_subject" value="New Contact Form Submission" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you.html" />
-              
-              {error && <div className="error-message">{error}</div>}
-              
-              <div className="form-row">
-                <input 
-                  type="text" 
-                  name="name" 
-                  placeholder="Your Name" 
-                  required 
-                  value={formData.name}
-                  onChange={handleInputChange}
-                />
-                <input 
-                  type="email" 
-                  name="email" 
-                  placeholder="Email Address" 
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
-              </div>
-              
-              <div className="form-row">
-                <input 
-                  type="tel" 
-                  name="phone" 
-                  placeholder="Phone Number (Optional)" 
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                />
-                <select 
-                  name="inquiryType" 
-                  value={formData.inquiryType}
-                  onChange={handleInputChange}
-                >
-                  <option value="general">General Inquiry</option>
-                  <option value="tutoring">Tutoring Information</option>
-                  <option value="pricing">Pricing Questions</option>
-                  <option value="technical">Technical Support</option>
-                </select>
-              </div>
-              
-              <textarea 
-                name="message" 
-                placeholder="Your Message" 
-                required
-                value={formData.message}
+          <form className="contact-form" action="https://formsubmit.co/admin@aspireacademicstutoring.com" method="POST">
+            {/* Hidden fields for FormSubmit.co */}
+            <input type="hidden" name="_subject" value="New Contact Form Submission" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you.html" />
+            
+            {error && <div className="error-message">{error}</div>}
+            
+            <div className="form-row">
+              <input 
+                type="text" 
+                name="name" 
+                placeholder="Your Name" 
+                required 
+                value={formData.name}
                 onChange={handleInputChange}
-              ></textarea>
-              
-              <button 
-                type="submit" 
-                className="submit-button"
-                disabled={isSubmitting}
+              />
+              <input 
+                type="email" 
+                name="email" 
+                placeholder="Email Address" 
+                required
+                value={formData.email}
+                onChange={handleInputChange}
+              />
+            </div>
+            
+            <div className="form-row">
+              <input 
+                type="tel" 
+                name="phone" 
+                placeholder="Phone Number (Optional)" 
+                value={formData.phone}
+                onChange={handleInputChange}
+              />
+              <select 
+                name="inquiryType" 
+                value={formData.inquiryType}
+                onChange={handleInputChange}
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </button>
-            </form>
-          )}
+                <option value="general">General Inquiry</option>
+                <option value="tutoring">Tutoring Information</option>
+                <option value="pricing">Pricing Questions</option>
+                <option value="technical">Technical Support</option>
+              </select>
+            </div>
+            
+            <textarea 
+              name="message" 
+              placeholder="Your Message" 
+              required
+              value={formData.message}
+              onChange={handleInputChange}
+            ></textarea>
+            
+            <button 
+              type="submit" 
+              className="submit-button"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
+          </form>
         </div>
       </div>
     </Section>
