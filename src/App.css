@@ -2345,3 +2345,40 @@ body, html {
     font-size: 1.5rem;
   }
 }
+
+/* Make Westford Academy text black */
+.westford-founders h3 {
+  color: #000000 !important;
+}
+
+/* Make section headings cyan */
+section h2:not(.team-section h2) {
+  color: #519399 !important;
+}
+
+/* Keep "Meet Our Founders" black */
+.team-section h2 {
+  color: #000000 !important;
+}
+
+/* Make team member names cyan */
+.team-member h3 {
+  color: #519399 !important;
+}
+
+/* Ensure these have maximum specificity */
+body .westford-founders h3 {
+  color: #000000 !important;
+}
+
+body section:not(.team-section) h2 {
+  color: #519399 !important;
+}
+
+body .team-section h2 {
+  color: #000000 !important;
+}
+
+body .team-member h3 {
+  color: #519399 !important;
+}

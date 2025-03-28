@@ -237,7 +237,7 @@ const Home = () => (
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 100 }}
-          style={{ color: '#000000 !important' }}
+          style={{ color: 'black' }}
         >
           Started by students that went to Westford Academy!
         </motion.h3>
@@ -255,7 +255,7 @@ const About = () => (
         "Aspire Academics was founded with a simple goal: to provide high-quality, personalized tutoring that helps students reach their full potential.",
         "Our team of experienced tutors is passionate about education and committed to helping students build confidence and achieve academic success."
       ]}
-      imageUrl="Banners.jpg"
+      imageUrl="about-mission.jpg"
     />
     
     <motion.section 
@@ -302,7 +302,7 @@ const Services = () => (
         "We offer comprehensive tutoring services across a wide range of subjects and grade levels.",
         "Whether you're looking for help with standardized test prep, specific subject tutoring, or general academic support, our experienced tutors are here to help."
       ]}
-      imageUrl="services-banner.jpg"
+      imageUrl="tutors-banner.jpg"
     />
     
     <motion.section 
@@ -354,7 +354,7 @@ const Tutors = () => (
         "Our tutors are carefully selected for their academic excellence, teaching ability, and passion for helping students succeed.",
         "With diverse backgrounds and specialties, we match each student with the perfect tutor for their needs."
       ]}
-      imageUrl="tutors-banner.jpg"
+      imageUrl="services-banner.jpg"
     />
     
     <div className="tutors-grid">
@@ -993,7 +993,7 @@ const HowItWorks = () => (
         "Our tutoring process is designed to be simple, effective, and tailored to your needs.",
         "From the initial consultation to ongoing sessions, we focus on creating a supportive learning environment that helps students thrive."
       ]}
-      imageUrl="howitworks-banner.jpg"
+      imageUrl="Banners.jpg"
     />
     
     <motion.section 
