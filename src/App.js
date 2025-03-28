@@ -89,7 +89,26 @@ const Navbar = () => {
 };
 
 const Section = ({ title, content, imageUrl, children, subtitle, className }) => {
-  console.log(`Rendering section for: ${title} with image: ${imageUrl}`);
+  // Each section will now resolve its own specific image URL
+  let actualImageUrl = imageUrl;
+  
+  // Force image choice based on page title
+  if (title === "About Us") {
+    actualImageUrl = "about-mission.jpg";
+  } else if (title === "Our Services") {
+    actualImageUrl = "services-banner.jpg";
+  } else if (title === "Meet Our Tutors") {
+    actualImageUrl = "tutors-banner.jpg";
+  } else if (title === "How It Works") {
+    actualImageUrl = "howitworks-banner.jpg";
+  } else if (title === "Contact Us") {
+    actualImageUrl = "contact-banner.jpg";
+  } else if (title === "Get Started with Aspire") {
+    actualImageUrl = "apply-banner.jpg";
+  }
+  
+  // Log the actual image being used
+  console.log(`Section "${title}" using image: ${actualImageUrl}`);
   
   return (
     <motion.section
@@ -102,14 +121,14 @@ const Section = ({ title, content, imageUrl, children, subtitle, className }) =>
       <div className="section-content-wrapper">
         <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
         {subtitle && <motion.h3>{subtitle}</motion.h3>}
-        {imageUrl && (
+        {actualImageUrl && (
           <div className="section-image-container">
             <img 
-              src={`${process.env.PUBLIC_URL}/images/${imageUrl}`} 
+              src={`${process.env.PUBLIC_URL}/images/${actualImageUrl}?v=${Date.now()}`} 
               alt={title} 
               className="section-image" 
-              onLoad={(e) => console.log(`Loaded image: ${imageUrl}`)}
-              style={{ border: '2px solid transparent' }}
+              // Force cache busting
+              style={{ border: '1px solid transparent' }} 
             />
           </div>
         )}
@@ -339,7 +358,9 @@ const Services = () => (
       >
         <img src={`${process.env.PUBLIC_URL}/images/services-highschool.jpg`} alt="High School Coursework" className="service-image" />
         <h3>High School Coursework</h3>
-        <p>Comprehensive instruction in mathematics (Algebra I, Geometry, Algebra II, Precalculus, Trigonometry, Calculus) and sciences (Biology, Chemistry, Physics) designed to enhance academic performance and conceptual understanding.</p>
+        <p style={{lineHeight: '1.6', fontSize: '0.95rem', color: '#333', textAlign: 'left'}}>
+          Comprehensive instruction in mathematics (Algebra I, Geometry, Algebra II, Precalculus, Trigonometry, Calculus) and sciences (Biology, Chemistry, Physics) designed to enhance academic performance and conceptual understanding.
+        </p>
       </motion.div>
       
       <motion.div 
@@ -349,7 +370,9 @@ const Services = () => (
       >
         <img src={`${process.env.PUBLIC_URL}/images/services-middleschool.jpg`} alt="Middle School Coursework" className="service-image" />
         <h3>Middle School Coursework</h3>
-        <p>Structured academic support in core curriculum areas including English Language Arts, Mathematics, Science, and Social Studies tailored to middle school students' developmental needs.</p>
+        <p style={{lineHeight: '1.6', fontSize: '0.95rem', color: '#333', textAlign: 'left'}}>
+          Structured academic support in core curriculum areas including English Language Arts, Mathematics, Science, and Social Studies tailored to middle school students' developmental needs.
+        </p>
       </motion.div>
     </motion.section>
   </>
