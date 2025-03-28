@@ -237,7 +237,7 @@ const Home = () => (
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 100 }}
-          style={{ color: 'black' }}
+          style={{ color: 'black !important' }}
         >
           Started by students that went to Westford Academy!
         </motion.h3>
@@ -1350,59 +1350,6 @@ const Contact = () => {
 };
 
 export default function App() {
-  // Add this to the top of the function - direct DOM manipulation for immediate effect
-  const styleElement = document.createElement('style');
-  styleElement.textContent = `
-    /* Make Westford Academy text black */
-    .westford-founders h3 {
-      color: #000000 !important;
-    }
-    
-    /* Make main headings cyan */
-    section h2 {
-      color: #519399 !important;
-    }
-    
-    /* Keep "Meet Our Founders" black */
-    .team-section h2 {
-      color: #000000 !important;
-    }
-    
-    /* Make team member names cyan */
-    .team-member h3 {
-      color: #519399 !important;
-    }
-  `;
-  document.head.appendChild(styleElement);
-
-  const appStyle = document.createElement('style');
-  appStyle.textContent = `
-    body {
-      background-image: url('${coolBackground}'), 
-        linear-gradient(135deg, #519399 0%, #67bcc4 50%, #ffffff 100%) !important;
-      background-blend-mode: overlay;
-      background-size: cover, 100% 100%;
-      background-position: center;
-      background-attachment: fixed;
-    }
-    
-    /* Make headings cyan */
-    h2:not(.team-section h2), h3:not(.process-step h3) {
-      color: var(--primary-color) !important;
-    }
-    
-    /* Make the team member names cyan */
-    .team-member h3 {
-      color: var(--primary-color) !important;
-    }
-    
-    /* Keep "Meet Our Founders" black */
-    .team-section h2 {
-      color: var(--text-dark) !important;
-    }
-  `;
-  document.head.appendChild(appStyle);
-
   return (
     <Router>
       <Navbar />
