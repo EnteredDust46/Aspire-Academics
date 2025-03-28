@@ -237,7 +237,7 @@ const Home = () => (
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 100 }}
-          style={{ color: 'var(--text-dark)' }}
+          style={{ color: '#000000 !important' }}
         >
           Started by students that went to Westford Academy!
         </motion.h3>
@@ -255,7 +255,7 @@ const About = () => (
         "Aspire Academics was founded with a simple goal: to provide high-quality, personalized tutoring that helps students reach their full potential.",
         "Our team of experienced tutors is passionate about education and committed to helping students build confidence and achieve academic success."
       ]}
-      imageUrl="about-mission.jpg"
+      imageUrl="Banners.jpg"
     />
     
     <motion.section 
@@ -1350,6 +1350,31 @@ const Contact = () => {
 };
 
 export default function App() {
+  // Add this to the top of the function - direct DOM manipulation for immediate effect
+  const styleElement = document.createElement('style');
+  styleElement.textContent = `
+    /* Make Westford Academy text black */
+    .westford-founders h3 {
+      color: #000000 !important;
+    }
+    
+    /* Make main headings cyan */
+    section h2 {
+      color: #519399 !important;
+    }
+    
+    /* Keep "Meet Our Founders" black */
+    .team-section h2 {
+      color: #000000 !important;
+    }
+    
+    /* Make team member names cyan */
+    .team-member h3 {
+      color: #519399 !important;
+    }
+  `;
+  document.head.appendChild(styleElement);
+
   const appStyle = document.createElement('style');
   appStyle.textContent = `
     body {
