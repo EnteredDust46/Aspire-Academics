@@ -88,33 +88,43 @@ const Navbar = () => {
   );
 };
 
-const Section = ({ title, content, imageUrl, children, subtitle, className }) => (
-  <motion.section
-    className={`section ${className || ''}`}
-    style={{ background: 'linear-gradient(135deg, var(--primary-dark), var(--primary-light))' }}
-    variants={fadeIn}
-    initial="hidden"
-    animate="show"
-  >
-    <div className="section-content-wrapper">
-      <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
-      {subtitle && <motion.h3>{subtitle}</motion.h3>}
-      {imageUrl && (
-        <div className="section-image-container">
-          <img src={`${process.env.PUBLIC_URL}/images/${imageUrl}`} alt={title} className="section-image" />
-        </div>
-      )}
-      {Array.isArray(content) ? (
-        content.map((paragraph, index) => (
-          <motion.p key={index}>{paragraph}</motion.p>
-        ))
-      ) : (
-        <motion.p>{content}</motion.p>
-      )}
-      {children}
-    </div>
-  </motion.section>
-);
+const Section = ({ title, content, imageUrl, children, subtitle, className }) => {
+  console.log(`Rendering section for: ${title} with image: ${imageUrl}`);
+  
+  return (
+    <motion.section
+      className={`section ${className || ''}`}
+      style={{ background: 'linear-gradient(135deg, var(--primary-dark), var(--primary-light))' }}
+      variants={fadeIn}
+      initial="hidden"
+      animate="show"
+    >
+      <div className="section-content-wrapper">
+        <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
+        {subtitle && <motion.h3>{subtitle}</motion.h3>}
+        {imageUrl && (
+          <div className="section-image-container">
+            <img 
+              src={`${process.env.PUBLIC_URL}/images/${imageUrl}`} 
+              alt={title} 
+              className="section-image" 
+              onLoad={(e) => console.log(`Loaded image: ${imageUrl}`)}
+              style={{ border: '2px solid transparent' }}
+            />
+          </div>
+        )}
+        {Array.isArray(content) ? (
+          content.map((paragraph, index) => (
+            <motion.p key={index}>{paragraph}</motion.p>
+          ))
+        ) : (
+          <motion.p>{content}</motion.p>
+        )}
+        {children}
+      </div>
+    </motion.section>
+  );
+};
 
 const Home = () => (
   <>
