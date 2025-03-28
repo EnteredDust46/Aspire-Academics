@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -1407,6 +1407,25 @@ const Contact = () => {
 };
 
 export default function App() {
+  // This ensures the coolBackground is applied directly to the body on mount
+  useEffect(() => {
+    // First, directly set the background styles
+    document.body.style.backgroundImage = `url(${coolBackground}), linear-gradient(135deg, #519399 0%, #67bcc4 50%, #ffffff 100%)`;
+    document.body.style.backgroundBlendMode = 'overlay';
+    document.body.style.backgroundSize = 'cover, 100% 100%';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundAttachment = 'fixed';
+    
+    // For cleanup when component unmounts
+    return () => {
+      document.body.style.backgroundImage = '';
+      document.body.style.backgroundBlendMode = '';
+      document.body.style.backgroundSize = '';
+      document.body.style.backgroundPosition = '';
+      document.body.style.backgroundAttachment = '';
+    };
+  }, []);
+
   return (
     <Router>
       <Navbar />
