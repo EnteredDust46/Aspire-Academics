@@ -237,6 +237,7 @@ const Home = () => (
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 100 }}
+          style={{ color: 'var(--text-dark)' }}
         >
           Started by students that went to Westford Academy!
         </motion.h3>
@@ -1087,6 +1088,7 @@ const Pricing = () => (
       <div className="pricing-intro">
         <h2>Simple, Transparent Pricing</h2>
         <p>Choose the plan that best fits your tutoring needs and academic goals.</p>
+        <img src={`${process.env.PUBLIC_URL}/images/pricing-banner.jpg`} alt="Pricing" className="section-image" />
       </div>
       
       <div className="pricing-cards">
