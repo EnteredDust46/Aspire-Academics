@@ -125,10 +125,11 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
                   return (
                     <button
                       key={hour}
+                      type="button"
                       data-day={day}
                       data-hour={hour}
                       className={`mobile-hour-btn ${isSelected ? 'selected' : ''}`}
-                      onClick={handleMobileTimeSelect}
+                      onClick={() => handleTimeClick(day, hour)}
                     >
                       {hourDisplay}
                     </button>
@@ -142,15 +143,9 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
     );
   };
   
-  const handleTimeClick = (time) => {
-    e.preventDefault(); // Prevent form submission
-    setSelectedTime(time);
-  };
-  
-  // Make sure your form submission is handled separately
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Your form submission logic here
+  const handleTimeClick = (day, hour) => {
+    const slotId = `${day}-${hour}`;
+    toggleSlot(slotId);
   };
   
   return (
@@ -204,10 +199,6 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
           </ul>
         </div>
       )}
-      
-      <form onSubmit={handleSubmit}>
-        <button type="submit">Submit</button>
-      </form>
     </div>
   );
 };
