@@ -89,26 +89,33 @@ const Navbar = () => {
 };
 
 const Section = ({ title, content, imageUrl, children, subtitle, className }) => {
-  // Each section will now resolve its own specific image URL
-  let actualImageUrl = imageUrl;
-  
-  // Force image choice based on page title
-  if (title === "About Us") {
-    actualImageUrl = "about-mission.jpg";
-  } else if (title === "Our Services") {
-    actualImageUrl = "services-banner.jpg";
-  } else if (title === "Meet Our Tutors") {
-    actualImageUrl = "tutors-banner.jpg";
-  } else if (title === "How It Works") {
-    actualImageUrl = "howitworks-banner.jpg";
-  } else if (title === "Contact Us") {
-    actualImageUrl = "contact-banner.jpg";
-  } else if (title === "Get Started with Aspire") {
-    actualImageUrl = "apply-banner.jpg";
+  // Force specific image choices based on page title - hardcoded approach
+  let actualImageSrc;
+  switch(title) {
+    case "About Us":
+      actualImageSrc = `${process.env.PUBLIC_URL}/images/about-mission.jpg`;
+      break;
+    case "Our Services":
+      actualImageSrc = `${process.env.PUBLIC_URL}/images/services-banner.jpg`;
+      break;
+    case "Meet Our Tutors":
+      actualImageSrc = `${process.env.PUBLIC_URL}/images/tutors-banner.jpg`;
+      break;
+    case "How It Works":
+      actualImageSrc = `${process.env.PUBLIC_URL}/images/howitworks-banner.jpg`;
+      break;
+    case "Get Started with Aspire":
+      actualImageSrc = `${process.env.PUBLIC_URL}/images/apply-banner.jpg`;
+      break;
+    case "Contact Us":
+      actualImageSrc = `${process.env.PUBLIC_URL}/images/contact-banner.jpg`;
+      break;
+    default:
+      // Fallback to the imageUrl, if the title doesn't match any of the above
+      actualImageSrc = `${process.env.PUBLIC_URL}/images/${imageUrl}`;
   }
   
-  // Log the actual image being used
-  console.log(`Section "${title}" using image: ${actualImageUrl}`);
+  console.log(`Rendering section ${title} with image: ${actualImageSrc}`);
   
   return (
     <motion.section
@@ -121,13 +128,12 @@ const Section = ({ title, content, imageUrl, children, subtitle, className }) =>
       <div className="section-content-wrapper">
         <motion.h2 whileHover={{ scale: 1.05 }}>{title}</motion.h2>
         {subtitle && <motion.h3>{subtitle}</motion.h3>}
-        {actualImageUrl && (
+        {(
           <div className="section-image-container">
             <img 
-              src={`${process.env.PUBLIC_URL}/images/${actualImageUrl}?v=${Date.now()}`} 
+              src={actualImageSrc} 
               alt={title} 
               className="section-image" 
-              // Force cache busting
               style={{ border: '1px solid transparent' }} 
             />
           </div>
@@ -1383,20 +1389,6 @@ const Contact = () => {
 };
 
 export default function App() {
-  // Add the following code at the beginning of the App component to restore the background
-  const appStyle = document.createElement('style');
-  appStyle.textContent = `
-    body {
-      background-image: url('${coolBackground}'), 
-        linear-gradient(135deg, #519399 0%, #67bcc4 50%, #ffffff 100%) !important;
-      background-blend-mode: overlay;
-      background-size: cover, 100% 100%;
-      background-position: center;
-      background-attachment: fixed;
-    }
-  `;
-  document.head.appendChild(appStyle);
-
   return (
     <Router>
       <Navbar />
