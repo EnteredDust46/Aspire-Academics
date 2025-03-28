@@ -89,33 +89,35 @@ const Navbar = () => {
 };
 
 const Section = ({ title, content, imageUrl, children, subtitle, className }) => {
-  // Force specific image choices based on page title - hardcoded approach
+  // Forced unique image assignment - completely hardcoded for reliability
   let actualImageSrc;
-  switch(title) {
-    case "About Us":
-      actualImageSrc = `${process.env.PUBLIC_URL}/images/about-mission.jpg`;
-      break;
-    case "Our Services":
-      actualImageSrc = `${process.env.PUBLIC_URL}/images/services-banner.jpg`;
-      break;
-    case "Meet Our Tutors":
-      actualImageSrc = `${process.env.PUBLIC_URL}/images/tutors-banner.jpg`;
-      break;
-    case "How It Works":
-      actualImageSrc = `${process.env.PUBLIC_URL}/images/howitworks-banner.jpg`;
-      break;
-    case "Get Started with Aspire":
-      actualImageSrc = `${process.env.PUBLIC_URL}/images/apply-banner.jpg`;
-      break;
-    case "Contact Us":
-      actualImageSrc = `${process.env.PUBLIC_URL}/images/contact-banner.jpg`;
-      break;
-    default:
-      // Fallback to the imageUrl, if the title doesn't match any of the above
-      actualImageSrc = `${process.env.PUBLIC_URL}/images/${imageUrl}`;
+  
+  // First determine exactly which section this is
+  if (title === "About Us") {
+    actualImageSrc = `${process.env.PUBLIC_URL}/images/about-mission.jpg`;
+  } 
+  else if (title === "Our Services") {
+    actualImageSrc = `${process.env.PUBLIC_URL}/images/services-banner.jpg`;
+  } 
+  else if (title === "Meet Our Tutors") {
+    actualImageSrc = `${process.env.PUBLIC_URL}/images/tutors-banner.jpg`;
+  } 
+  else if (title === "How It Works") {
+    actualImageSrc = `${process.env.PUBLIC_URL}/images/howitworks-banner.jpg`;
+  } 
+  else if (title === "Get Started with Aspire") {
+    actualImageSrc = `${process.env.PUBLIC_URL}/images/apply-banner.jpg`;
+  } 
+  else if (title === "Contact Us") {
+    actualImageSrc = `${process.env.PUBLIC_URL}/images/contact-banner.jpg`;
+  }
+  else {
+    // Fallback to using the passed imageUrl prop
+    actualImageSrc = `${process.env.PUBLIC_URL}/images/${imageUrl}`;
   }
   
-  console.log(`Rendering section ${title} with image: ${actualImageSrc}`);
+  // Debug logging
+  console.log(`Section "${title}" using image: ${actualImageSrc}`);
   
   return (
     <motion.section
@@ -130,11 +132,11 @@ const Section = ({ title, content, imageUrl, children, subtitle, className }) =>
         {subtitle && <motion.h3>{subtitle}</motion.h3>}
         {(
           <div className="section-image-container">
+            {/* Add random query parameter to force image reload and prevent caching */}
             <img 
-              src={actualImageSrc} 
+              src={`${actualImageSrc}?nocache=${new Date().getTime()}`} 
               alt={title} 
-              className="section-image" 
-              style={{ border: '1px solid transparent' }} 
+              className={`section-image ${title === "Simple, Transparent Pricing" ? "pricing-rounded-image" : ""}`} 
             />
           </div>
         )}
@@ -291,6 +293,8 @@ const About = () => (
         "Our team of experienced tutors is passionate about education and committed to helping students build confidence and achieve academic success."
       ]}
       imageUrl="about-mission.jpg"
+      className="about-section"
+      style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/about-mission.jpg)` }}
     />
     
     <motion.section 
@@ -338,6 +342,8 @@ const Services = () => (
         "Whether you're looking for help with standardized test prep, specific subject tutoring, or general academic support, our experienced tutors are here to help."
       ]}
       imageUrl="services-banner.jpg"
+      className="services-section"
+      style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/services-banner.jpg)` }}
     />
     
     <motion.section 
@@ -1033,6 +1039,8 @@ const HowItWorks = () => (
         "From the initial consultation to ongoing sessions, we focus on creating a supportive learning environment that helps students thrive."
       ]}
       imageUrl="howitworks-banner.jpg"
+      className="howitworks-section"
+      style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/howitworks-banner.jpg)` }}
     />
     
     <motion.section 
@@ -1305,6 +1313,8 @@ const Contact = () => {
         "Have questions about our tutoring services? Reach out to us and we'll get back to you as soon as possible.",
       ]}
       imageUrl="contact-banner.jpg"
+      className="contact-section"
+      style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/contact-banner.jpg)` }}
     >
       <div className="contact-container">
         <div className="contact-info">
