@@ -142,6 +142,17 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
     );
   };
   
+  const handleTimeClick = (time) => {
+    e.preventDefault(); // Prevent form submission
+    setSelectedTime(time);
+  };
+  
+  // Make sure your form submission is handled separately
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Your form submission logic here
+  };
+  
   return (
     <div className="weekly-schedule">
       <h4>Select your available times:</h4>
@@ -193,6 +204,10 @@ const WeeklySchedule = ({ setPreferredTimes, onScheduleChange }) => {
           </ul>
         </div>
       )}
+      
+      <form onSubmit={handleSubmit}>
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 };
