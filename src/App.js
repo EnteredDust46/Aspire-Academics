@@ -302,7 +302,7 @@ const Services = () => (
         "We offer comprehensive tutoring services across a wide range of subjects and grade levels.",
         "Whether you're looking for help with standardized test prep, specific subject tutoring, or general academic support, our experienced tutors are here to help."
       ]}
-      imageUrl="tutors-banner.jpg"
+      imageUrl="services-banner.jpg"
     />
     
     <motion.section 
@@ -354,7 +354,7 @@ const Tutors = () => (
         "Our tutors are carefully selected for their academic excellence, teaching ability, and passion for helping students succeed.",
         "With diverse backgrounds and specialties, we match each student with the perfect tutor for their needs."
       ]}
-      imageUrl="services-banner.jpg"
+      imageUrl="tutors-banner.jpg"
     />
     
     <div className="tutors-grid">
@@ -993,7 +993,7 @@ const HowItWorks = () => (
         "Our tutoring process is designed to be simple, effective, and tailored to your needs.",
         "From the initial consultation to ongoing sessions, we focus on creating a supportive learning environment that helps students thrive."
       ]}
-      imageUrl="Banners.jpg"
+      imageUrl="howitworks-banner.jpg"
     />
     
     <motion.section 
@@ -1350,6 +1350,20 @@ const Contact = () => {
 };
 
 export default function App() {
+  // Add the following code at the beginning of the App component to restore the background
+  const appStyle = document.createElement('style');
+  appStyle.textContent = `
+    body {
+      background-image: url('${coolBackground}'), 
+        linear-gradient(135deg, #519399 0%, #67bcc4 50%, #ffffff 100%) !important;
+      background-blend-mode: overlay;
+      background-size: cover, 100% 100%;
+      background-position: center;
+      background-attachment: fixed;
+    }
+  `;
+  document.head.appendChild(appStyle);
+
   return (
     <Router>
       <Navbar />
