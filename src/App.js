@@ -1122,144 +1122,152 @@ const HowItWorks = () => (
 );
 
 const Pricing = () => (
-  <div className="section pricing-section">
-    <div className="pricing-container">
-      <div className="pricing-intro">
-        <h2>Simple, Transparent Pricing</h2>
-        <p>Choose the plan that best fits your tutoring needs and academic goals.</p>
-        <img src={`${process.env.PUBLIC_URL}/images/pricing-banner.jpg`} alt="Pricing" className="section-image" />
-      </div>
-      
-      <div className="pricing-cards">
-        {/* Single Session Card */}
-        <div className="pricing-card">
-          <div className="pricing-image-container">
-            <img src={`${process.env.PUBLIC_URL}/images/pricing-single.jpg`} alt="Single Session" className="pricing-image" />
-          </div>
-          
-          <div className="pricing-card-header">
-            <h3 className="pricing-title">Single Session</h3>
-            <div className="price-container">
-              <span className="currency">$</span>
-              <span className="price">60</span>
-            </div>
-            <span className="price-period">/hour</span>
-          </div>
-          
-          <div className="pricing-card-content">
-            <ul className="pricing-features">
-              <li>One-on-one personalized tutoring</li>
-              <li>Flexible scheduling</li>
-              <li>Expert tutors in your subject</li>
-              <li>Online or in-person options</li>
-              <li>Comprehensive session reports</li>
-            </ul>
-          </div>
-          
-          <div className="pricing-card-footer">
-            <button className="pricing-button">Get Started</button>
+  <>
+    <div className="pricing-section">
+      <div className="pricing-container">
+        <div className="pricing-intro">
+          <h2>Simple, Transparent Pricing</h2>
+          <p>Choose the plan that best fits your tutoring needs and academic goals.</p>
+          <div className="section-image-container">
+            <img 
+              src={`${process.env.PUBLIC_URL}/images/pricing-banner.jpg?nocache=${new Date().getTime()}`} 
+              alt="Pricing" 
+              className="section-image pricing-rounded-image" 
+            />
           </div>
         </div>
         
-        {/* 5-Session Package Card */}
-        <div className="pricing-card featured">
-          <div className="pricing-image-container">
-            <img src={`${process.env.PUBLIC_URL}/images/pricing-five.jpg`} alt="5-Session Package" className="pricing-image" />
-          </div>
-          
-          <div className="pricing-card-header">
-            <h3 className="pricing-title">5-Session Package</h3>
-            <div className="price-container">
-              <span className="currency">$</span>
-              <span className="price">55</span>
+        <div className="pricing-cards">
+          {/* Single Session Card */}
+          <div className="pricing-card">
+            <div className="pricing-image-container">
+              <img src={`${process.env.PUBLIC_URL}/images/pricing-single.jpg`} alt="Single Session" className="pricing-image" />
             </div>
-            <span className="price-period">/hour</span>
-            <div className="savings-tag">Save $25</div>
+            
+            <div className="pricing-card-header">
+              <h3 className="pricing-title">Single Session</h3>
+              <div className="price-container">
+                <span className="currency">$</span>
+                <span className="price">60</span>
+              </div>
+              <span className="price-period">/hour</span>
+            </div>
+            
+            <div className="pricing-card-content">
+              <ul className="pricing-features">
+                <li>One-on-one personalized tutoring</li>
+                <li>Flexible scheduling</li>
+                <li>Expert tutors in your subject</li>
+                <li>Online or in-person options</li>
+                <li>Comprehensive session reports</li>
+              </ul>
+            </div>
+            
+            <div className="pricing-card-footer">
+              <button className="pricing-button">Get Started</button>
+            </div>
           </div>
           
-          <div className="pricing-card-content">
-            <ul className="pricing-features">
-              <li>One-on-one personalized tutoring</li>
-              <li>Flexible scheduling</li>
-              <li>Expert tutors in your subject</li>
-              <li>Online or in-person options</li>
-              <li>Comprehensive session reports</li>
-            </ul>
+          {/* 5-Session Package Card */}
+          <div className="pricing-card featured">
+            <div className="pricing-image-container">
+              <img src={`${process.env.PUBLIC_URL}/images/pricing-five.jpg`} alt="5-Session Package" className="pricing-image" />
+            </div>
+            
+            <div className="pricing-card-header">
+              <h3 className="pricing-title">5-Session Package</h3>
+              <div className="price-container">
+                <span className="currency">$</span>
+                <span className="price">55</span>
+              </div>
+              <span className="price-period">/hour</span>
+              <div className="savings-tag">Save $25</div>
+            </div>
+            
+            <div className="pricing-card-content">
+              <ul className="pricing-features">
+                <li>One-on-one personalized tutoring</li>
+                <li>Flexible scheduling</li>
+                <li>Expert tutors in your subject</li>
+                <li>Online or in-person options</li>
+                <li>Comprehensive session reports</li>
+              </ul>
+            </div>
+            
+            <div className="pricing-card-footer">
+              <button className="pricing-button">Get Started</button>
+            </div>
           </div>
           
-          <div className="pricing-card-footer">
-            <button className="pricing-button">Get Started</button>
+          {/* 10-Session Package Card */}
+          <div className="pricing-card">
+            <div className="pricing-image-container">
+              <img src={`${process.env.PUBLIC_URL}/images/pricing-ten.jpg`} alt="10-Session Package" className="pricing-image" />
+            </div>
+            
+            <div className="pricing-card-header">
+              <h3 className="pricing-title">10-Session Package</h3>
+              <div className="price-container">
+                <span className="currency">$</span>
+                <span className="price">50</span>
+              </div>
+              <span className="price-period">/hour</span>
+              <div className="savings-tag">Save $100</div>
+            </div>
+            
+            <div className="pricing-card-content">
+              <ul className="pricing-features">
+                <li>One-on-one personalized tutoring</li>
+                <li>Flexible scheduling</li>
+                <li>Expert tutors in your subject</li>
+                <li>Online or in-person options</li>
+                <li>Comprehensive session reports</li>
+              </ul>
+            </div>
+            
+            <div className="pricing-card-footer">
+              <button className="pricing-button">Get Started</button>
+            </div>
           </div>
         </div>
         
-        {/* 10-Session Package Card */}
-        <div className="pricing-card">
-          <div className="pricing-image-container">
-            <img src={`${process.env.PUBLIC_URL}/images/pricing-ten.jpg`} alt="10-Session Package" className="pricing-image" />
-          </div>
-          
-          <div className="pricing-card-header">
-            <h3 className="pricing-title">10-Session Package</h3>
-            <div className="price-container">
-              <span className="currency">$</span>
-              <span className="price">50</span>
-            </div>
-            <span className="price-period">/hour</span>
-            <div className="savings-tag">Save $100</div>
-          </div>
-          
-          <div className="pricing-card-content">
-            <ul className="pricing-features">
-              <li>One-on-one personalized tutoring</li>
-              <li>Flexible scheduling</li>
-              <li>Expert tutors in your subject</li>
-              <li>Online or in-person options</li>
-              <li>Comprehensive session reports</li>
-            </ul>
-          </div>
-          
-          <div className="pricing-card-footer">
-            <button className="pricing-button">Get Started</button>
-          </div>
-        </div>
-      </div>
-      
-      {/* Referral Program */}
-      <div className="referral-section">
-        <div className="referral-container">
-          <div className="referral-header">
-            <h2>Share the Gift of Learning</h2>
-            <p>Refer a friend to Aspire Academics and you'll both benefit.</p>
-            <p className="referral-disclaimer">
-              <strong>Note:</strong> The $5 discount applies only to your first referral. 
-              Additional referrals will benefit your friends with their discount, but will not 
-              provide additional discounts for you.
-            </p>
-          </div>
-          
-          <div className="referral-benefits">
-            <div className="referral-benefit">
-              <div className="referral-benefit-icon">💰</div>
-              <h3>$5 Off Per Session</h3>
-              <p>Get $5 off each session for 3 sessions ($15 total savings)</p>
+        {/* Referral Program */}
+        <div className="referral-section">
+          <div className="referral-container">
+            <div className="referral-header">
+              <h2>Share the Gift of Learning</h2>
+              <p>Refer a friend to Aspire Academics and you'll both benefit.</p>
+              <p className="referral-disclaimer">
+                <strong>Note:</strong> The $5 discount applies only to your first referral. 
+                Additional referrals will benefit your friends with their discount, but will not 
+                provide additional discounts for you.
+              </p>
             </div>
             
-            <div className="referral-benefit">
-              <div className="referral-benefit-icon">🔗</div>
-              <h3>Easy to Share</h3>
-              <p>Receive a unique referral code after signing up</p>
-            </div>
-            
-            <div className="referral-benefit">
-              <div className="referral-benefit-icon">♾️</div>
-              <h3>Unlimited Referrals</h3>
-              <p>No limit to how many friends you can refer</p>
+            <div className="referral-benefits">
+              <div className="referral-benefit">
+                <div className="referral-benefit-icon">💰</div>
+                <h3>$5 Off Per Session</h3>
+                <p>Get $5 off each session for 3 sessions ($15 total savings)</p>
+              </div>
+              
+              <div className="referral-benefit">
+                <div className="referral-benefit-icon">🔗</div>
+                <h3>Easy to Share</h3>
+                <p>Receive a unique referral code after signing up</p>
+              </div>
+              
+              <div className="referral-benefit">
+                <div className="referral-benefit-icon">♾️</div>
+                <h3>Unlimited Referrals</h3>
+                <p>No limit to how many friends you can refer</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </>
 );
 
 const Contact = () => {
