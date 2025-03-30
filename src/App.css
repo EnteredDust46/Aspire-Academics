@@ -342,13 +342,13 @@ textarea {
 }
 
 .logo-image {
-  height: 85px;
+  height: 95px;
   width: auto;
   object-fit: contain;
   padding: 0;
-  margin: 0 0 0 -20px;
+  margin: -5px -10px 0 -15px;
   display: block;
-  transform: translateY(5px);
+  transform: translateY(0);
   transition: transform 0.3s ease;
 }
 
@@ -610,6 +610,12 @@ textarea {
   
   .navbar {
     padding: 10px 20px;
+  }
+  
+  .logo-image {
+    height: 72px;
+    margin: -3px -5px 0 -10px;
+    transform: translateY(0);
   }
 }
 
@@ -1820,13 +1826,13 @@ body, html {
 
 /* Keep logo image size the same */
 .logo-image {
-  height: 85px;
+  height: 95px;
   width: auto;
   object-fit: contain;
   padding: 0;
-  margin: 0 0 0 -20px;
+  margin: -5px -10px 0 -15px;
   display: block;
-  transform: translateY(5px);
+  transform: translateY(0);
   transition: transform 0.3s ease;
 }
 
@@ -1849,9 +1855,9 @@ body, html {
   }
   
   .logo-image {
-    height: 65px;
-    margin: 0 0 0 -13px;
-    transform: translateY(3px);
+    height: 72px;
+    margin: -3px -5px 0 -10px;
+    transform: translateY(0);
   }
   
   .navbar {
