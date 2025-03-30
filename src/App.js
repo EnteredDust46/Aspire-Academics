@@ -1131,15 +1131,27 @@ const HowItWorks = () => (
 
 const Pricing = () => (
   <>
-    <div className="pricing-section" style={{ 
-      background: `url(${coolBackground}), linear-gradient(135deg, var(--primary-dark), var(--primary-light))`,
-      backgroundBlendMode: 'overlay',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed' 
-    }}>
+    <motion.div 
+      className="pricing-section" 
+      style={{ 
+        background: `url(${coolBackground}), linear-gradient(135deg, var(--primary-dark), var(--primary-light))`,
+        backgroundBlendMode: 'overlay',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed' 
+      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
       <div className="pricing-container">
-        <div className="pricing-intro">
+        <motion.div 
+          className="pricing-intro"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <h2>Simple, Transparent Pricing</h2>
           <p>Choose the plan that best fits your tutoring needs and academic goals.</p>
           <div className="section-image-container">
@@ -1149,11 +1161,18 @@ const Pricing = () => (
               className="section-image pricing-rounded-image" 
             />
           </div>
-        </div>
+        </motion.div>
         
         <div className="pricing-cards">
           {/* Single Session Card */}
-          <div className="pricing-card">
+          <motion.div 
+            className="pricing-card"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            whileHover={{ scale: 1.05 }}
+          >
             <div className="pricing-image-container">
               <img src={`${process.env.PUBLIC_URL}/images/pricing-single.jpg`} alt="Single Session" className="pricing-image" />
             </div>
@@ -1180,10 +1199,17 @@ const Pricing = () => (
             <div className="pricing-card-footer">
               <button className="pricing-button">Get Started</button>
             </div>
-          </div>
+          </motion.div>
           
           {/* 5-Session Package Card */}
-          <div className="pricing-card featured">
+          <motion.div 
+            className="pricing-card featured"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            whileHover={{ scale: 1.05 }}
+          >
             <div className="pricing-image-container">
               <img src={`${process.env.PUBLIC_URL}/images/pricing-five.jpg`} alt="5-Session Package" className="pricing-image" />
             </div>
@@ -1211,10 +1237,17 @@ const Pricing = () => (
             <div className="pricing-card-footer">
               <button className="pricing-button">Get Started</button>
             </div>
-          </div>
+          </motion.div>
           
           {/* 10-Session Package Card */}
-          <div className="pricing-card">
+          <motion.div 
+            className="pricing-card"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            whileHover={{ scale: 1.05 }}
+          >
             <div className="pricing-image-container">
               <img src={`${process.env.PUBLIC_URL}/images/pricing-ten.jpg`} alt="10-Session Package" className="pricing-image" />
             </div>
@@ -1242,11 +1275,17 @@ const Pricing = () => (
             <div className="pricing-card-footer">
               <button className="pricing-button">Get Started</button>
             </div>
-          </div>
+          </motion.div>
         </div>
         
         {/* Referral Program */}
-        <div className="referral-section">
+        <motion.div 
+          className="referral-section"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
           <div className="referral-container">
             <div className="referral-header">
               <h2>Share the Gift of Learning</h2>
@@ -1259,28 +1298,40 @@ const Pricing = () => (
             </div>
             
             <div className="referral-benefits">
-              <div className="referral-benefit">
+              <motion.div 
+                className="referral-benefit"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <div className="referral-benefit-icon">💰</div>
                 <h3>$5 Off Per Session</h3>
                 <p>Get $5 off each session for 3 sessions ($15 total savings)</p>
-              </div>
+              </motion.div>
               
-              <div className="referral-benefit">
+              <motion.div 
+                className="referral-benefit"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <div className="referral-benefit-icon">🔗</div>
                 <h3>Easy to Share</h3>
                 <p>Receive a unique referral code after signing up</p>
-              </div>
+              </motion.div>
               
-              <div className="referral-benefit">
+              <motion.div 
+                className="referral-benefit"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <div className="referral-benefit-icon">♾️</div>
                 <h3>Unlimited Referrals</h3>
                 <p>No limit to how many friends you can refer</p>
-              </div>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   </>
 );
 
@@ -1446,7 +1497,7 @@ export default function App() {
         <Route path="/apply-tutor" element={<ApplyTutor />} />
         <Route path="/apply-student" element={<ApplyStudent />} />
         <Route path="/thank-you" element={<ThankYou />} />
-        <Route path="/pricing" element={<div className="cool-background"><Pricing /></div>} />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
