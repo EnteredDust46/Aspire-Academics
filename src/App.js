@@ -882,11 +882,11 @@ const ApplyStudent = () => {
                 <input 
                   type="checkbox" 
                   name="subject-ms-math" 
-                  value="Middle School Math" 
-                  checked={formData.subjects.includes('Middle School Math')}
+                  value="Middle School" 
+                  checked={formData.subjects.includes('Middle School')}
                   onChange={handleCheckboxChange}
                 />
-                Middle School Math
+                Middle School
               </label>
               <label>
                 <input 
@@ -1321,12 +1321,13 @@ const Contact = () => {
           <div className="contact-method">
             <i className="fas fa-phone"></i>
             <h4>Phone</h4>
-            <p>(978) 483-1649</p>
+            <p>Phone: <a href="tel:978-483-1649">978-483-1649</a></p>
+            <p>Phone: <a href="tel:978-727-7396">978-727-7396</a></p>
           </div>
           <div className="contact-method">
             <i className="fas fa-envelope"></i>
             <h4>Email</h4>
-            <p>admin@aspireacademicstutoring.com</p>
+            <p>Email: <a href="mailto:admin@aspireacademicstutoring.com">admin@aspireacademicstutoring.com</a></p>
           </div>
           <div className="contact-method">
             <i className="fas fa-map-marker-alt"></i>
@@ -1439,7 +1440,7 @@ export default function App() {
         <Route path="/apply-tutor" element={<ApplyTutor />} />
         <Route path="/apply-student" element={<ApplyStudent />} />
         <Route path="/thank-you" element={<ThankYou />} />
-        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/pricing" element={<div className="cool-background"><Pricing /></div>} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>

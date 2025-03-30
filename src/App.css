@@ -457,6 +457,7 @@ textarea {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   border: 2px solid var(--accent);
   margin-bottom: 40px;
+  white-space: nowrap; /* Prevents line breaks */
 }
 
 .contact-method {
@@ -486,6 +487,10 @@ textarea {
   word-break: break-word;
   max-width: 100%;
   margin: 0 auto;
+}
+
+.contact-method a {
+  white-space: nowrap; /* Ensures the email stays on one line */
 }
 
 .contact-form-container {
