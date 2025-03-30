@@ -738,6 +738,16 @@ const ApplyStudent = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   
+  // Helper function to generate a random referral code
+  const generateReferralCode = () => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = '';
+    for (let i = 0; i < 5; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  };
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -772,12 +782,21 @@ const ApplyStudent = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
+    // Generate a unique referral code for this student
+    const newReferralCode = generateReferralCode();
+    
+    // Set the generated referral code in the hidden input
+    document.getElementById('generated-referral-code').value = newReferralCode;
+    
     // Format the preferred times for the hidden field
     const formattedTimes = condenseTimes(formData.preferredTimes);
     document.getElementById('student-formatted-availability').value = formattedTimes;
     
     // Format the subjects for the hidden field
     document.getElementById('student-formatted-subjects').value = formData.subjects.join(', ');
+    
+    // Store the generated referral code in local storage for the thank you page
+    localStorage.setItem('userReferralCode', newReferralCode);
     
     // Submit the form directly to FormSubmit.co
     e.target.submit();
@@ -855,6 +874,16 @@ const ApplyStudent = () => {
               placeholder="Parent Phone Number" 
               required
               value={formData.phone}
+              onChange={handleInputChange}
+            />
+          </div>
+          
+          <div className="form-row">
+            <input 
+              type="text" 
+              name="referralCode" 
+              placeholder="Referral Code (if you have one)" 
+              value={formData.referralCode}
               onChange={handleInputChange}
             />
           </div>
@@ -998,6 +1027,19 @@ const ThankYou = () => {
   const message = location.state?.message || "Thank you for your submission!";
   const details = location.state?.details || "We'll be in touch soon.";
   
+  // Get the referral code from localStorage if it exists
+  const [referralCode, setReferralCode] = useState('');
+  
+  useEffect(() => {
+    // Check if there's a referral code in localStorage
+    const storedCode = localStorage.getItem('userReferralCode');
+    if (storedCode) {
+      setReferralCode(storedCode);
+      // Clear the code from storage after retrieval to avoid showing it for other forms
+      localStorage.removeItem('userReferralCode');
+    }
+  }, []);
+  
   return (
     <motion.section 
       className="thank-you-section"
@@ -1015,6 +1057,20 @@ const ThankYou = () => {
           <i className="fas fa-check-circle"></i>
           <h2>{message}</h2>
           <p>{details}</p>
+          
+          {referralCode && (
+            <motion.div 
+              className="referral-code-container"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            >
+              <h3>Your Referral Code</h3>
+              <div className="referral-code">{referralCode}</div>
+              <p>Share this code with friends to give them a discount on their first sessions!</p>
+            </motion.div>
+          )}
+          
           <motion.button 
             className="return-home-button"
             onClick={() => navigate('/')}
