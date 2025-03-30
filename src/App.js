@@ -618,6 +618,16 @@ const ApplyTutor = () => {
               <label>
                 <input 
                   type="checkbox" 
+                  name="subject-ms" 
+                  value="Middle School" 
+                  checked={formData.subjects.includes('Middle School')}
+                  onChange={handleSubjectChange}
+                />
+                Middle School
+              </label>
+              <label>
+                <input 
+                  type="checkbox" 
                   name="subject-hs-biology" 
                   value="Highschool Biology" 
                   checked={formData.subjects.includes('Highschool Biology')}
@@ -910,7 +920,7 @@ const ApplyStudent = () => {
               <label>
                 <input 
                   type="checkbox" 
-                  name="subject-ms-math" 
+                  name="subject-ms" 
                   value="Middle School" 
                   checked={formData.subjects.includes('Middle School')}
                   onChange={handleCheckboxChange}
