@@ -1131,7 +1131,13 @@ const HowItWorks = () => (
 
 const Pricing = () => (
   <>
-    <div className="pricing-section">
+    <div className="pricing-section" style={{ 
+      background: `url(${coolBackground}), linear-gradient(135deg, var(--primary-dark), var(--primary-light))`,
+      backgroundBlendMode: 'overlay',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundAttachment: 'fixed' 
+    }}>
       <div className="pricing-container">
         <div className="pricing-intro">
           <h2>Simple, Transparent Pricing</h2>
