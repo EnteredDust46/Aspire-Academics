@@ -1133,13 +1133,6 @@ const Pricing = () => (
   <>
     <motion.div 
       className="pricing-section" 
-      style={{ 
-        background: `url(${coolBackground}), linear-gradient(135deg, #519399 0%, #67bcc4 50%, #ffffff 100%)`,
-        backgroundBlendMode: 'overlay',
-        backgroundSize: 'cover, 100% 100%',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed' 
-      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
