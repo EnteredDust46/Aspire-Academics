@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Aspire Academics - Thank You" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <title>Thank You | Aspire Academics</title>
+  <style>
+    :root {
+      --primary: #67BCC4;
+      --primary-dark: #519399;
+      --primary-light: #A7D6DB;
+      --accent: #F1AD48;
+      --accent-dark: #D48806;
+      --accent-light: #F7D088;
+      --text-dark: #333333;
+      --text-light: #6E6E6E;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-image: url('/images/cool-background.png'), 
+        linear-gradient(135deg, #519399 0%, #67bcc4 50%, #ffffff 100%);
+      background-blend-mode: overlay;
+      background-size: cover, 100% 100%;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .thank-you-container {
+      width: 90%;
+      max-width: 600px;
+      padding: 40px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      border: 3px solid #F1AD48;
+    }
+    
+    .check-icon {
+      font-size: 4rem;
+      color: #67BCC4;
+      margin-bottom: 20px;
+    }
+    
+    h1 {
+      color: #519399;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    
+    p {
+      color: #333;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+    
+    .return-button {
+      display: inline-block;
+      background: #F1AD48;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .return-button:hover {
+      background: #D48806;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(209, 136, 6, 0.3);
+    }
+    
+    /* Referral Code Container Styling */
+    .referral-code-container {
+      margin: 20px 0 30px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      border: 2px dashed var(--accent);
+      display: none; /* Initially hidden until code is loaded */
+    }
+    
+    .referral-code-container h3 {
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+    
+    .referral-code {
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      color: var(--accent-dark);
+      background-color: #f5f5f5;
+      padding: 10px 20px;
+      border-radius: 6px;
+      display: inline-block;
+      margin: 10px 0;
+      border: 2px dashed var(--primary-light);
+    }
+    
+    .referral-code-container p {
+      color: var(--text-dark);
+      font-size: 0.9rem;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+    
+    @media (max-width: 600px) {
+      .thank-you-container {
+        padding: 30px 20px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      p {
+        font-size: 1rem;
+      }
+      
+      .referral-code {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        padding: 8px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="thank-you-container">
+    <i class="fas fa-check-circle check-icon"></i>
+    <h1>Thank You!</h1>
+    <p>Your student application has been received. We'll get back to you shortly!</p>
+    
+    <div id="referral-code-container" class="referral-code-container">
+      <h3>Your Referral Code</h3>
+      <div id="referral-code" class="referral-code"></div>
+      <p>Share this code with friends to give them a discount on their first sessions!</p>
+    </div>
+    
+    <a href="/" class="return-button">Return to Home</a>
+  </div>
+
+  <script>
+    // Script to retrieve and display the referral code
+    document.addEventListener('DOMContentLoaded', function() {
+      // Retrieve the referral code from localStorage
+      const referralCode = localStorage.getItem('userReferralCode');
+      
+      // If there's a referral code, display it
+      if (referralCode) {
+        document.getElementById('referral-code').textContent = referralCode;
+        document.getElementById('referral-code-container').style.display = 'block';
+        
+        // Clear the code from localStorage after displaying it
+        localStorage.removeItem('userReferralCode');
+      }
+    });
+  </script>
+</body>
+</html> 

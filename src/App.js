@@ -820,7 +820,7 @@ const ApplyStudent = () => {
           <input type="hidden" name="_subject" value="New Student Application" />
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you.html" />
+          <input type="hidden" name="_next" value="https://aspireacademicstutoring.com/thank-you-student.html" />
           
           {/* Hidden fields for formatted data */}
           <input type="hidden" id="student-formatted-availability" name="availability" />
