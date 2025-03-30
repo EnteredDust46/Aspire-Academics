@@ -1321,13 +1321,13 @@ const Contact = () => {
           <div className="contact-method">
             <i className="fas fa-phone"></i>
             <h4>Phone</h4>
-            <p>Phone: <a href="tel:978-483-1649">978-483-1649</a></p>
-            <p>Phone: <a href="tel:978-727-7396">978-727-7396</a></p>
+            <p><a href="tel:978-483-1649">978-483-1649</a></p>
+            <p><a href="tel:978-727-7396">978-727-7396</a></p>
           </div>
           <div className="contact-method">
             <i className="fas fa-envelope"></i>
             <h4>Email</h4>
-            <p>Email: <a href="mailto:admin@aspireacademicstutoring.com">admin@aspireacademicstutoring.com</a></p>
+            <p><a href="mailto:admin@aspireacademicstutoring.com">admin@aspireacademicstutoring.com</a></p>
           </div>
           <div className="contact-method">
             <i className="fas fa-map-marker-alt"></i>
