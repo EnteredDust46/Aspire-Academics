@@ -741,12 +741,26 @@ const ApplyStudent = () => {
     subjects: [],
     referralCode: '',
     message: '',
-    preferredTimes: []
+    preferredTimes: [],
+    pricingPlan: ''
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Check for pricing plan in URL params on component mount
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const planParam = searchParams.get('plan');
+    if (planParam) {
+      setFormData(prevData => ({
+        ...prevData,
+        pricingPlan: planParam
+      }));
+    }
+  }, [location]);
   
   // Helper function to generate a random referral code
   const generateReferralCode = () => {
@@ -836,6 +850,7 @@ const ApplyStudent = () => {
           <input type="hidden" id="student-formatted-availability" name="availability" />
           <input type="hidden" id="student-formatted-subjects" name="subjects" />
           <input type="hidden" id="generated-referral-code" name="generatedReferralCode" />
+          <input type="hidden" name="pricingPlan" value={formData.pricingPlan} />
           
           <div className="form-row">
             <input 
@@ -896,6 +911,21 @@ const ApplyStudent = () => {
               value={formData.referralCode}
               onChange={handleInputChange}
             />
+          </div>
+          
+          <div className="form-row">
+            <select
+              name="pricingPlan"
+              value={formData.pricingPlan}
+              onChange={handleInputChange}
+              required
+              className="pricing-plan-select"
+            >
+              <option value="">Select a Pricing Plan</option>
+              <option value="single">Single Session - $60/hour</option>
+              <option value="five-pack">5-Session Package - $55/hour (Save $25)</option>
+              <option value="ten-pack">10-Session Package - $50/hour (Save $100)</option>
+            </select>
           </div>
           
           <div className="form-section" style={{ 
@@ -1195,204 +1225,223 @@ const HowItWorks = () => (
   </>
 );
 
-const Pricing = () => (
-  <>
-    <motion.div 
-      className="pricing-section" 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="pricing-container">
-        <motion.div 
-          className="pricing-intro"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2>Simple, Transparent Pricing</h2>
-          <p>Choose the plan that best fits your tutoring needs and academic goals.</p>
-          <div className="section-image-container">
-            <img 
-              src={`${process.env.PUBLIC_URL}/images/pricing-banner.jpg?nocache=${new Date().getTime()}`} 
-              alt="Pricing" 
-              className="section-image pricing-rounded-image" 
-            />
+const Pricing = () => {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <motion.div 
+        className="pricing-section" 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="pricing-container">
+          <motion.div 
+            className="pricing-intro"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2>Simple, Transparent Pricing</h2>
+            <p>Choose the plan that best fits your tutoring needs and academic goals.</p>
+            <div className="section-image-container">
+              <img 
+                src={`${process.env.PUBLIC_URL}/images/pricing-banner.jpg?nocache=${new Date().getTime()}`} 
+                alt="Pricing" 
+                className="section-image pricing-rounded-image" 
+              />
+            </div>
+          </motion.div>
+          
+          <div className="pricing-cards">
+            {/* Single Session Card */}
+            <motion.div 
+              className="pricing-card"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="pricing-image-container">
+                <img src={`${process.env.PUBLIC_URL}/images/pricing-single.jpg`} alt="Single Session" className="pricing-image" />
+              </div>
+              
+              <div className="pricing-card-header">
+                <h3 className="pricing-title">Single Session</h3>
+                <div className="price-container">
+                  <span className="currency">$</span>
+                  <span className="price">60</span>
+                </div>
+                <span className="price-period">/hour</span>
+              </div>
+              
+              <div className="pricing-card-content">
+                <ul className="pricing-features">
+                  <li>One-on-one personalized tutoring</li>
+                  <li>Flexible scheduling</li>
+                  <li>Expert tutors in your subject</li>
+                  <li>Online or in-person options</li>
+                  <li>Comprehensive session reports</li>
+                </ul>
+              </div>
+              
+              <div className="pricing-card-footer">
+                <button 
+                  className="pricing-button"
+                  onClick={() => navigate('/apply-student?plan=single')}
+                >
+                  Get Started
+                </button>
+              </div>
+            </motion.div>
+            
+            {/* 5-Session Package Card */}
+            <motion.div 
+              className="pricing-card featured"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="pricing-image-container">
+                <img src={`${process.env.PUBLIC_URL}/images/pricing-five.jpg`} alt="5-Session Package" className="pricing-image" />
+              </div>
+              
+              <div className="pricing-card-header">
+                <h3 className="pricing-title">5-Session Package</h3>
+                <div className="price-container">
+                  <span className="currency">$</span>
+                  <span className="price">55</span>
+                </div>
+                <span className="price-period">/hour</span>
+                <div className="savings-tag">Save $25</div>
+              </div>
+              
+              <div className="pricing-card-content">
+                <ul className="pricing-features">
+                  <li>One-on-one personalized tutoring</li>
+                  <li>Flexible scheduling</li>
+                  <li>Expert tutors in your subject</li>
+                  <li>Online or in-person options</li>
+                  <li>Comprehensive session reports</li>
+                </ul>
+              </div>
+              
+              <div className="pricing-card-footer">
+                <button 
+                  className="pricing-button"
+                  onClick={() => navigate('/apply-student?plan=five-pack')}
+                >
+                  Get Started
+                </button>
+              </div>
+            </motion.div>
+            
+            {/* 10-Session Package Card */}
+            <motion.div 
+              className="pricing-card"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="pricing-image-container">
+                <img src={`${process.env.PUBLIC_URL}/images/pricing-ten.jpg`} alt="10-Session Package" className="pricing-image" />
+              </div>
+              
+              <div className="pricing-card-header">
+                <h3 className="pricing-title">10-Session Package</h3>
+                <div className="price-container">
+                  <span className="currency">$</span>
+                  <span className="price">50</span>
+                </div>
+                <span className="price-period">/hour</span>
+                <div className="savings-tag">Save $100</div>
+              </div>
+              
+              <div className="pricing-card-content">
+                <ul className="pricing-features">
+                  <li>One-on-one personalized tutoring</li>
+                  <li>Flexible scheduling</li>
+                  <li>Expert tutors in your subject</li>
+                  <li>Online or in-person options</li>
+                  <li>Comprehensive session reports</li>
+                </ul>
+              </div>
+              
+              <div className="pricing-card-footer">
+                <button 
+                  className="pricing-button"
+                  onClick={() => navigate('/apply-student?plan=ten-pack')}
+                >
+                  Get Started
+                </button>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
-        
-        <div className="pricing-cards">
-          {/* Single Session Card */}
-          <motion.div 
-            className="pricing-card"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            whileHover={{ scale: 1.05 }}
-          >
-            <div className="pricing-image-container">
-              <img src={`${process.env.PUBLIC_URL}/images/pricing-single.jpg`} alt="Single Session" className="pricing-image" />
-            </div>
-            
-            <div className="pricing-card-header">
-              <h3 className="pricing-title">Single Session</h3>
-              <div className="price-container">
-                <span className="currency">$</span>
-                <span className="price">60</span>
-              </div>
-              <span className="price-period">/hour</span>
-            </div>
-            
-            <div className="pricing-card-content">
-              <ul className="pricing-features">
-                <li>One-on-one personalized tutoring</li>
-                <li>Flexible scheduling</li>
-                <li>Expert tutors in your subject</li>
-                <li>Online or in-person options</li>
-                <li>Comprehensive session reports</li>
-              </ul>
-            </div>
-            
-            <div className="pricing-card-footer">
-              <button className="pricing-button">Get Started</button>
-            </div>
-          </motion.div>
           
-          {/* 5-Session Package Card */}
+          {/* Referral Program */}
           <motion.div 
-            className="pricing-card featured"
-            initial={{ opacity: 0, y: 50 }}
+            className="referral-section"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="pricing-image-container">
-              <img src={`${process.env.PUBLIC_URL}/images/pricing-five.jpg`} alt="5-Session Package" className="pricing-image" />
-            </div>
-            
-            <div className="pricing-card-header">
-              <h3 className="pricing-title">5-Session Package</h3>
-              <div className="price-container">
-                <span className="currency">$</span>
-                <span className="price">55</span>
+            <div className="referral-container">
+              <div className="referral-header">
+                <h2>Share the Gift of Learning</h2>
+                <p>Refer a friend to Aspire Academics and you'll both benefit.</p>
+                <p className="referral-disclaimer">
+                  <strong>Note:</strong> The $5 discount applies only to your first referral. 
+                  Additional referrals will benefit your friends with their discount, but will not 
+                  provide additional discounts for you.
+                </p>
               </div>
-              <span className="price-period">/hour</span>
-              <div className="savings-tag">Save $25</div>
-            </div>
-            
-            <div className="pricing-card-content">
-              <ul className="pricing-features">
-                <li>One-on-one personalized tutoring</li>
-                <li>Flexible scheduling</li>
-                <li>Expert tutors in your subject</li>
-                <li>Online or in-person options</li>
-                <li>Comprehensive session reports</li>
-              </ul>
-            </div>
-            
-            <div className="pricing-card-footer">
-              <button className="pricing-button">Get Started</button>
-            </div>
-          </motion.div>
-          
-          {/* 10-Session Package Card */}
-          <motion.div 
-            className="pricing-card"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            whileHover={{ scale: 1.05 }}
-          >
-            <div className="pricing-image-container">
-              <img src={`${process.env.PUBLIC_URL}/images/pricing-ten.jpg`} alt="10-Session Package" className="pricing-image" />
-            </div>
-            
-            <div className="pricing-card-header">
-              <h3 className="pricing-title">10-Session Package</h3>
-              <div className="price-container">
-                <span className="currency">$</span>
-                <span className="price">50</span>
+              
+              <div className="referral-benefits">
+                <motion.div 
+                  className="referral-benefit"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="referral-benefit-icon">💰</div>
+                  <h3>$5 Off Per Session</h3>
+                  <p>Get $5 off each session for 3 sessions ($15 total savings)</p>
+                </motion.div>
+                
+                <motion.div 
+                  className="referral-benefit"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="referral-benefit-icon">🔗</div>
+                  <h3>Easy to Share</h3>
+                  <p>Receive a unique referral code after signing up</p>
+                </motion.div>
+                
+                <motion.div 
+                  className="referral-benefit"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="referral-benefit-icon">♾️</div>
+                  <h3>Unlimited Referrals</h3>
+                  <p>No limit to how many friends you can refer</p>
+                </motion.div>
               </div>
-              <span className="price-period">/hour</span>
-              <div className="savings-tag">Save $100</div>
-            </div>
-            
-            <div className="pricing-card-content">
-              <ul className="pricing-features">
-                <li>One-on-one personalized tutoring</li>
-                <li>Flexible scheduling</li>
-                <li>Expert tutors in your subject</li>
-                <li>Online or in-person options</li>
-                <li>Comprehensive session reports</li>
-              </ul>
-            </div>
-            
-            <div className="pricing-card-footer">
-              <button className="pricing-button">Get Started</button>
             </div>
           </motion.div>
         </div>
-        
-        {/* Referral Program */}
-        <motion.div 
-          className="referral-section"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <div className="referral-container">
-            <div className="referral-header">
-              <h2>Share the Gift of Learning</h2>
-              <p>Refer a friend to Aspire Academics and you'll both benefit.</p>
-              <p className="referral-disclaimer">
-                <strong>Note:</strong> The $5 discount applies only to your first referral. 
-                Additional referrals will benefit your friends with their discount, but will not 
-                provide additional discounts for you.
-              </p>
-            </div>
-            
-            <div className="referral-benefits">
-              <motion.div 
-                className="referral-benefit"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="referral-benefit-icon">💰</div>
-                <h3>$5 Off Per Session</h3>
-                <p>Get $5 off each session for 3 sessions ($15 total savings)</p>
-              </motion.div>
-              
-              <motion.div 
-                className="referral-benefit"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="referral-benefit-icon">🔗</div>
-                <h3>Easy to Share</h3>
-                <p>Receive a unique referral code after signing up</p>
-              </motion.div>
-              
-              <motion.div 
-                className="referral-benefit"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="referral-benefit-icon">♾️</div>
-                <h3>Unlimited Referrals</h3>
-                <p>No limit to how many friends you can refer</p>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </motion.div>
-  </>
-);
+      </motion.div>
+    </>
+  );
+};
 
 const Contact = () => {
   const [formData, setFormData] = useState({
