@@ -360,7 +360,7 @@ const Services = () => (
       >
         <img src={`${process.env.PUBLIC_URL}/images/services-tests.jpg`} alt="Standardized Tests" className="service-image" />
         <h3>Standardized Tests</h3>
-        <p>Trusted guidance for the SAT & ACT, with proven strategies from tutors who've scored in the 99% and above.</p>
+        <p>Trusted guidance for the SAT, with proven strategies from tutors who've scored in the 99% and above.</p>
       </motion.div>
       
       <motion.div 
@@ -441,7 +441,7 @@ const Tutors = () => (
           <h3>Ms. Amanda Torres</h3>
           <h4>Test Prep Specialist</h4>
           <p>B.S. in Education | Certified Test Prep Instructor</p>
-          <p>Specializes in SAT, ACT, and GRE Preparation</p>
+          <p>Specializes in SAT and GRE Preparation</p>
         </div>
       </motion.div>
     </div>
@@ -1205,8 +1205,8 @@ const HowItWorks = () => (
           transition={{ delay: 0.4 }}
         >
           <i className="fas fa-video"></i>
-          <h4>Online & In-Person</h4>
-          <p>Select the learning format that works best for you</p>
+          <h4>100% Online</h4>
+          <p>Convenient virtual sessions from anywhere</p>
         </motion.div>
 
         <motion.div 
@@ -1283,7 +1283,7 @@ const Pricing = () => {
                   <li>One-on-one personalized tutoring</li>
                   <li>Flexible scheduling</li>
                   <li>Expert tutors in your subject</li>
-                  <li>Online or in-person options</li>
+                  <li>Convenient online sessions</li>
                   <li>Comprehensive session reports</li>
                 </ul>
               </div>
@@ -1326,7 +1326,7 @@ const Pricing = () => {
                   <li>One-on-one personalized tutoring</li>
                   <li>Flexible scheduling</li>
                   <li>Expert tutors in your subject</li>
-                  <li>Online or in-person options</li>
+                  <li>Convenient online sessions</li>
                   <li>Comprehensive session reports</li>
                 </ul>
               </div>
@@ -1369,7 +1369,7 @@ const Pricing = () => {
                   <li>One-on-one personalized tutoring</li>
                   <li>Flexible scheduling</li>
                   <li>Expert tutors in your subject</li>
-                  <li>Online or in-person options</li>
+                  <li>Convenient online sessions</li>
                   <li>Comprehensive session reports</li>
                 </ul>
               </div>
