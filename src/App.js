@@ -390,63 +390,74 @@ const Services = () => (
   </>
 );
 
-const Tutors = () => (
-  <>
-    <Section
-      title="Meet Our Tutors"
-      subtitle="Expert Educators"
-      content={[
-        "Our tutors are carefully selected for their academic excellence, teaching ability, and passion for helping students succeed.",
-        "With diverse backgrounds and specialties, we match each student with the perfect tutor for their needs."
-      ]}
-      imageUrl="tutors-banner.jpg"
-    />
-    
-    <div className="tutors-grid">
-      <motion.div 
-        className="tutor-card"
-        whileHover={{ scale: 1.05 }}
-        transition={{ type: "spring", stiffness: 300 }}
-      >
-        <img src={`${process.env.PUBLIC_URL}/images/tutors-math.jpg`} alt="Math & Science Tutor" className="tutor-image" />
-        <div className="tutor-info">
-          <h3>Dr. Sarah Johnson</h3>
-          <h4>Math & Science Specialist</h4>
-          <p>Ph.D. in Physics | 10+ Years Teaching Experience</p>
-          <p>Specializes in AP Physics, Calculus, and SAT Math</p>
-        </div>
-      </motion.div>
+const Tutors = () => {
+  // Array of tutor data for easy future extension
+  const tutors = [
+    {
+      name: 'Aditya Sengupta',
+      university: 'Indiana University',
+      major: 'Finance',
+      image: 'Aditya_Sengupta.jpg',
+      achievements: 'DECA Vice President, ICDC Qualifier',
+    },
+    {
+      name: 'Samik Ajikuitra',
+      university: 'Indiana University',
+      major: 'Finance & Business Analytics',
+      image: 'Samik_Ajikutira.jpg',
+      achievements: '2x National & State Table Tennis Champion, Model UN President, ICDC Competitor',
+    },
+    {
+      name: 'Irene Zheng',
+      university: 'Brown University',
+      major: 'Applied Mathematics-Economics & Classics',
+      image: 'Irene_Zheng.jpg',
+      achievements: 'Varsity athlete, Chamber Music, Investment Club & Women in Business leader',
+    },
+    {
+      name: 'Alan Zhan',
+      university: 'University of Washington',
+      major: 'Chemistry',
+      image: 'Alan_Zhan.jpg',
+      achievements: 'Varsity Tennis',
+    },
+  ];
 
-      <motion.div 
-        className="tutor-card"
-        whileHover={{ scale: 1.05 }}
-        transition={{ type: "spring", stiffness: 300 }}
-      >
-        <img src={`${process.env.PUBLIC_URL}/images/tutors-english.jpg`} alt="English & Literature Tutor" className="tutor-image" />
-        <div className="tutor-info">
-          <h3>Prof. Michael Chen</h3>
-          <h4>English & Literature Expert</h4>
-          <p>M.A. in English Literature | Published Author</p>
-          <p>Specializes in Essay Writing and SAT Verbal</p>
-        </div>
-      </motion.div>
-
-      <motion.div 
-        className="tutor-card"
-        whileHover={{ scale: 1.05 }}
-        transition={{ type: "spring", stiffness: 300 }}
-      >
-        <img src={`${process.env.PUBLIC_URL}/images/tutors-test.jpg`} alt="Test Prep Specialist" className="tutor-image" />
-        <div className="tutor-info">
-          <h3>Ms. Amanda Torres</h3>
-          <h4>Test Prep Specialist</h4>
-          <p>B.S. in Education | Certified Test Prep Instructor</p>
-          <p>Specializes in SAT and GRE Preparation</p>
-        </div>
-      </motion.div>
-    </div>
-  </>
-);
+  return (
+    <>
+      <Section
+        title="Meet Our Tutors"
+        subtitle="Expert Educators"
+        content={[
+          "Our tutors are carefully selected for their academic excellence, teaching ability, and passion for helping students succeed.",
+          "With diverse backgrounds and specialties, we match each student with the perfect tutor for their needs."
+        ]}
+        imageUrl="tutors-banner.jpg"
+      />
+      <div className="tutors-grid">
+        {tutors.map((tutor, idx) => (
+          <motion.div
+            className="tutor-card"
+            key={tutor.name}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <img
+              src={`${process.env.PUBLIC_URL}/images/${tutor.image}`}
+              alt={tutor.name}
+              className="tutor-image"
+            />
+            <div className="tutor-info">
+              <h3>{tutor.name}</h3>
+              <h4>{tutor.university} — {tutor.major}</h4>
+              <p>{tutor.achievements}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </>
+  );
+};
 
 const Apply = () => (
   <Section
