@@ -449,7 +449,8 @@ const Tutors = () => {
             />
             <div className="tutor-info">
               <h3>{tutor.name}</h3>
-              <h4>{tutor.university} — {tutor.major}</h4>
+              <div className="tutor-university">{tutor.university}</div>
+              <div className="tutor-major">{tutor.major}</div>
               <p>{tutor.achievements}</p>
             </div>
           </motion.div>

@@ -2533,3 +2533,20 @@ html body .team-member h3,
 .pricing-plan-select option {
   padding: 10px;
 }
+
+.tutor-university {
+  color: #519399;
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.tutor-major {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 1.02rem;
+  margin-bottom: 10px;
+  text-align: center;
+  margin-top: 2px;
+}
